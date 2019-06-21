@@ -7,6 +7,7 @@ My Inventory:  <pre>
     3 Axis 6DOF Gyro Accelerometer: GY-521 MPU-6050
     Distance Sensor: HC-SR04
     Motor Driver: DRV8833 DC/Stepper Breakout Board
+    LoRa: SX1278 433MHz 1W TTL LoRa Wireless Module
 </pre>
 How to setup Raspberry Pi 
 1. Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
