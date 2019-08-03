@@ -45,5 +45,5 @@ $ jstest --normal /dev/input/js0
 
 
 #### Reference: <br>
-[1] https://www.cnet.com/how-to/how-to-setup-bluetooth-on-a-raspberry-pi-3/ <br>
+[1] https://core-electronics.com.au/tutorials/using-usb-and-bluetooth-controllers-with-python.html <br>
 [2] https://www.linuxquestions.org/questions/programming-9/control-bluetoothctl-with-scripting-4175615328/
