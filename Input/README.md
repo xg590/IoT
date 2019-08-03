@@ -34,6 +34,11 @@ Pair and connect RPi Zero W with controller
 ```
 use <b>Jstest</b> to test the controller 
 ```
- $ sudo apt-get install joystick
- $ jstest --normal /dev/input/js0
+$ sudo apt-get install joystick
+$ jstest --normal /dev/input/js0
+```
+##### Reconnect RPi Zero W with Controller 
+```
+# coproc bluetoothctl
+# echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
 ```
