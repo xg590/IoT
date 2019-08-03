@@ -13,7 +13,7 @@ Pair controller with iMac via graphical bluetooth utility and then use <b>Jstest
 $ sudo apt install jstest-gtk 
 ```
 #### CLI / Raspberry Pi Zero W / Raspbian Buster with desktop July 2019
-Pair Controller with RPi Zero W via terminal bluetooth utility
+Pair Controller with RPi Zero W via terminal bluetooth utility [1]
 ```
 $ sudo su
 # bluetoothctl
@@ -37,8 +37,13 @@ use <b>Jstest</b> to test the controller
 $ sudo apt-get install joystick
 $ jstest --normal /dev/input/js0
 ```
-##### Reconnect RPi Zero W with Controller 
+##### Reconnect RPi Zero W with Controller [2]
 ```
 # coproc bluetoothctl
 # echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
 ```
+
+
+#### Reference: <br>
+[1] https://www.cnet.com/how-to/how-to-setup-bluetooth-on-a-raspberry-pi-3/ <br>
+[2] https://www.linuxquestions.org/questions/programming-9/control-bluetoothctl-with-scripting-4175615328/
