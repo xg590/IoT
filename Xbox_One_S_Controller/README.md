@@ -44,9 +44,9 @@ $ jstest --normal /dev/input/js0
 ```
 
 ### Use Xbox One S Wireless Controller in Python
-I wrote two jupyter notebooks which demonstrates how to read controller event in python. Actually, the two notebooks run in different RPi Zero W. One RPi Zero W pairs with Xbox One S controller via bluetooth and reports every movement on controller to another RPi Zero. <br>
+I wrote two jupyter notebooks which demonstrate how to read controller event in python. Actually, the two notebooks run in different RPi Zero W. One RPi Zero W pairs with Xbox One S controller via bluetooth and reports every movement on controller to another RPi Zero. <br>
+##### Xbox_One_S_Controller_As_Input.ipynb reads movement from controller and reports to the a web server.
 ##### Receiver_for_Xbox_One_S_Controller.ipynb setups a web server and receives the movement.
-##### Xbox_One_S_Controller_As_Input.ipynb reads movement from controller and reports to the server.
 ##### Sometime the key/axis binding messes up, and the re-mapping python script is under development.
 
 #### Reference: <br>
