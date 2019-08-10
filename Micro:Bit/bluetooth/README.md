@@ -1,4 +1,4 @@
-### Linux (Ubuntu 18.04.02 / Raspbian Buster) Communicates with Micro:bit  
+### Linux (Ubuntu 18.04.02 / Raspbian Buster) Communicates with Micro:bit via bluetooth
 Follow this [link](https://ukbaz.github.io/howto/ubit_workshop.html) <br>
 Here is the brief summary:
 1. Use [Makecode](https://makecode.microbit.org/#editor) to flash the Micro:bit
