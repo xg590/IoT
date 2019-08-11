@@ -6,4 +6,4 @@ Brief Summary of Usage:
 4. Run the USB_as_Interface.ipynb
 
 <br> API Reference: https://github.com/whaleygeek/bitio <br>
-This is merely a fork and modification of https://github.com/whaleygeek/bitio for code simplicity.
+This is merely a <b>fork</b> and <b>modification</b> of https://github.com/whaleygeek/bitio for code simplicity.
