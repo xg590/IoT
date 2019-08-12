@@ -1,7 +1,10 @@
 ### Linux (Ubuntu 18.04.02 / Raspbian Buster) Communicates with Micro:bit via USB
 Brief Summary of Usage:
 1. Put bitio.hex (modified for Micro:Bit v1.5) to MICROBIT drive
-2. Change the permission of reading serial port of Micro:Bit
+2. Change the permission of reading serial port of Micro:Bit ()
+```
+# usermod -aG dialout your_username
+```
 3. Install PySerial
 4. Run the USB_as_Interface.ipynb
 
