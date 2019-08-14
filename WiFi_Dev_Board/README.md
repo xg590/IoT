@@ -7,7 +7,7 @@
     * Firmware: NodeMCU (written in C and programmable with Lua)
 
 
-### Using Arduino IDE on Raspberry Pi Zero W (Raspbian Buster 2019-07-10)
+### Program WiFi dev board with RPi Zero W (Raspbian Buster 2019-07-10)
 ````
 # apt update
 # apt install openjdk-8-jre-headless openjdk-8-jre 
