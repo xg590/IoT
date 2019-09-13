@@ -39,8 +39,7 @@ $ jstest --normal /dev/input/js0
 ```
 ##### Reconnect RPi Zero W with Controller (Put the controller in discovery mode and disable ERTM first) [2]
 ```
-# coproc bluetoothctl
-# echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
+# echo 1 > /sys/module/bluetooth/parameters/disable_ertm; coproc bluetoothctl; echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
 ```
 
 ### Use Xbox One S Wireless Controller in Python
