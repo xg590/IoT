@@ -37,7 +37,7 @@ use <b>Jstest</b> to test the controller
 $ sudo apt-get install joystick
 $ jstest --normal /dev/input/js0
 ```
-##### Reconnect RPi Zero W with Controller (Put the controller in discovery mode and disable ERTM first) [2]
+##### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
 ```
 # sudo su
 # echo 1 > /sys/module/bluetooth/parameters/disable_ertm; coproc bluetoothctl
@@ -45,7 +45,7 @@ $ jstest --normal /dev/input/js0
 # scan on
 # connect 00:9E:C8:63:EA:71 
 ```
-or 
+or after auto power off of controller
 ```
 # echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
 ```
