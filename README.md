@@ -29,3 +29,6 @@ A new partition named "Boot" appeared after the Raspbian was written to the Micr
   }
 ```
 Caution: The 'NewLine Character' in wpa_supplicant.conf should follow Unix convention.  
+
+4. Dealing with eduroam. <br>
+I haven't find the right configuration to connect nyu wireless service with the default network manager came with raspbian. I have to switch back to Network-Manager. Here is a tutorial for that. https://davidxie.net/install-network-manager-on-raspbian
