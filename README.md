@@ -8,6 +8,7 @@ My Inventory:  <pre>
     Distance Sensor: HC-SR04
     Motor Driver: DRV8833 DC/Stepper Breakout Board
     LoRa: SX1278 433MHz 1W TTL LoRa Wireless Module
+    Driver Board: PCA9685+TB6612 Stepper Motor Dual DC Motor Driver Controller Board for Arduino https://www.ebay.com/itm/311834775630
 </pre>
 How to setup Raspberry Pi 
 1. Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
