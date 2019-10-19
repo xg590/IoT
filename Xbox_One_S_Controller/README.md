@@ -36,7 +36,7 @@ use <b>Jstest</b> to test the controller
 $ sudo apt-get install joystick
 $ jstest --normal /dev/input/js0
 ```
-### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
+### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first)
 ``` 
 $ sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
 $ sudo bash -c "systemctl start bluetooth"
@@ -49,5 +49,4 @@ I wrote two jupyter notebooks which demonstrate how to read controller event in 
 ##### Sometime the key/axis binding messes up, and the re-mapping python script is under development.
 
 #### Reference: <br>
-[1] https://core-electronics.com.au/tutorials/using-usb-and-bluetooth-controllers-with-python.html <br>
-[2] https://www.linuxquestions.org/questions/programming-9/control-bluetoothctl-with-scripting-4175615328/
+[1] https://core-electronics.com.au/tutorials/using-usb-and-bluetooth-controllers-with-python.html <br> 
