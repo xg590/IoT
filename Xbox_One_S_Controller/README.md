@@ -1,12 +1,12 @@
-### Use Xbox One S Wireless Controller as Input Device
-#### Preparation
+## Use Xbox One S Wireless Controller as Input Device
+### Preparation
 1) Disable ERTM (Enhanced Re-Transmission Mode)
 ```
-$ sudo su
-# echo 1 > /sys/module/bluetooth/parameters/disable_ertm
+sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
 ```
 2) Put controller into Discovery Mode <br>
 Press <b>Xbox button</b> and it flashs. Then Press <b>Wireless enrollment button</b> and <b>Xbox button</b> begins to flash quicker. (Please refer to https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller )
+### First Time Connection via Bluetooth
 #### GUI / iMac 2017 / Ubuntu 18.04.02
 Pair controller with iMac via graphical bluetooth utility and then use <b>Jstest-gtk</b> to test the controller 
 ```
@@ -16,9 +16,7 @@ $ sudo apt install jstest-gtk
 Pair Controller with RPi Zero W via terminal bluetooth utility [1]
 ```
 $ sudo su
-# bluetoothctl
-[bluetooth]# agent on
-[bluetooth]# default-agent
+# bluetoothctl 
 [bluetooth]# scan on
 ```
 Controller is supposed to be listed like:
@@ -31,24 +29,19 @@ Pair and connect RPi Zero W with controller
 ```
 [bluetooth]# pair 00:9E:C8:63:EA:71
 [bluetooth]# connect 00:9E:C8:63:EA:71
+[bluetooth]# exit 
 ```
 use <b>Jstest</b> to test the controller 
 ```
 $ sudo apt-get install joystick
 $ jstest --normal /dev/input/js0
 ```
-##### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
-```
-# sudo su
-# echo 1 > /sys/module/bluetooth/parameters/disable_ertm; coproc bluetoothctl
-# bluetoothctl
-# scan on
-# connect 00:9E:C8:63:EA:71 
-```
-or after auto power off of controller
-```
-# echo -e 'connect 00:9E:C8:63:EA:71\nexit' >&${COPROC[1]}
-```
+#### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
+``` 
+$ sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
+$ sudo bash -c "systemctl start bluetooth"
+$ sudo bash -c "echo -e 'connect 00:9E:C8:63:EA:71\nexit' | bluetoothctl"
+``` 
 ### Use Xbox One S Wireless Controller in Python
 I wrote two jupyter notebooks which demonstrate how to read controller event in python. Actually, the two notebooks run in different RPi Zero W. One RPi Zero W pairs with Xbox One S controller via bluetooth and reports every movement on controller to another RPi Zero. <br>
 ##### Xbox_One_S_Controller_As_Input.ipynb reads movement from controller and reports to the a web server.
