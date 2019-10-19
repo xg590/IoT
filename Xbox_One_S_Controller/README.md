@@ -36,7 +36,7 @@ use <b>Jstest</b> to test the controller
 $ sudo apt-get install joystick
 $ jstest --normal /dev/input/js0
 ```
-#### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
+### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first) [2]
 ``` 
 $ sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
 $ sudo bash -c "systemctl start bluetooth"
