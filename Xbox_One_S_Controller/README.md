@@ -39,9 +39,13 @@ $ jstest --normal /dev/input/js0
 ### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first)
 ``` 
 $ sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
-$ sudo bash -c "systemctl start bluetooth"
-$ sudo bash -c "echo -e 'connect 00:9E:C8:63:EA:71\nexit' | bluetoothctl"
+$ sudo bash -c "echo -e 'connect 00:9E:C8:63:EA:71\nexit' | bluetoothctl" # test if bluetooth service is run before this command
 ``` 
+#### Test if bluetooth service is running. It is running automaticllay on my RPi
+````
+$ systemctl is-active bluetooth # test 
+# systemctl start bluetooth     # start
+````
 ### Use Xbox One S Wireless Controller in Python
 I wrote two jupyter notebooks which demonstrate how to read controller event in python. Actually, the two notebooks run in different RPi Zero W. One RPi Zero W pairs with Xbox One S controller via bluetooth and reports every movement on controller to another RPi Zero. <br>
 ##### Xbox_One_S_Controller_As_Input.ipynb reads movement from controller and reports to the a web server.
