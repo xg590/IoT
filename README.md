@@ -31,5 +31,34 @@ A new partition named "Boot" appeared after the Raspbian was written to the Micr
 ```
 Caution: The 'NewLine Character' in wpa_supplicant.conf should follow Unix convention.  
 
-4. Dealing with eduroam. <br>
-I haven't find the right configuration to connect nyu wireless service with the default network manager came with raspbian. I have to switch back to Network-Manager. Here is a tutorial for that. https://davidxie.net/install-network-manager-on-raspbian
+4. Dealing with eduroam. Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
+I have the access to NYU Wireless service, which is protected by the wpa-enterprise protocol. Here is how I configure my Raspberry Pi. <br>
+Edit the /etc/wpa_supplicant/wpa_supplicant.conf and add a new network configuration <br>
+```shell
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+    ssid="nyu-legacy"
+    scan_ssid=1
+    key_mgmt=WPA-EAP
+    group=CCMP TKIP
+    eap=PEAP
+    identity="NYUNetID"
+    password="NetID_Password"
+    phase1="peapver=0"
+    phase2="MSCHAPV2"
+}
+```
+Then create a new file as /etc/network/interfaces.d/nyu, whose content is:<br>
+```shell
+auto lo
+iface lo inet loopback
+iface eth0 inet manual
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+    pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+    post-down killall -q wpa_supplicant
+```
