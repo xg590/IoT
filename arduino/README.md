@@ -1,4 +1,4 @@
-## Program arduino on Raspberry Pi Zero W
+## Program Arduino Nano on Raspberry Pi Zero W
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
 $ tar Jxvf arduino-1.8.10-linuxarm.tar.xz
