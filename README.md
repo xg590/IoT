@@ -65,7 +65,9 @@ iface wlan0 inet manual
 ### Program Arduino Nano on Raspberry Pi Zero W
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
+```
 $ tar Jxvf arduino-1.8.10-linuxarm.tar.xz 
+```
 3. In case of Permission denied of accessing /dev/ttyUSB0
 ```shell
 $ sudo su
