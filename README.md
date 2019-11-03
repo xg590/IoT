@@ -1,14 +1,14 @@
 # IoT
 Raspberry &amp; Arduino<br>
 My Inventory:  <pre>
-    Raspberry Pi 3B / Zero_W
+    Raspberry Pi 3A / 3B / ZW
     Arduino Uno_Rev3 / Pro mini / Nano
     GPS Module: GY-NEO-6MV2
     3 Axis 6DOF Gyro Accelerometer: GY-521 MPU-6050
     Distance Sensor: HC-SR04
-    Motor Driver: DRV8833 DC/Stepper Breakout Board
+    Motor Driver: DRV8833 / PCA9685+TB6612 
     LoRa: SX1278 433MHz 1W TTL LoRa Wireless Module
-    Driver Board: PCA9685+TB6612 Stepper Motor Dual DC Motor Driver Controller Board for Arduino https://www.ebay.com/itm/311834775630
+    WiFi Board: NodeMCU
 </pre>
 ### Setup Raspberry Pi 
 1. Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
