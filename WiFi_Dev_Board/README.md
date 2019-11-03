@@ -18,7 +18,7 @@
    OLD['packages'].append(ESP8266['packages'][0])
    with open('package_index_bundled.json'  , 'w') as fw: fw.write(json.dumps(OLD))
    ```
-3. Install Board: 
+3. Install Board [1]: 
 ```
 $ arduino-1.8.10/arduino --install-boards esp8266:esp8266
 ```
@@ -33,3 +33,4 @@ $ sudo su
 # exit
 $ newgrp dialout
 ```   
+[1] [arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
