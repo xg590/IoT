@@ -26,4 +26,10 @@ $ arduino-1.8.10/arduino --install-boards esp8266:esp8266
 ```
 $ arduino-1.8.10/arduino --board 'esp8266:esp8266:nodemcuv2' --port /dev/ttyUSB0 --upload arduino-1.8.10/examples/01.Basics/Blink/Blink.ino 
 ```
-   
+In case of Permission denied of accessing /dev/ttyUSB0
+```shell
+$ sudo su
+# usermod -aG dialout pi
+# exit
+$ newgrp dialout
+```   
