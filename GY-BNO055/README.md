@@ -1,3 +1,4 @@
+[GY-BNO055](https://www.ebay.com/itm/172970055900) is available on Ebay for 10 bucks.
 1. Wiring:
 ```
    RPi      GY-BNO055
