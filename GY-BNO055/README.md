@@ -37,3 +37,5 @@ while True:
     time.sleep(1)
 ```
 https://github.com/adafruit/Adafruit_CircuitPython_BNO055
+https://forums.adafruit.com/viewtopic.php?f=19&t=75497
+
