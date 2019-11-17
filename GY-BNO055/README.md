@@ -1,8 +1,6 @@
 [GY-BNO055](https://www.ebay.com/itm/172970055900) is available on Ebay for 10 bucks.<br>
 ### Some Soldering Work to enable I2C communication<br> 
 Please refer to the post beginning with "Success!!!!" by VitallyRaccoon from this [dicussion](https://forum.arduino.cc/index.php?topic=574580.0).
-### Program Arduino
-Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
 ### Read Out GY-BNO055 from Raspberry Pi Directly
 1. Wiring:
 ```
@@ -42,6 +40,8 @@ while True:
     time.sleep(1)
 ``` 
 ### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
+0. Program Arduino
+Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
 1. Wiring 
 ```
 GY-BNO055      Nano      Win10
