@@ -41,7 +41,7 @@ while True:
 ``` 
 ### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
 0. Program Arduino<br>
-Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
+Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code). Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example. <br>
 1. Wiring 
 ```
 GY-BNO055      Nano      Win10
