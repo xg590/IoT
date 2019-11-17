@@ -29,7 +29,7 @@ $ sudo su
 ```
 3. Test Sensor
 ```shell
-$ pip3 install adafruit-circuitpython-bno055
+$ pip3 install adafruit-circuitpython-bno055 # https://github.com/adafruit/Adafruit_CircuitPython_BNO055
 ```
 ```python
 import adafruit_bno055
@@ -40,8 +40,7 @@ sensor = adafruit_bno055.BNO055(i2c, address=0x29)
 while True: 
     print('Magnetometer (microteslas): {}'.format(sensor.magnetic))  
     time.sleep(1)
-```
-https://github.com/adafruit/Adafruit_CircuitPython_BNO055
+``` 
 ### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly with the help of a Arduino Nano. (GY-BNO055 <--> Arduino <--> PC / RPi)
 1. Wiring 
 ```
