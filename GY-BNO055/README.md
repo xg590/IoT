@@ -1,11 +1,16 @@
-[GY-BNO055](https://www.ebay.com/itm/172970055900) is available on Ebay for 10 bucks.
+[GY-BNO055](https://www.ebay.com/itm/172970055900) is available on Ebay for 10 bucks.<br>
+### Some Soldering Work to enable I2C communication<br> 
+Please refer to the post beginning with "Success!!!!" by VitallyRaccoon from this [dicussion](https://forum.arduino.cc/index.php?topic=574580.0).
+### Program Arduino
+Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
+### Read Out GY-BNO055 from Raspberry Pi Directly
 1. Wiring:
 ```
-   RPi      GY-BNO055
-   5V  <--> VIN
-   GND <--> GND
-   SDA <--> SDA
-   SCL <--> SCL
+GY-BNO055      RPi      
+   VIN   <-->  5V   
+   GND   <-->  GND  
+   SCL   <-->  SCL 
+   SDA   <-->  SDA  
 ```
 2. Test Wiring
 ```shell
@@ -37,5 +42,24 @@ while True:
     time.sleep(1)
 ```
 https://github.com/adafruit/Adafruit_CircuitPython_BNO055
-https://forums.adafruit.com/viewtopic.php?f=19&t=75497
+### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly with the help of a Arduino Nano. (GY-BNO055 <--> Arduino <--> PC / RPi)
+1. Wiring 
+```
+GY-BNO055      Nano      Win10
+   VIN   <-->  5V   <-->  USB
+   GND   <-->  GND  
+   SCL   <-->  A5  
+   SDA   <-->  A4            
+```
+2. Read out from PC (Win10)<br>
+![alt text](https://raw.githubusercontent.com/xg590/IoT/master/src/COM_6.png "COM6")<br>
+Here we know which port to read out the result.<br>
+3. Jupyter Notebook Running on PC
+```python
+import serial
+with serial.Serial(port='COM6', baudrate=115200, timeout=3) as s:
+    while 1:
+        data = s.readline() # You can get GPS data if the on-board LED blinks.
+        print(data)
+``` 
 
