@@ -40,7 +40,7 @@ while True:
     time.sleep(1)
 ``` 
 ### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
-0. Program Arduino
+0. Program Arduino<br>
 Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
 1. Wiring 
 ```
