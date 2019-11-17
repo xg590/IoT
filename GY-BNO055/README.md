@@ -41,7 +41,7 @@ while True:
     print('Magnetometer (microteslas): {}'.format(sensor.magnetic))  
     time.sleep(1)
 ``` 
-### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly with the help of a Arduino Nano. (GY-BNO055 <--> Arduino <--> PC / RPi)
+### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
 1. Wiring 
 ```
 GY-BNO055      Nano      Win10
@@ -50,7 +50,7 @@ GY-BNO055      Nano      Win10
    SCL   <-->  A5  
    SDA   <-->  A4            
 ```
-2. Read out from PC (Win10)<br>
+2. Which Port to Read (Win10)<br>
 ![alt text](https://raw.githubusercontent.com/xg590/IoT/master/src/COM_6.png "COM6")<br>
 Here we know which port to read out the result.<br>
 3. Jupyter Notebook Running on PC
@@ -60,5 +60,4 @@ with serial.Serial(port='COM6', baudrate=115200, timeout=3) as s:
     while 1:
         data = s.readline() # You can get GPS data if the on-board LED blinks.
         print(data)
-``` 
-
+```
