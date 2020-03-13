@@ -1,6 +1,7 @@
 [GY-BNO055](https://www.ebay.com/itm/172970055900) is available on Ebay for 10 bucks.<br>
-### Some Soldering Work to enable I2C communication<br> 
-Please refer to the post beginning with "Success!!!!" by VitallyRaccoon from this [dicussion](https://forum.arduino.cc/index.php?topic=574580.0).
+### Some Soldering Work to enable I2C communication<br>  
+An important quote from [VitallyRaccoon's post](https://forum.arduino.cc/index.php?topic=574580.0): "To configure the module for i2c communication both jumpers should be closed."<br>
+![Soldering Problem](https://raw.githubusercontent.com/xg590/IoT/master/GY-BNO055/GY-BNO055_Soldering_Problem.jpg)
 ### Read Out GY-BNO055 from Raspberry Pi Directly
 1. Wiring:
 ```
