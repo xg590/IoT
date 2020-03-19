@@ -62,7 +62,7 @@ iface wlan0 inet manual
     pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
     post-down killall -q wpa_supplicant
 ```
-### Program Arduino Nano on Raspberry Pi Zero W
+### Program Arduino on Raspberry Pi 
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
 ```
@@ -80,5 +80,7 @@ $ ./arduino-1.8.10/arduino --board arduino:avr:nano:cpu=atmega328 --port /dev/tt
 ```
 ### Upload to Arduino Uno
 ```shell
+$ cd arduino-1.8.12/
+$ ./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino
 --board arduino:avr:uno 
 ```
