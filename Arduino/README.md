@@ -1,4 +1,4 @@
-### Use Arduino Uno connected to Raspberry Pi 3B via USB
+### Use Arduino connected to Raspberry Pi via USB
 #### Install Arduino IDE on Raspbian OS
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
