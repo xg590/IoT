@@ -1,7 +1,7 @@
 ### Prelude
 * Board is available on [ebay](https://www.ebay.com/itm/311834775630)<br>
 * Python Code is compatible with [Adafruit Stepper + DC Motor FeatherWing](https://learn.adafruit.com/adafruit-stepper-dc-motor-featherwing/circuitpython)<br>
-* Enable I2C interface
+* [Enable I2C interface](https://www.raspberrypi-spy.co.uk/2014/11/enabling-the-i2c-interface-on-the-raspberry-pi/)
 ### Usage:
 ```
 $ pip3 install adafruit-circuitpython-motorkit 
