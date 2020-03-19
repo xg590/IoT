@@ -41,7 +41,7 @@ while True:
     time.sleep(1)
 ``` 
 ### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
-0. Program Arduino<br>
+0. Program Arduino Via GUI IDE On Windows or MacOS <br>
 Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code). Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example. <br>
 1. Wiring 
 ```
@@ -61,4 +61,44 @@ with serial.Serial(port='COM6', baudrate=115200, timeout=3) as s:
     while 1:
         data = s.readline() # You can get GPS data if the on-board LED blinks.
         print(data)
+```
+### Program Arduino Via CLI IDE On Raspberry
+Please refer to [this tutorial](https://github.com/xg590/IoT/blob/master/Arduino/README.md) for installing Arduino IDE on Raspbian
+```
+cd arduino-1.8.12/
+./arduino --install-library "Adafruit Unified Sensor"
+./arduino --install-library "Adafruit BNO055"
+./arduino --board  arduino:avr:uno --port /dev/ttyUSB0 --upload bno055.ino
+```
+##### Content of bno055.ino
+```cpp
+#include <SoftwareSerial.h>  
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+
+Adafruit_BNO055 i2c = Adafruit_BNO055(55, 0x29); 
+
+void setup(void) {
+  Serial.begin(115200); 
+  i2c.begin(); // compass
+  delay(1000);
+}
+
+void loop() {  
+  gy_bno055(); 
+  delay(1000);
+} 
+
+static void gy_bno055() {
+  sensors_event_t bno;
+  i2c.getEvent(&bno, Adafruit_BNO055::VECTOR_EULER); 
+  Serial.print(i2c.getTemp());
+  Serial.print(',');
+  Serial.print(bno.orientation.x);
+  Serial.print(',');
+  Serial.print(bno.orientation.y);
+  Serial.print(',');
+  Serial.print(bno.orientation.z);  
+  Serial.println();  
+} 
 ```
