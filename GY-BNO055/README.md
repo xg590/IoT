@@ -42,15 +42,15 @@ while True:
 ``` 
 ### Read Out GY-BNO055 From Raspberry Pi Indirectly (GY-BNO055 <--I2C--> Arduino <--USB--> Raspberry Pi)
 #### Program Arduino using PC / Mac (GUI is simpler)
-Wiring 
+Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example in Arduino IDE.<br>
+Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code) except for the wiring because the GY-BNO055 is not used in it.
 ```
 GY-BNO055      Nano      Win10
    VIN   <-->  5V   <-->  USB
    GND   <-->  GND  
    SCL   <-->  A5  
    SDA   <-->  A4            
-``` 
-Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code). Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example in Arduino IDE.
+```  
 #### Program Arduino using On Raspberry (CLI)
 Wiring 
 ```
@@ -67,7 +67,7 @@ cd arduino-1.8.12/
 ./arduino --install-library "Adafruit BNO055"
 ./arduino --board  arduino:avr:uno --port /dev/ttyUSB0 --upload bno055.ino
 ```
-##### Content of bno055.ino
+##### Content of <i>bno055.ino</i>
 ```cpp
 #include <SoftwareSerial.h>  
 #include <Adafruit_Sensor.h>
