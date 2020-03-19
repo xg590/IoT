@@ -20,7 +20,7 @@ A new partition named "Boot" appeared after the Raspbian was written to the Micr
 ```
 Caution: The 'NewLine Character' in wpa_supplicant.conf should follow Unix convention.  
 
-4. Dealing with eduroam. Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
+4. Dealing with NYU WiFi. Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
 I have the access to NYU Wireless service, which is protected by the wpa-enterprise protocol. Here is how I configure my Raspberry Pi. <br>
 Edit the /etc/wpa_supplicant/wpa_supplicant.conf and add a new network configuration <br>
 ```shell
