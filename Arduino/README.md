@@ -1,5 +1,5 @@
-### Use Arduino connected to Raspberry Pi via USB
-#### Install Arduino IDE on Raspbian OS
+### Program Arduino on Raspberry Pi
+#### Install Arduino IDE on Raspbian OS via USB
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
 ```shell
