@@ -71,11 +71,14 @@ $ tar Jxvf arduino-1.8.10-linuxarm.tar.xz
 3. In case of Permission denied of accessing /dev/ttyUSB0
 ```shell
 $ sudo su
-# usermod -aG dialout pi
-# exit
+$ sudo usermod -aG dialout pi 
 $ newgrp dialout
 ```
-4. Test blink 
+4. Test blink on Arduino Nano
 ```
 $ ./arduino-1.8.10/arduino --board arduino:avr:nano:cpu=atmega328 --port /dev/ttyUSB0 --upload arduino-1.8.10/examples/01.Basics/Blink/Blink.ino 
+```
+### Upload to Arduino Uno
+```shell
+--board arduino:avr:uno 
 ```
