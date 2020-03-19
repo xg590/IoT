@@ -2,7 +2,7 @@
 ### Some Soldering Work to enable I2C communication<br>  
 An important quote from [VitallyRaccoon's post](https://forum.arduino.cc/index.php?topic=574580.0): "To configure the module for i2c communication both jumpers should be closed."<br>
 ![Soldering Problem](https://raw.githubusercontent.com/xg590/IoT/master/GY-BNO055/GY-BNO055_Soldering_Problem.jpg)
-### Read Out GY-BNO055 from Raspberry Pi Directly
+### Read Out GY-BNO055 from Raspberry Pi Directly (GY-BNO055 <--I2C--> Raspberry Pi)
 1. Wiring:
 ```
 GY-BNO055      RPi      
@@ -40,29 +40,26 @@ while True:
     print('Magnetometer (microteslas): {}'.format(sensor.magnetic))  
     time.sleep(1)
 ``` 
-### Read Out GY-BNO055 From Raspberry Pi or PC Indirectly (GY-BNO055 <--> Arduino <--> PC / RPi)
-0. Program Arduino Via GUI IDE On Windows or MacOS <br>
-Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code). Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example. <br>
-1. Wiring 
+### Read Out GY-BNO055 From Raspberry Pi Indirectly (GY-BNO055 <--I2C--> Arduino <--USB--> Raspberry Pi)
+#### Program Arduino using PC / Mac (GUI is simpler)
+Wiring 
 ```
 GY-BNO055      Nano      Win10
    VIN   <-->  5V   <-->  USB
    GND   <-->  GND  
    SCL   <-->  A5  
    SDA   <-->  A4            
+``` 
+Please refer to [this tutorial](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code). Basically, we need to install two Libraries from Adafruit: 1. Adafruit Unified Sensor; 2. Adafruit BNO055. Then, see the newly added example in Arduino IDE.
+#### Program Arduino using On Raspberry (CLI)
+Wiring 
 ```
-2. Which Port to Read (Win10)<br>
-![alt text](https://raw.githubusercontent.com/xg590/IoT/master/src/COM_6.png "COM6")<br>
-Here we know which port to read out the result.<br>
-3. Jupyter Notebook Running on PC
-```python
-import serial
-with serial.Serial(port='COM6', baudrate=115200, timeout=3) as s:
-    while 1:
-        data = s.readline() # You can get GPS data if the on-board LED blinks.
-        print(data)
+GY-BNO055      Uno        RPi
+   VIN   <-->  5V   <-->  USB
+   GND   <-->  GND  
+   SCL   <-->  SCL  
+   SDA   <-->  SDA           
 ```
-### Program Arduino Via CLI IDE On Raspberry
 Please refer to [this tutorial](https://github.com/xg590/IoT/blob/master/Arduino/README.md) for installing Arduino IDE on Raspbian
 ```
 cd arduino-1.8.12/
