@@ -8,7 +8,7 @@
 
 
 ### Program WiFi dev board via CLI
-1. Download [ARDUINO 1.8.10 IDE](https://www.arduino.cc/en/Main/Software)
+1. [Setup Arduino IDE](https://github.com/xg590/IoT/tree/master/Arduino#install-arduino-ide-on-raspbian-os-via-usb) 
 2. Additional Board Manager: Download [package_esp8266com_index.json](http://arduino.esp8266.com/stable/package_esp8266com_index.json) and replace arduino-1.8.10/hardware/package_index_bundled.json with it. 
    ```python
    # Here is a python script to combine two json files
@@ -20,17 +20,11 @@
    ```
 3. Install Board [1]: 
 ```
-$ arduino-1.8.10/arduino --install-boards esp8266:esp8266
+$ cd arduino-1.8.10
+$ ./arduino --install-boards esp8266:esp8266
 ```
 4. Test the Blink.ino
 ```
-$ arduino-1.8.10/arduino --port /dev/ttyUSB0 --upload arduino-1.8.10/examples/01.Basics/Blink/Blink.ino  --board 'esp8266:esp8266:nodemcuv2:baud=921600'
-```
-In case of Permission denied of accessing /dev/ttyUSB0
-```shell
-$ sudo su
-# usermod -aG dialout pi
-# exit
-$ newgrp dialout
-```   
+$ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --board 'esp8266:esp8266:nodemcuv2:baud=921600'
+``` 
 [1] [arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
