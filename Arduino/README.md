@@ -25,3 +25,5 @@ $ ./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload examples/01.Bas
 ```
 ./arduino --install-library "Adafruit Unified Sensor"
 ```
+#### Reference
+[arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
