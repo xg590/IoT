@@ -14,3 +14,4 @@ My Inventory:  <pre>
 1. [Setup Raspberry Pi](https://github.com/xg590/IoT/tree/master/Raspberry_Pi)
 2. [Program Arduino on Raspberry Pi](https://github.com/xg590/IoT/tree/master/Arduino)
 3. [Using Compass](https://github.com/xg590/IoT/tree/master/GY-BNO055)
+4. [Program NodeMCU on Raspberry Pi](https://github.com/xg590/IoT/tree/master/WiFi_Dev_Board)
