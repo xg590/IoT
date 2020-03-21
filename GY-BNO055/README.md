@@ -99,3 +99,12 @@ static void gy_bno055() {
   Serial.println();  
 } 
 ```
+#### Read out from Raspberry Pi
+After programming, arduino is reset and start to throw out sensor reading via serial port <i>/dev/ttyUSB0</i> 
+```python
+import serial
+with serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=2) as s:
+    while 1:
+        data = s.readline()  
+        print(data)
+```
