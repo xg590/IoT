@@ -51,7 +51,7 @@ GY-BNO055      Nano      Win10
    SCL   <-->  A5  
    SDA   <-->  A4            
 ```  
-#### Program Arduino using On Raspberry (CLI)
+#### Program Arduino using Raspberry Pi (CLI)
 Wiring 
 ```
 GY-BNO055      Uno        RPi
