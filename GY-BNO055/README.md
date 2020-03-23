@@ -105,7 +105,5 @@ After programming, arduino is reset and start to throw out sensor reading via se
 ```python
 import serial
 with serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=2) as s:
-    while 1:
-        data = s.readline()  
-        print(data)
+    while 1: print(s.readline())
 ```
