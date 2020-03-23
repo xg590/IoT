@@ -65,8 +65,9 @@ Please refer to [this tutorial](https://github.com/xg590/IoT/blob/master/Arduino
 cd arduino-1.8.12/
 ./arduino --install-library "Adafruit Unified Sensor"
 ./arduino --install-library "Adafruit BNO055"
-./arduino --board  arduino:avr:uno --port /dev/ttyUSB0 --upload bno055.ino
+./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload bno055.ino
 ```
+<b>Warning</b>: Unexpected conflict between .ino files in the same directory may occur, so keep .ino file in an isolated directory if you only need one. 
 ##### Content of <i>bno055.ino</i>
 ```cpp
 #include <SoftwareSerial.h>  
