@@ -8,5 +8,5 @@ Use [Makecode](https://makecode.microbit.org/#editor) but choose <b><i>Passkey p
 2.1 Put Micro:bit into pairing mode: Buttons A&B were held, reset button pressed once, LED array filled, bluetooth icon appeared and passcode pattern presented (that pattern is for mobile phone app)<br> 
 2.2 Search the BBC micro:bit [zageg] in <i>Add a device</i> page<br> and click it
 2.3 Press the Button A of micro:bit and the PIN code appears on it.
-### Program and play wirelessly in Python
+### 3. Program and play wirelessly in Python
 Please refer to the microbit.ipynb 
