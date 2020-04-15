@@ -1,6 +1,10 @@
 ## Communicates with Micro:bit via bluetooth
 ### 1. Flashing
-#### Linux: Follow this [link](https://ukbaz.github.io/howto/ubit_workshop.html) <br>
+#### Linux: Follow this [link](https://ukbaz.github.io/howto/ubit_workshop.html) <br> 
+BTW, disable ERTM (Enhanced Re-Transmission Mode)
+```
+sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
+```
 #### Windows equivalent
 Use [Makecode](https://makecode.microbit.org/#editor) but choose <b><i>Passkey pairing</i></b> in Project Settings page
 <img src="https://github.com/xg590/IoT/blob/master/Micro:Bit/Bluetooth/bluetooth_project_settings.jpg" width="50%"> 
