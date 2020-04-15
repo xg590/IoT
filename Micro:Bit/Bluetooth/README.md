@@ -8,5 +8,5 @@ Use [Makecode](https://makecode.microbit.org/#editor) but choose <b><i>Passkey p
 * Put Micro:bit into pairing mode: While buttons A&B were held, reset button pressed once, then LED array filled, bluetooth icon appeared and passcode pattern presented (that pattern is for mobile phone app) 
 * Search the BBC micro:bit [zageg] in <i>Add a device</i> page of windows and click it
 * Press the button A of micro:bit and the PIN code appears on it.
-### 3. Program and play wirelessly in Python
-Please refer to the microbit.ipynb 
+### 3. Program
+At this moment, bluezero only works on Linux :(. 
