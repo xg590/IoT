@@ -1,21 +1,12 @@
-### Linux (Ubuntu 18.04.02 / Raspbian Buster) Communicates with Micro:bit via bluetooth
-Follow this [link](https://ukbaz.github.io/howto/ubit_workshop.html) <br>
-Here is the brief summary:
-1. Use [Makecode](https://makecode.microbit.org/#editor) to flash the Micro:bit
-2. Put Micro:bit into pairing mode: Buttons A&B were held, reset button pressed once, LED array filled, bluetooth icon appears and useless passcode pattern presented (that pattern is for mobile phone app) 
-3. Establish the Connection
-````
-$ bluetoothctl
-[NEW] Controller 6D:01:E9:70:C4:DE a [default]
-[NEW] Device 46:EC:67:6E:3E:27 BBC micro:bit [pegiv]
-[NEW] Device 61:27:68:D4:2F:49 Redmi
-[NEW] Device 61:12:E0:BE:D3:19 61:12:E0:BE:D3:19
-....
-````
-The above info is prompted automatically, here we need to record the bluetooth address of Controller (a iMac) and Micro:bit, which are 6D:01:E9:70:C4:DE and 46:EC:67:6E:3E:27
-````
-pair 46:EC:67:6E:3E:27
-connect 46:EC:67:6E:3E:27
-````
-Then we can program and play with Micro:bit wirelessly in Python.
+## Communicates with Micro:bit via bluetooth
+### 1. Flashing
+#### Linux: Follow this [link](https://ukbaz.github.io/howto/ubit_workshop.html) <br>
+#### Windows equivalent
+Use [Makecode](https://makecode.microbit.org/#editor) but choose <b><i>Passkey pairing</i></b> in Project Settings page
+<img src="https://github.com/xg590/IoT/blob/master/Micro:Bit/Bluetooth/bluetooth_project_settings.jpg" width="50%"> 
+### 2. Pairing
+2.1 Put Micro:bit into pairing mode: Buttons A&B were held, reset button pressed once, LED array filled, bluetooth icon appeared and passcode pattern presented (that pattern is for mobile phone app)<br> 
+2.2 Search the BBC micro:bit [zageg] in <i>Add a device</i> page<br> and click it
+2.3 Press the Button A of micro:bit and the PIN code appears on it.
+### Program and play wirelessly in Python
 Please refer to the microbit.ipynb 
