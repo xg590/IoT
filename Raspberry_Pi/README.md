@@ -51,3 +51,14 @@ iface wlan0 inet manual
     pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
     post-down killall -q wpa_supplicant
 ```
+Useful commands
+```
+sudo apt install -y screen python3-pip
+pip3 install jupyter
+mkdir ~/.jupyter
+cat << EOF >> ~/.jupyter/jupyter_notebook_config.py
+c.NotebookApp.ip = '0.0.0.0'
+c.NotebookApp.port = 8888
+c.NotebookApp.password = 'sha1:ffed18eb1683:ee67a85ceb6baa34b3283f8f8735af6e2e2f9b55'
+EOF
+```
