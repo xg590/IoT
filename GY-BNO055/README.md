@@ -28,14 +28,14 @@ $ sudo su
 ```
 3. Test Sensor
 ```shell
-$ pip3 install adafruit-circuitpython-bno055 # https://github.com/adafruit/Adafruit_CircuitPython_BNO055
+$ pip3 install adafruit-circuitpython-bno055 # https://circuitpython.readthedocs.io/projects/bno055/en/latest/index.html
 ```
 ```python
-import adafruit_bno055
+import adafruit_bno055, time
 from busio import I2C
 from board import SDA, SCL
 i2c = I2C(SCL, SDA)
-sensor = adafruit_bno055.BNO055(i2c, address=0x29)
+sensor = adafruit_bno055.BNO055_I2C(i2c, address=0x29)
 while True: 
     print('Magnetometer (microteslas): {}'.format(sensor.magnetic))  
     time.sleep(1)
