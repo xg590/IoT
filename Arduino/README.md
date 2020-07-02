@@ -17,9 +17,15 @@ $ cd arduino-1.8.10
 $ ./arduino --board arduino:avr:nano:cpu=atmega328 --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino 
 ```
 #### Program Arduino Uno (Test blink) 
-```shell
-$ cd arduino-1.8.12/
+```
+$ cd arduino-1.8.10/
 $ ./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino 
+```
+#### Program Arduino Pro Mini (Test blink)
+Programming requires a USB to TTL adapter with the Data Terminal Ready (DTR) pin. (GND, VCC, RX, TX, DTR are all connected)
+```
+$ cd arduino-1.8.10/
+$ ./arduino --board arduino:avr:pro --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino
 ```
 #### Install Library
 ```
