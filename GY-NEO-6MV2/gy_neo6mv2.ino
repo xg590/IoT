@@ -24,9 +24,7 @@ void setup(void) {
 }
 
 void loop() { 
-  gy_neo6mv2(); 
-  Serial.print(','); 
-  Serial.println();
+  gy_neo6mv2();  
   delay(1000);
 }
 
@@ -34,41 +32,30 @@ static void gy_neo6mv2() {
   while (uart.available()) {
     char c = uart.read(); 
     tinygps.encode(c); 
-  }
-  float flat, flon;
-  unsigned long age = 0; 
-  
-  tinygps.f_get_position(&flat, &flon, &age);
-  print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 7);
-  print_float(flon, TinyGPS::GPS_INVALID_F_ANGLE, 7);
-  print_float(tinygps.f_altitude(), TinyGPS::GPS_INVALID_F_ALTITUDE, 1);
-  print_float(tinygps.f_course(), TinyGPS::GPS_INVALID_F_ANGLE, 2);
-  print_float(tinygps.f_speed_knots(), TinyGPS::GPS_INVALID_F_SPEED, 7);
-  print_int(tinygps.satellites(), TinyGPS::GPS_INVALID_SATELLITES); 
-  print_date(tinygps);
+  } 
+    
+  float lat, lon; unsigned long _; 
+  gps.f_get_position(&lat, &lon, &_); 
+  if (lat                != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" lat|") ; Serial.print(lat                );}
+  if (lon                != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" lon|") ; Serial.print(lon                );}
+  if (gps.f_altitude()   != TinyGPS::GPS_INVALID_F_ALTITUDE) { Serial.print(" alt|") ; Serial.print(gps.f_altitude()   );}
+  if (gps.f_course()     != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" cus|") ; Serial.print(gps.f_course()     );}
+  if (gps.f_speed_kmph() != TinyGPS::GPS_INVALID_F_SPEED   ) { Serial.print(" spd|") ; Serial.print(gps.f_speed_kmph() );}
+  if (gps.satellites()   != TinyGPS::GPS_INVALID_SATELLITES) { Serial.print(" sat|") ; Serial.print(gps.satellites()   );} 
+  print_date(gps);
+  Serial.println(); 
 } 
  
-static void print_int(unsigned long val, unsigned long invalid) { 
-  if (val != invalid)
-    Serial.print(val); 
-  Serial.print(','); 
-}
-
-static void print_float(float val, float invalid, int prec) { 
-  if (val != invalid) 
-    Serial.print(val, prec); 
-  Serial.print(','); 
-} 
-
-static void print_date(TinyGPS &gps) {
+static void print_date(TinyGPS &gps)
+{
   int year;
   byte month, day, hour, minute, second, hundredths;
-  unsigned long age;
+  unsigned long age; // A varible defined by Library author
   gps.crack_datetime(&year, &month, &day, &hour, &minute, &second, &hundredths, &age);
-  if (age != TinyGPS::GPS_INVALID_AGE) { 
+  if (age != TinyGPS::GPS_INVALID_AGE) {
     char sz[32];
-    sprintf(sz, "%02d/%02d/%02d %02d:%02d:%02d",
-        month, day, year, hour, minute, second);
+    sprintf(sz, " ts|%02d-%02d-%02dT%02d:%02d:%02d",
+        year, day, month, hour, minute, second); 
     Serial.print(sz);
-  } 
-}
+  }  
+} 
