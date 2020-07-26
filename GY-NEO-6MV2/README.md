@@ -1,9 +1,10 @@
 ### Python
-Use <i>pyserial</i> to read the [NMEA](https://en.wikipedia.org/wiki/NMEA_0183) data and <i>pynmea2</i> to process the data
+* Connect GPS breakout to Raspberry Pi
+* Use Python packages to read and process data 
+  * <i>pyserial</i>: read GPS 
+  * <i>pynmea2</i>: process the [NMEA](https://en.wikipedia.org/wiki/NMEA_0183) data  
 
 ### Arduino
-Programming the arduino for reading the NMEA data and processing it
-* The GPS breakout must be powered off before programming (Disconnect the VCC pin)
-```
-./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino
-```
+* Connect GPS breakout to Arduino
+* Programming the arduino for reading the NMEA data and processing it.
+  * Disconnect the VCC pin of GPS breakout before programming 
