@@ -1,4 +1,4 @@
-### Python
+### X86 / ARM 
 * Connect GPS breakout to Raspberry Pi
 * Use Python packages to read and process data 
   * <i>pyserial</i>: read GPS 
