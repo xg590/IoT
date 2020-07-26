@@ -2,7 +2,7 @@
 * Connect GPS breakout to Raspberry Pi
 * Use Python packages to read and process data 
   * <i>pyserial</i>: read GPS 
-  * <i>pynmea2</i>: process the [NMEA](https://en.wikipedia.org/wiki/NMEA_0183) data  
+  * <i>pynmea2</i>: process the [NMEA](http://aprs.gids.nl/nmea/#rmc) data  
 
 ### Arduino
 * Connect GPS breakout to Arduino
