@@ -20,12 +20,13 @@ try:
         jpeg_len = stream.tell() # find stream position
         connection.write(struct.pack('<L', jpeg_len)) 
         connection.flush() 
-        stream.seek(0) # rewind stream position
+        stream.seek(0) # rewind stream position because we want to read from the start
         jpeg_data = stream.read()
         connection.write(jpeg_data)  
-        stream.seek(0) # rewind stream position
-        stream.truncate() # Dump buffer data
         time.sleep(1)
+        # Prepare for new capture
+        stream.seek(0) # rewind stream position because we need write the captured from the start
+        stream.truncate(0) # Dump buffer data
 finally:
     connection.write(struct.pack('<L', 0))
     connection.close()
