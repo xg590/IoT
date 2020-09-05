@@ -16,12 +16,15 @@ try:
     connection = client_socket.makefile('wb')
     stream = io.BytesIO()
     for _ in camera.capture_continuous(stream, 'jpeg'): 
-        connection.write(struct.pack('<L', stream.tell()))
+        # After capture, stream position equals size of buffered jpeg data
+        jpeg_len = stream.tell() # find stream position
+        connection.write(struct.pack('<L', jpeg_len)) 
         connection.flush() 
-        stream.seek(0)
-        connection.write(stream.read())  
-        stream.seek(0)
-        stream.truncate()  
+        stream.seek(0) # rewind stream position
+        jpeg_data = stream.read()
+        connection.write(jpeg_data)  
+        stream.seek(0) # rewind stream position
+        stream.truncate() # Dump buffer data
         time.sleep(1)
 finally:
     connection.write(struct.pack('<L', 0))
