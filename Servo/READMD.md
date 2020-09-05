@@ -1,4 +1,4 @@
-### 16-Channel 12-bit PWM/Servo Driver
+### PCA9685 16-Channel 12-bit PWM/Servo Driver
 Library
 ```
 pip install adafruit-circuitpython-pca9685 adafruit-circuitpython-servokit
