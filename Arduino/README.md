@@ -1,4 +1,4 @@
-### Program Arduino on Raspberry Pi
+### Program Arduino from Raspberry Pi via the USB port.
 #### Install Arduino IDE on Raspbian OS via USB
 1. Download  [ARDUINO 1.8.10 IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it<br>
@@ -32,4 +32,4 @@ $ ./arduino --board arduino:avr:pro --port /dev/ttyUSB0 --upload examples/01.Bas
 ./arduino --install-library "Adafruit Unified Sensor"
 ```
 #### Reference
-[arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
+[Arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
