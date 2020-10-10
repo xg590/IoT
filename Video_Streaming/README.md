@@ -21,7 +21,7 @@ ssh -R 2222:127.0.0.1:3333 remote_server
 ```shell
 ffplay -i tcp://127.0.0.1:2222
 ```
-### Use Opencv (Python) and capture 10s video stream
+### Instead of ffplay, use Opencv (Python) and capture 10s video stream
 ```shell
 sudo apt update 
 sudo apt install -y python3 python3-pip
