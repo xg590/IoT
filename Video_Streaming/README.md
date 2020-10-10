@@ -21,18 +21,22 @@ ssh -R 2222:127.0.0.1:3333 remote_server
 ```shell
 ffplay -i tcp://127.0.0.1:2222
 ```
-### Python
+### Use Opencv (Python) and capture 10s video stream
 ```shell
 sudo apt update 
-sudo apt install screen python3 python3-pip
-pip3 install jupyter
-mkdir ~/.jupyter
-cat << EOF >> ~/.jupyter/jupyter_notebook_config.py
-c.NotebookApp.ip = '0.0.0.0'
-c.NotebookApp.port = 8888
-c.NotebookApp.password = 'sha1:ffed18eb1683:ee67a85ceb6baa34b3283f8f8735af6e2e2f9b55'
-EOF
-.local/bin/jupyter-notebook
-```
-```python 
-```
+sudo apt install -y python3 python3-pip
+pip3 install opencv-python 
+python3
+>>> import cv2 
+>>> cap = cv2.VideoCapture("tcp://127.0.0.1:2222")
+>>> count = 0 
+>>> while(cap.isOpened()): 
+>>>     count += 1
+>>>     if count > 250: break
+>>>     ret, frame = cap.read() 
+>>>     if not ret: break
+>>>     cv2.imshow('frame',frame) 
+>>>     cv2.waitKey(1)  
+>>> cap.release()
+>>> cv2.destroyAllWindows()
+``` 
