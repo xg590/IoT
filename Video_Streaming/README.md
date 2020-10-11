@@ -5,9 +5,9 @@
 * Secure video transmission between rover and intermediate server. 
 * Least library dependency on rover (Install package is a nightmare on raspberry pi)
 ### Solution
-1. Avoid python and use <i>raspivid</i> 
-2. Redirect stdout (video stream in h264) of raspivid to server via <i>ssh</i>
-3. Encoding on the intermediate server and then distribute in webm (maybe)
+1. Avoid <i>picamera</i> and use <i>raspivid</i> 
+2. Redirect raspivid stdout (video stream in h264) to server via <i>ssh</i>
+3. Encoding on the intermediate server then distribute in mjpeg 
 ### Implement (Proof of concept)
 1. Capture video and listen on a local port 3333 on raspberry pi (it turned out that there is no noticeable burden on raspberry pi)
 ```shell
