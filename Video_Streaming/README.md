@@ -1,4 +1,4 @@
-## Raspberry Pi Streaming
+## Raspberry Pi Video Streaming
 ### What I want
 * Low latency
 * Low burden for the raspberry pi on rover
@@ -40,5 +40,5 @@ python3
 >>> cap.release()
 >>> cv2.destroyAllWindows()
 ``` 
-### A working streaming source 
+### mjpeg source
 see [video_streaming.ipynb](https://github.com/xg590/IoT/blob/master/Video_Streaming/video_streaming.ipynb)
