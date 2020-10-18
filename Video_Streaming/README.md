@@ -23,7 +23,7 @@ ffplay -i tcp://127.0.0.1:2222
 ```
 ### Instead of ffplay, use Opencv (Python) and capture 10s video stream
 ```shell
-sudo apt update ；sudo apt install -y python3 python3-pip 
+sudo apt update; sudo apt install -y python3 python3-pip 
 pip3 install opencv-python 
 python3
 >>> import cv2 
