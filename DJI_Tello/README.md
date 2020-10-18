@@ -6,3 +6,4 @@
 * It only depends on opencv-python !!!
 * h264decoder is required by dji-sdk but it sucks. I tried the installation without success. 
 * I came up a bizarre solution so opencv can decode the stream.  
+* Video frame is in jpeg format (computer vision).
