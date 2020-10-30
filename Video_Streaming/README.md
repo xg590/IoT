@@ -41,3 +41,15 @@ python3
 ``` 
 ### Re-streaming in mjpeg
 see [video_streaming.ipynb](https://github.com/xg590/IoT/blob/master/Video_Streaming/video_streaming.ipynb)
+### Misc
+```
+res = { # http://www.lighterra.com/papers/videoencodingh264/
+#       id :     w     h   birate  comment'                   
+     '240p': [ 424,  240,  100000, ''                          ],
+     '360p': [ 640,  360,  230000, ''                          ],
+     '432p': [ 768,  432,  330000, ''                          ],
+     '480p': [ 848,  480,  410000, '"SD" or "NTSC widescreen"' ],
+     '576p': [1024,  576,  590000, '"PAL widescreen"'          ],
+     '720p': [1280,  720,  920000, '"HD"'                      ],
+    '1080p': [1920, 1080, 2070000, '"Full HD"'                 ]} 
+```
