@@ -1,3 +1,27 @@
+### PiGPIO
+Libraries
+```
+sudo apt install python3-pigpio 
+sudo pigpiod -p 8889
+```
+Python
+```
+import pigpio
+pi = pigpio.pi(port=8889) ### Start PiGPIO Client 
+pi.set_servo_pulsewidth(26, 0)   
+
+def startGPIOdaemon():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(2)                                            #2 Second Timeout
+    result = sock.connect_ex(('127.0.0.1', gpio_port))
+    if result == 0:
+        print( 'pigpiod is running' )
+    else:
+        !sudo pkill pigpiod
+        !sudo pigpiod -p 8889 ### Start PiGPIO Server / Deamon    http://abyz.me.uk/rpi/pigpio/pigpiod.html
+        print( 'pigpiod was just started' ) 
+    sock.close()
+```
 ### PCA9685 16-Channel 12-bit PWM/Servo Driver
 Libraries
 ```
