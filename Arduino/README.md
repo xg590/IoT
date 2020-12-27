@@ -7,8 +7,8 @@ tar Jxvf arduino-1.8.10-linuxarm.tar.xz
 ```
 3. Setup right permission of accessing /dev/ttyUSB0
 ```shell 
-$ sudo usermod -aG dialout pi 
-$ newgrp dialout
+sudo usermod -aG dialout pi 
+newgrp dialout
 ```
 #### Program Arduino (Test blink) 
 * Connect USB ports on Pi and Arduino 
