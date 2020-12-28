@@ -1,4 +1,4 @@
-### Program Arduino on Raspberry Pi
+### Program Arduino on Raspberry Pi (Linux)
 #### Install Arduino IDE on Raspberry Pi
 1. Download [ARDUINO IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it
@@ -28,5 +28,14 @@ arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board 
 ```shell
 arduino --install-library "Adafruit Unified Sensor"
 ```
-#### Reference
+### Program Arduino Pro/Pro-Mini on PC (Win10)
+#### Install Drivers
+1. Buy a <b>USB to Serial/TTL Adapter</b><br/>
+What I got is based on chip FT232RL, made by FTDI.
+2. Get the Virtual COM port (VCP) driver<br/>
+Go to driver page of manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and download the <b>CDM v2.12.28 WHQL Certified.zip</b>.
+3. Use <b>Windows Device Manager</b> to install driver manually and get an additional COM port.
+#### Use Arduino to program
+* Windows version Arduino IDE is easy to use.
+### Reference
 [Arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
