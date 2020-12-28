@@ -1,4 +1,4 @@
-### PiGPIO
+### PiGPIO to drive SG90
 Library
 ```
 sudo apt install python3-pigpio 
