@@ -15,12 +15,17 @@ sudo usermod -aG dialout pi
 newgrp dialout
 ```
 #### Program Arduino (Test blink) 
-* Connect USB ports on Pi and Arduino Nano/Uno
+* Connect USB ports on Pi and Arduino Nano 
+![alt text](https://github.com/xg590/IoT/blob/master/Arduino/Arduino_Nano_Pinout.jpg?raw=true "Nano")
 ```shell
 arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board arduino:avr:nano:cpu=atmega328 # Arduino Nano 
+```
+* Connect USB ports on Pi and Arduino Uno
+```shell
 arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board arduino:avr:uno                # Arduino Uno
 ```
-* Or use a USB to TTL adapter for Arduino Pro/Pro-Mini. GND, VCC, RX, TX, and DTR (Data Terminal Ready) should be all connected. 
+* Or use a USB to TTL adapter for Arduino Pro/Pro-Mini. GND, VCC, RX, TX, and DTR (Data Terminal Ready) should be all connected.
+![alt text](https://github.com/xg590/IoT/blob/master/Arduino/Arduino_Pro_Mini_Pinout.png?raw=true "Pro_Mini") 
 ```shell 
 arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board arduino:avr:pro                # Arduino Pro Mini
 ``` 
