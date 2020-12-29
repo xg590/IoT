@@ -19,6 +19,7 @@ newgrp dialout
 ![alt text](https://github.com/xg590/IoT/blob/master/Arduino/Arduino_Nano_Pinout.jpg?raw=true "Nano")
 ```shell
 arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board arduino:avr:nano:cpu=atmega328 # Arduino Nano 
+arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board arduino:avr:nano:cpu=atmega328old # Arduino Nano with old bootloader
 ```
 * Connect USB ports on Pi and Arduino Uno
 ```shell
