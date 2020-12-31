@@ -1,4 +1,4 @@
-## Use Xbox One S Wireless Controller as Input Device
+## Use Xbox One S Wireless Controller as Input Device on Linux
 ### Preparation
 1) Disable ERTM (Enhanced Re-Transmission Mode)
 ```
