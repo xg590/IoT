@@ -40,10 +40,37 @@ $ systemctl is-active bluetooth # test
 # systemctl start bluetooth     # start
 ````
 ### Use Xbox One S Wireless Controller in Python
-I wrote two jupyter notebooks which demonstrate how to read controller event in python. Actually, the two notebooks run in different RPi Zero W. One RPi Zero W pairs with Xbox One S controller via bluetooth and reports every movement on controller to another RPi Zero. <br>
-##### Xbox_One_S_Controller_As_Input.ipynb reads movement from controller and reports to the a web server.
-##### Receiver_for_Xbox_One_S_Controller.ipynb setups a web server and receives the movement.
-##### Sometime the key/axis binding messes up, and the re-mapping python script is under development.
+* Install library
+```shell
+pip3 install evdev
+```
+* Python3
+```python
+from evdev import InputDevice, ecodes
+device = InputDevice('/dev/input/event0')
 
+code2name = {}
+for type_, code_ in device.capabilities(verbose=True, absinfo=False).items():
+    if type_[0] in ['EV_KEY', 'EV_ABS']:
+        for name, code in code_:
+            if isinstance(name,list):
+                if   'BTN_A' in name: code2name[code] = 'BTN_A'
+                elif 'BTN_B' in name: code2name[code] = 'BTN_B'
+                elif 'BTN_X' in name: code2name[code] = 'BTN_X'
+                elif 'BTN_Y' in name: code2name[code] = 'BTN_Y'
+                continue
+            code2name[code] = name
+
+#     'ABS_X', # default value for left  stick X
+#     'ABS_Y', # default value for left  stick Y
+#     'ABS_Z', # default value for right stick X
+#    'ABS_RZ', # default value for right stick Y
+#   'ABS_GAS', # default value for right trigger
+# 'ABS_BRAKE', # default value for left  trigger
+
+for event in device.read_loop():
+    if event.type in [ecodes.EV_ABS, ecodes.EV_KEY]:
+        print(code2name[event.code], '\t', event.value)
+```
 #### Reference: <br>
 [1] https://core-electronics.com.au/tutorials/using-usb-and-bluetooth-controllers-with-python.html <br> 
