@@ -10,7 +10,7 @@ Press <b>Xbox button</b> and it flashs. Then Press <b>Wireless enrollment button
 #### GUI / iMac 2017 / Ubuntu 18.04.02
 Pair controller with iMac via graphical bluetooth utility and then use <b>Jstest-gtk</b> to test the controller 
 ```
-$ sudo apt install jstest-gtk 
+$ sudo apt install -y jstest-gtk 
 ```
 #### CLI / Raspberry Pi Zero W / Raspbian Buster with desktop July 2019
 Pair Controller with RPi Zero W via terminal bluetooth utility [1]
@@ -33,7 +33,7 @@ Pair and connect RPi Zero W with controller
 ```
 use <b>Jstest</b> to test the controller 
 ```
-$ sudo apt-get install joystick
+$ sudo apt-get install -y joystick
 $ jstest --normal /dev/input/js0
 ```
 ### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first)
