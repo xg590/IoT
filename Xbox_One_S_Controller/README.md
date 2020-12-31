@@ -5,15 +5,13 @@
 sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
 ```
 2) Put controller into Discovery Mode <br>
-Press <b>Xbox button</b> and it flashs. Then Press <b>Wireless enrollment button</b> and <b>Xbox button</b> begins to flash quicker. (Please refer to https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller )
-### First Time Connection via Bluetooth
-#### GUI / iMac 2017 / Ubuntu 18.04.02
+Press <b>Xbox button</b> and it flashs. Then Press <b>Wireless enrollment button</b> and <b>Xbox button</b> begins to flash quicker. (Please refer to https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller ) 
+### GUI / iMac 2017 / Ubuntu 18.04.02
 Pair controller with iMac via graphical bluetooth utility and then use <b>Jstest-gtk</b> to test the controller 
 ```
 $ sudo apt install -y jstest-gtk 
 ```
-#### CLI / Raspberry Pi Zero W / Raspbian Buster with desktop July 2019
-Pair Controller with RPi Zero W via terminal bluetooth utility [1]
+### Pair Controller with Raspberry Pi via terminal bluetooth utility [1]
 ```
 $ sudo su
 # bluetoothctl 
@@ -36,11 +34,6 @@ use <b>Jstest</b> to test the controller
 $ sudo apt-get install -y joystick
 $ jstest --normal /dev/input/js0
 ```
-### Reconnect RPi Zero W with Controller after reboot (Put the controller in discovery mode and disable ERTM first)
-``` 
-$ sudo bash -c "echo 1 > /sys/module/bluetooth/parameters/disable_ertm"
-$ sudo bash -c "echo -e 'connect 00:9E:C8:63:EA:71\nexit' | bluetoothctl" # test if bluetooth service is run before this command
-``` 
 #### Test if bluetooth service is running. It is running automaticllay on my RPi
 ````
 $ systemctl is-active bluetooth # test 
