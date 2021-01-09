@@ -31,5 +31,6 @@ $ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --b
 1. Get the virtual COM port (VCP) driver from [Silicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
 2. Enter https://arduino.esp8266.com/stable/package_esp8266com_index.json into the File>Preferences>Additional Boards Manager URLs field of the Arduino IDE. 
 3. Open Boards Manager from Tools > Board menu and install <i>esp8266</i> platform 
+4. Board name: NodeMCU 1.0 (ESP-12E Module)
 
 [1] [arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
