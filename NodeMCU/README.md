@@ -30,5 +30,5 @@ $ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --b
 2. Enter https://arduino.esp8266.com/stable/package_esp8266com_index.json into the File>Preferences>Additional Boards Manager URLs field of the Arduino IDE. 
 3. Open Boards Manager from Tools > Board menu and install <i>esp8266</i> platform 
 4. Board name: NodeMCU 1.0 (ESP-12E Module)
-### Pinout [src](https://mechatronicsblog.com/esp8266-nodemcu-pinout-for-arduino-ide/) 
+### Pinout ([image source](https://mechatronicsblog.com/esp8266-nodemcu-pinout-for-arduino-ide/))
 ![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_v2.png?raw=true "NodeMCU_v2")
