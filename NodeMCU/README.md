@@ -32,3 +32,8 @@ $ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --b
 4. Board name: NodeMCU 1.0 (ESP-12E Module)
 ### Pinout ([image source](https://mechatronicsblog.com/esp8266-nodemcu-pinout-for-arduino-ide/))
 ![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_v2.png?raw=true "NodeMCU_v2")
+### Example
+1. Wire BNO055 compass up with NodeMCU
+![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055_Wiring.jpg?raw=true "Wiring") 
+2. Program BNO055 with this [ino](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055.ino)
+3. Setup a TCP [server](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_Server.ipynb) in LAN to receive sensor readings.
