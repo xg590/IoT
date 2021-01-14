@@ -36,4 +36,7 @@ $ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --b
 1. Wire BNO055 compass up with NodeMCU
 ![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055_Wiring.jpg?raw=true "Wiring") 
 2. Program BNO055 with this [ino](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055.ino)
+    * Don't forget tweak the parameter (WIFI SSID and password). 
 3. Setup a TCP [server](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_Server.ipynb) in LAN to receive sensor readings.
+    * It is a python server.
+    * You may like to adjust rate of sensor reporting in ino. It reports 30 times per second by default. 
