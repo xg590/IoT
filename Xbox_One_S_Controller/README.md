@@ -1,13 +1,3 @@
-## Use Xbox One S Wireless Controller as Input Device on Windows 10
-1) Install [Python](https://www.python.org/) 3.9.1
-2) Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and install it with cmd.
-```cmd
-py get-pip.py
-```
-3) Install pyglet
-```cmd
-pip install pyglet 
-``` 
 ## Use Xbox One S Wireless Controller as Input Device on Linux
 ### Preparation
 1) Disable ERTM (Enhanced Re-Transmission Mode)
@@ -84,3 +74,17 @@ for event in device.read_loop():
 ```
 #### Reference: <br>
 [1] https://core-electronics.com.au/tutorials/using-usb-and-bluetooth-controllers-with-python.html <br> 
+## Use Xbox One S Wireless Controller as Input Device on Windows 10
+1) Install [Python](https://www.python.org/) 3.9.1
+2) Download [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and install it with cmd.
+```cmd
+py get-pip.py
+```
+3) Install pyglet
+```cmd
+pip install pygame 
+```
+4) Run this [script](https://raw.githubusercontent.com/xg590/IoT/master/Xbox_One_S_Controller/win.py) in cmd
+```
+py win.py
+```
