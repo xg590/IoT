@@ -36,7 +36,7 @@ arduino --install-library "Adafruit Unified Sensor"
 ```
 ### Program Arduino Pro/Pro-Mini on PC (Win10)
 #### Install Drivers
-1. Buy a <b>USB to Serial/TTL Adapter</b><br/>
+1. Buy a <b>USB to Serial/TTL Adapter</b> (skip this step if you are for Arduino Nano)<br/>
 What I got is based on chip FT232RL, made by FTDI.
 2. Get the Virtual COM port (VCP) driver<br/>
 Go to driver page of manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and download the <b>CDM v2.12.28 WHQL Certified.zip</b>.
