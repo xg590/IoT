@@ -37,10 +37,11 @@ arduino --install-library "Adafruit Unified Sensor"
 ### Program Arduino on PC (Win10)
 * Prerequisite<br/>
 Buy a <b>USB to Serial/TTL Adapter</b> for Arduino Pro Mini because there is no on-board Serial/TTL convert chip.
-#### Get the Windows version Virtual COM port (VCP) driver for the Serial/TTL convert chip (the chip is either on the arduino board (Uno/Nano) or in the adapter bought for Pro Mini)
-* Convert chip in MY Uno is CH340, so use this [driver](https://github.com/xg590/IoT/raw/master/Arduino/CH341SER.EXE)
-* Chip in my external Serial/TTL Adapter is FT232RL, made by FTDI, so I use this ([driver](https://github.com/xg590/IoT/raw/master/Arduino/CDM%20v2.12.28%20WHQL%20Certified.zip). Or go to manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and check out the latest verion.). 
-#### Use <b>Windows Device Manager</b> to install driver manually and get an additional COM port.
-#### Use Arduino to program 
+* Get the Virtual COM port (VCP) driver for the Serial/TTL convert chip 
+  * The chip is either on the arduino board (Uno/Nano) or in the adapter bought for Pro Mini
+  * Convert chip in MY Uno is CH340, so use this [driver](https://github.com/xg590/IoT/raw/master/Arduino/CH341SER.EXE)
+  * Chip in my external Serial/TTL Adapter is FT232RL, made by FTDI, so I use this ([driver](https://github.com/xg590/IoT/raw/master/Arduino/CDM%20v2.12.28%20WHQL%20Certified.zip). Or go to manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and check out the latest verion.). 
+* Use <b>Windows Device Manager</b> to install driver manually and get an additional COM port.
+* Use Arduino to program 
 ### Reference
 [Arduino manpage](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
