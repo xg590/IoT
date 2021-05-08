@@ -1,4 +1,7 @@
-### Program Arduino on Raspberry Pi (Linux)
+## Table of Contents
+1. [Program Arduino on Raspberry Pi (Linux)](#Linux)  
+1. [Program Arduino on PC (Win10)](#Win10)  
+### Program Arduino on Raspberry Pi (Linux)<a name="Linux"></a>
 #### Install Arduino IDE on Raspberry Pi
 1. Download [ARDUINO IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
 2. Decompress it
@@ -34,9 +37,9 @@ arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board 
 ```shell
 arduino --install-library "Adafruit Unified Sensor"
 ```
-### Program Arduino on PC (Win10)
-* Prerequisite<br/>
-Buy a <b>USB to Serial/TTL Adapter</b> for Arduino Pro Mini because there is no on-board Serial/TTL convert chip.
+### Program Arduino on PC (Win10)<a name="Win10"></a>
+* Prerequisite if you are using Arduino Pro Mini<br/>
+Buy a <b>USB to Serial/TTL Adapter</b> because there is no on-board Serial/TTL convert chip.
 * Get the Virtual COM port (VCP) driver for the Serial/TTL convert chip 
   * The chip is either on the arduino board (Uno/Nano) or in the adapter bought for Pro Mini
   * Convert chip in My Uno is CH340, so use this [driver](https://github.com/xg590/IoT/raw/master/Arduino/CH341SER.EXE)
