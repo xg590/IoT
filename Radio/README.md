@@ -17,12 +17,13 @@ WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station license
   * MHF or U.FL: appears on my M.2 wireless NIC
   * MHF4: appears on GPS breakout
   * RP-SMA: reverse-polarity SubMiniature version A 
-### Antenna 
-5cm to 13cm telescopic antenna x2
-23cm to 1m telescopic antenna x2
-Dipole base with 60cm RG174 cable
-3m RG173 extension cable
-### Network analyzer 
+### Hardware
+#### Antenna
+* 5cm to 13cm telescopic antenna x2
+* 23cm to 1m telescopic antenna x2
+* Dipole base with 60cm RG174 cable
+* 3m RG173 extension cable
+#### Network analyzer 
 [AURSINC NanoVNA Vector Network Analyzer](https://www.amazon.com/gp/product/B07T6LXNTV)
 * NanoVNA body [[Docu](http://nanovna.com/)]
 * Calibration Kit: OPEN | SHORT | 50Ω LOAD  
