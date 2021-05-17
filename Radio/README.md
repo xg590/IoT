@@ -18,20 +18,21 @@ WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station license
   * MHF4: appears on GPS breakout
   * RP-SMA: reverse-polarity SubMiniature version A 
 ### Hardware
-#### Antenna
+#### Dipole antenna [[Amazon](https://www.amazon.com/gp/product/B075445JDF)]
 * 5cm to 13cm telescopic antenna x2
 * 23cm to 1m telescopic antenna x2
 * Dipole base with 60cm RG174 cable
 * 3m RG173 extension cable
-#### Vector Network analyzer 
-[AURSINC NanoVNA Vector Network Analyzer](https://www.amazon.com/gp/product/B07T6LXNTV)
+#### Vector network analyzer [[Amazon](https://www.amazon.com/gp/product/B07T6LXNTV)] 
 * NanoVNA body [[Docu](http://nanovna.com/)]
 * Calibration Kit: OPEN | SHORT | 50Ω LOAD  
 ![alt text](https://github.com/xg590/IoT/raw/master/Radio/calibration_kit.jpg "cal kit")
 * SMA Female to Female Through Connector
-* SMA Male to Male cable x 2 
-### NanoVNA
-* Calibration<br/>
+* SMA Male to Male cable x 2
+#### RTL-SDR [[Amazon](https://www.amazon.com/gp/product/B0129EBDS2)]
+* A usb dongle and it only receive signal
+### NanoVNA Calibration
+* Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done <br/>
 [![Cal](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "Cal")
-  * Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done
-* Measure the frequency characteristics of reflected power and passing power of a high frequency network. 
+### Listen FM radio
+* 93.9MHz target frequency -> 3.2m wavelength -> 1.6m dipole -> 0.8m antenna x2 -> use VNA to measure SWR spectrum from 50~150MHz -> adjust dipole antenna to ensure low SWR around 93.9MHz -> connect to RTL-SDR -> plug it to PC and follow RTL-SDR's [Quick Start Guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/) -> Listen to WNYC-FM through RTL-SDR and check the content with [online version](https://www.wnyc.org/)(4sec delay for online version than realtime FM radio).
