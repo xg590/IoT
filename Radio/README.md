@@ -23,10 +23,15 @@ WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station license
 * 23cm to 1m telescopic antenna x2
 * Dipole base with 60cm RG174 cable
 * 3m RG173 extension cable
-#### Network analyzer 
+#### Vector Network analyzer 
 [AURSINC NanoVNA Vector Network Analyzer](https://www.amazon.com/gp/product/B07T6LXNTV)
 * NanoVNA body [[Docu](http://nanovna.com/)]
 * Calibration Kit: OPEN | SHORT | 50Ω LOAD  
 ![alt text](https://github.com/xg590/IoT/raw/master/Radio/calibration_kit.jpg "cal kit")
 * SMA Female to Female Through Connector
 * SMA Male to Male cable x 2 
+### NanoVNA
+* Calibration<br/>
+[![Cal](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "Cal")
+  * Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done
+* Measure the frequency characteristics of reflected power and passing power of a high frequency network. 
