@@ -30,7 +30,7 @@ WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station license
 * SMA Female to Female Through Connector
 * SMA Male to Male cable x 2
 #### RTL-SDR [[Amazon](https://www.amazon.com/gp/product/B0129EBDS2)]
-* A usb dongle and it only receive signal
+* A usb dongle that only receive signal from 500 kHz to 1.7 GHz. It has up to 3.2 MHz of instantaneous bandwidth (2.4 MHz stable). (HF reception below 24 MHz in direct sampling mode with reduced performance). 
 ### NanoVNA Calibration
 * Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done <br/>
 [![Cal](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "Cal")
