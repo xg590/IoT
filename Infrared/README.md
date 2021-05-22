@@ -41,7 +41,7 @@ void loop() {
 ```
 ##### Sample Result  
 ```
-20:25:00.723 -> P=7 A=0xF483 C=0x17 Raw=0xE817F483
+20:25:00.723 -> P=7 Address=0xF483 Command=0x17 Raw=0xE817F483
 ```
 ### Sender  
 ##### Wiring
@@ -56,9 +56,13 @@ GND <--------> GND
 void setup() {
     IrSender.begin(IR_SEND_PIN, ENABLE_LED_FEEDBACK);
 }
+uint16_t sAddress = 0xF483;
 uint8_t sRepeats = 0;
 void loop() {
-    IrSender.sendNECRaw(0xF00FF483, sRepeats); // Right
+    uint8_t sCommand = 0x28; 
+    IrSender.sendNEC(sAddress, sCommand, sRepeats);
+    // IrSender.sendNECRaw(0xD728F483, sRepeats); 
     delay(3600*1000);
 }
 ```
+// Results for the first loop to: Protocol=NEC Address=0x102 Command=0x34 Raw-Data=0xCB340102 (32 bits)
