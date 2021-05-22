@@ -16,8 +16,9 @@
 ```
 It means the projector remote use NEC protocol send command 0x17 to address 0xF483. This command tell projector to power off. We can clone the ir signal and use an ir led to control projector
 ### Send cloned IR signal to projector.
-* [Here](https://github.com/xg590/IoT/blob/master/Infrared/README.md#sender) is the wiring scheme
-* Code is as wifi_remote.ino
+* [Here](https://github.com/xg590/IoT/blob/master/Infrared/README.md#sender) is the wiring scheme 
+![wifi_remote](https://github.com/xg590/IoT/blob/master/WiFi_Remote/wifi_remote.jpg?raw=true "wifi_remote") 
+* [wifi_remote.ino](https://github.com/xg590/IoT/blob/master/WiFi_Remote/wifi_remote.ino) is the code 
 * As the code runs on WiFi Soc, a http server runs on WLAN.
 * Use GET method to tell WiFi Soc what command we want it to send.
 ```
