@@ -57,7 +57,7 @@ GND <--------> GND (Shorter)
 void setup() {
     IrSender.begin(IR_SEND_PIN, ENABLE_LED_FEEDBACK);
 }
-uint16_t sAddress = 0xF483;
+uint16_t sAddress = 0xF483; // uint16_t sAddress = atoi("62595");
 uint8_t sRepeats = 0;
 void loop() {
     uint8_t sCommand = 0x28; 
