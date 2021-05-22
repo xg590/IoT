@@ -17,7 +17,7 @@ sudo ln -s /home/pi/arduino-1.8.10/arduino /usr/local/bin/arduino
 sudo usermod -aG dialout pi 
 newgrp dialout
 ```
-#### Program Arduino (Test blink) 
+#### Test blink 
 * Connect USB ports on Pi and Arduino Nano 
 ![alt text](https://github.com/xg590/IoT/blob/master/Arduino/Arduino_Nano_Pinout.jpg?raw=true "Nano")
 ```shell
@@ -38,12 +38,12 @@ arduino --upload examples/01.Basics/Blink/Blink.ino --port /dev/ttyUSB0 --board 
 arduino --install-library "Adafruit Unified Sensor"
 ```
 ### Program Arduino on PC (Win10)<a name="Win10"></a>
-* Prerequisite if you are using Arduino Pro Mini<br/>
-Buy a <b>USB to Serial/TTL Adapter</b> because there is no on-board Serial/TTL convert chip.
-* Get the Virtual COM port (VCP) driver for the Serial/TTL convert chip 
-  * The chip is either on the arduino board (Uno/Nano) or in the adapter bought for Pro Mini
-  * Convert chip in My Uno is CH340, so use this [driver](https://github.com/xg590/IoT/raw/master/Arduino/CH341SER.EXE)
-  * Chip in my external Serial/TTL Adapter for Pro Mimi is FT232RL, made by FTDI, so I use this ([driver](https://github.com/xg590/IoT/raw/master/Arduino/CDM%20v2.12.28%20WHQL%20Certified.zip). Or go to manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and check out the latest verion.). 
+* Serial/TTL conversion <br/>
+Pro Mini: Buy a <b>USB to Serial/TTL Adapter</b> because there is no on-board Serial/TTL convert chip.<br/>
+Uno/Nano/micro-usb Nano: There is a on-board convert chip.
+* Install the Virtual COM port (VCP) driver for the Serial/TTL convert chip  
+  * Uno: Chip is CH340, so use this [driver](https://github.com/xg590/IoT/raw/master/Arduino/CH341SER.EXE)
+  * Pro Mimi: Off-board chip is FT232RL, made by FTDI, use this ([driver](https://github.com/xg590/IoT/raw/master/Arduino/CDM%20v2.12.28%20WHQL%20Certified.zip). Or go to manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and check out the latest verion.). 
 * Use <b>Windows Device Manager</b> to install driver manually and get an additional COM port.
 * Use Arduino IDE to program 
 ### Reference
