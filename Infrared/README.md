@@ -1,5 +1,5 @@
 ## Infrared
-### Receiver VS1838B ([Amazon](https://www.amazon.com/gp/product/B06XYNDRGF/))
+### Use receiver VS1838B([Amazon](https://www.amazon.com/gp/product/B06XYNDRGF/)) to decode remote signal
 ##### Specifications:
 * Operating Voltage: 2.7 – 5.5vDC
 * Infrared Frequency: 38kHz 1838 NEC Code
