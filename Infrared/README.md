@@ -43,11 +43,12 @@ void loop() {
 ```
 20:25:00.723 -> P=7 Address=0xF483 Command=0x17 Raw=0xE817F483
 ```
-### Sender  
+### Sender 
+Infrared LED  
 ##### Wiring
 ```
-OUT <-150 Oh->  11
-GND <--------> GND 
+D11 <-150 Oh-> OUT (Longer electrode)
+GND <--------> GND (Shorter)
 ```
 ##### Code
 ```C
