@@ -31,8 +31,11 @@ WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station license
 * SMA Male to Male cable x 2
 #### RTL-SDR [[Amazon](https://www.amazon.com/gp/product/B0129EBDS2)]
 * A usb dongle that only receive signal from 500 kHz to 1.7 GHz. It has up to 3.2 MHz of instantaneous bandwidth (2.4 MHz stable). (HF reception below 24 MHz in direct sampling mode with reduced performance). 
-### NanoVNA Calibration
+### Calibration
 * Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done <br/>
-[![Cal](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "Cal")
+### Measure SWR
+[![SWR](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "SWR")
+### Measure Coax Loss
+[![Loss](http://img.youtube.com/vi/mU71rGUKlBI/0.jpg)](https://www.youtube.com/watch?v=mU71rGUKlBI "Loss")
 ### Listen FM radio
 * 93.9MHz target frequency -> 3.2m wavelength -> 1.6m dipole -> 0.8m antenna x2 -> use VNA to measure SWR spectrum from 50~150MHz -> adjust dipole antenna to ensure low SWR around 93.9MHz -> connect to RTL-SDR -> plug it to PC and follow RTL-SDR's [Quick Start Guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/) -> Listen to WNYC-FM through RTL-SDR and check the content with [online version](https://www.wnyc.org/) (4sec delay for online version than realtime FM radio).
