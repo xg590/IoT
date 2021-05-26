@@ -1,4 +1,5 @@
 ### ESP32-CAM
+![alt text](https://raw.githubusercontent.com/xg590/IoT/master/ESP32S_Cam/pinout.jpg "ESP32S-CAM")
 1. Wiring 
 * Connect I/O_0 with GND to enter download mode.
 * Disconnect I/O_0 with GND when using. Otherwise, the board will boot into download mode and emit "waiting for download" through Serial.
@@ -17,4 +18,8 @@ ESP32      FTDI
 * Board: AI Thinker ESP32-CAM
 * Flash Mode: Doesn't matter
 3. Test example
-Example -> ESP32 -> Camera -> CameraWebServer
+* Example -> ESP32 -> Camera -> CameraWebServer
+* Configure mode, set ssid and password.
+```
+define CAMERA_MODEL_AI_THINKER // Has PSRAM
+```
