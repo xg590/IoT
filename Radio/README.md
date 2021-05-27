@@ -1,12 +1,14 @@
-### Electromagnetic radiation pattern
+### How radio wave transmit
+* Electromagnetic radiation pattern<br/>
 [![EM](http://img.youtube.com/vi/FWCN_uI5ygY/0.jpg)](https://youtu.be/FWCN_uI5ygY "EM")
-### Electromagnetic spectrum 
+### How is band devided 
+* Electromagnetic spectrum 
 ```
         |  HF  |  VHF  |   UHF   |   SHF  |
 f(MHz)  3     30      300       3k       30k
 λ(m)   100    10       1        0.1      0.01
 ```
-### Nearby FM Radio station 
+### Test subject
 WNYC-FM (93.9 MHz) is a non-profit, non-commercial, public radio station licensed to New York City. 
 ### Terminology
 * RG: Radio Guide (Coaxial Cable)
