@@ -1,7 +1,7 @@
 ### Item
 * WeiMeet RFP30N06LE 30A 60V N-Channel Enhancement-mode Power Mosfet TO-220 ESD Rated for Arduino ([Amazon](https://www.amazon.com/gp/product/B07CTF1JVD))
 ### Diagram 
-![Alt text](https://raw.githubusercontent.com/xg590/IoT/master/MOSFET/diagram.svg)
+<img width="400" height="200" src="https://raw.githubusercontent.com/xg590/IoT/master/MOSFET/diagram.svg"></img>
 * S: Source terminal
 * D: Drain terminal
 * G: Gate terminal
