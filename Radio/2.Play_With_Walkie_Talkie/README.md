@@ -7,10 +7,10 @@
 * Play short music clip to MH230R with Yard Stick One
 ### Listen to MH230R with RTL-SDR
 #### MH230R 
-![alt text](https://github.com/xg590/IoT/raw/master/Radio/2.Play_With_Walkie_Talkie/MH230R.jpg "MH230R") 
 * Motorola Two-way walkie talkie MH230R 
 * Operate on GMRS/FRS(General Mobile Radio Service/Family Radio Service) band. 
-* Change its channel to 6 (462.6875 MHz)
+* Change its channel to 6 (462.6875 MHz)<br>
+<img src="https://github.com/xg590/IoT/raw/master/Radio/2.Play_With_Walkie_Talkie/MH230R.jpg" width="80" height="200"></img> 
 #### GMRS/FRS band
 * General Mobile Radio Service/Family Radio Service) band
 ```
