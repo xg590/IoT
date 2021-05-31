@@ -31,12 +31,12 @@ $ ./arduino --port /dev/ttyUSB0 --upload examples/01.Basics/Blink/Blink.ino  --b
 3. Open Boards Manager from Tools > Board menu and install <i>esp8266</i> platform 
 4. Board name: NodeMCU 1.0 (ESP-12E Module)
 ### Pinout ([image source](https://mechatronicsblog.com/esp8266-nodemcu-pinout-for-arduino-ide/))
-![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_v2.png?raw=true "NodeMCU_v2")
+<img src="NodeMCU_v2.png"></img> 
 ### Example
 1. Wire BNO055 compass up with NodeMCU
-![alt text](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055_Wiring.jpg?raw=true "Wiring") 
-2. Program BNO055 with this [ino](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_BNO055.ino)
+<img src="NodeMCU_BNO055_Wiring.jpg"></img> 
+2. Program BNO055 with this [ino](NodeMCU_BNO055.ino)
     * Don't forget tweak the parameter (WIFI SSID and password). 
-3. Setup a TCP [server](https://github.com/xg590/IoT/blob/master/NodeMCU/NodeMCU_Server.ipynb) in LAN to receive sensor readings.
+3. Setup a TCP [server](NodeMCU_Server.ipynb) in LAN to receive sensor readings.
     * It is a python server.
     * You may like to adjust rate of sensor reporting in ino. It reports 30 times per second by default. 

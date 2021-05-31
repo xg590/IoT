@@ -1,5 +1,5 @@
 ### ESP32-CAM
-![alt text](https://raw.githubusercontent.com/xg590/IoT/master/ESP32S_Cam/pinout.jpg "ESP32S-CAM")
+<img src="pinout.jpg"></img>  
 1. Wiring 
 * Connect I/O_0 with GND to enter download mode.
 * Disconnect I/O_0 with GND when using. Otherwise, the board will boot into download mode and emit "waiting for download" through Serial.
