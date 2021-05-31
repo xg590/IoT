@@ -17,7 +17,7 @@
 It means the projector remote use NEC protocol send command 0x17 to address 0xF483. This command tell projector to power off. We can clone the ir signal and use an ir led to control projector
 ### Send cloned IR signal to projector.
 * [Here](https://github.com/xg590/IoT/blob/master/Infrared/README.md#sender) is the wiring scheme 
-![wifi_remote](https://github.com/xg590/IoT/blob/master/WiFi_Remote/wifi_remote.jpg?raw=true "wifi_remote") 
+<img src="wifi_remote.jpg"></img> 
 * [wifi_remote.ino](https://github.com/xg590/IoT/blob/master/WiFi_Remote/wifi_remote.ino) is the code 
 * As the code runs on WiFi Soc, a http server runs on WLAN.
 * Use GET method to tell WiFi Soc what command we want it to send.
@@ -26,7 +26,7 @@ import requests
 requests.get('http://192.168.0.108/irled?cmd=22&delay=5') # Home 
 ```
 ### Command explanation 
-When we decode the ir signal, we know the command is 0x17. It is a hex. How do we send 0x17 over http? We convert the hex (0x17) to decimal (23) before http request, then cast the string "23" back to integer 23 after http.
+After we decoded one ir signal, we know the command is 0x17. It is a hex. How do we send 0x17 over http to the board? We convert the hex (0x17) to decimal (23) before http request, then cast the string "23" back to integer 23 after http.
 ```
 Button      Hex      Dec
 Power       0x17     23
