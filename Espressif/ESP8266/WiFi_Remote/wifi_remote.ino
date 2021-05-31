@@ -4,7 +4,7 @@
 #include <IRremote.h>
 
 #define STASSID "my_wifi_ssid"
-#define STAPSK  "my_wifi_password"
+#define STAPSK  "my_wifi_passwd"
 #define IR_SEND_PIN 15 // Pin number is GPIO number not what printed on the board.
 
 const char* ssid = STASSID;
@@ -19,7 +19,7 @@ void handleRoot() {
   digitalWrite(LED_BUILTIN, HIGH);
 }
 
-void handleIRLED() {
+void handleIRLED() { 
   float dly = .0;
   uint8_t sCommand, sRepeats = 0;
   for (uint8_t i = 0; i < server.args(); i++) {
@@ -77,8 +77,22 @@ void setup(void) {
   Serial.println(WiFi.localIP());
 
   server.on("/", handleRoot);
-  server.on("/irled", handleIRLED);
-
+  server.on("/irled", handleIRLED); // /irled?cmd=13&delay=1
+  server.on("/gotohdmi", []() { 
+    uint8_t sRepeats = 0;
+    digitalWrite(LED_BUILTIN, LOW); 
+    IrSender.sendNEC(0xF483, 0x16, sRepeats);//Home
+    delay(5000);
+    IrSender.sendNEC(0xF483, 0xf, sRepeats);//Right
+    delay(1000);
+    IrSender.sendNEC(0xF483, 0xf, sRepeats);//Right
+    delay(1000);
+    IrSender.sendNEC(0xF483, 0xf, sRepeats);//Right
+    delay(1000);
+    IrSender.sendNEC(0xF483, 0x15, sRepeats);//OK 
+    server.send(200, "text/plain", "Infred signal sent");  
+    digitalWrite(LED_BUILTIN, HIGH);
+  });
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
   });
