@@ -18,7 +18,7 @@ It means the projector remote use NEC protocol send command 0x17 to address 0xF4
 ### Send cloned IR signal to projector.
 * [Here](https://github.com/xg590/IoT/blob/master/Infrared/README.md#sender) is the wiring scheme 
 <img src="wifi_remote.jpg"></img> 
-* [wifi_remote.ino](https://github.com/xg590/IoT/blob/master/WiFi_Remote/wifi_remote.ino) is the code 
+* [wifi_remote.ino](wifi_remote.ino) is the code 
 * As the code runs on WiFi Soc, a http server runs on WLAN.
 * Use GET method to tell WiFi Soc what command we want it to send.
 ```
