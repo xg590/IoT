@@ -7,4 +7,4 @@
 * COM: Common ground
 * NO : Normally open
 ### How it works 
-<img src="inAction"></img> 
+<img src="inAction.gif"></img> 
