@@ -1,2 +1,2 @@
-VCP Driver: CP2102
-Board: T-beam
+* VCP Driver: CP2102
+* Board: T-beam
