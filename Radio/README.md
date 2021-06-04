@@ -12,6 +12,11 @@ f(MHz)  3     30      300       3k       30k
 * FM: Frequency Modulation (Analog Modulation) -- Modulate the frequency of carrier wave according to the amplitude of singal wave. 
 <br/>The modulated wave looks like:<br/>
 <img src='https://upload.wikimedia.org/wikipedia/commons/a/a4/Amfm3-en-de.gif'></img>
+<UL>
+<LI>Information:  V<SUB>m</SUB>(t)
+<LI>Carrier:  V<SUB>c</SUB>(t) = V<SUB>co</SUB> sin ( 2 <FONT FACE="Symbol">p</FONT>f<SUB>c</SUB> t + <FONT FACE="Symbol">f )</FONT>
+<LI>FM:  V<SUB>FM</SUB> (t) = V<SUB>co</SUB> sin (2 <FONT FACE="Symbol">p[</FONT>f<SUB>c</SUB> + (<FONT FACE="Symbol">D</FONT>f/V<SUB>mo</SUB>) V<SUB>m</SUB> (t)<FONT FACE="Symbol"> ] </FONT>t + <FONT FACE="Symbol">f)</FONT>
+</UL>
 * FSK: Frequency-Shift Keying (Digital Modulation) -- Modulate the frequency of carrier wave according the level of digital signal. 
 <br/>The modulated wave looks like:<br/>
 <img src='https://upload.wikimedia.org/wikipedia/commons/3/39/Fsk.svg' width='400' height='500'></img> 
@@ -23,15 +28,3 @@ f(MHz)  3     30      300       3k       30k
   * MHF or U.FL: appears on my M.2 wireless NIC
   * MHF4: appears on GPS breakout
   * RP-SMA: reverse-polarity SubMiniature version A  
-#### Vector network analyzer [[Amazon](https://www.amazon.com/gp/product/B07T6LXNTV)] 
-* NanoVNA body [[Docu](http://nanovna.com/)]
-* Calibration Kit: OPEN | SHORT | 50Ω LOAD  
-![alt text](https://github.com/xg590/IoT/raw/master/Radio/calibration_kit.jpg "cal kit")
-* SMA Female to Female Through Connector
-* SMA Male to Male cable x 2 
-##### Calibration
-* Brief summary: 1. Connect CH0; 2. Calibrate -> Reset -> Calibrate -> (Screw Open cap) Open -> (Screw Short cap) Short -> (Screw Load cap) Load -> (Keep load cap on) Isoln -> Thru -> Done <br/>
-##### Measure SWR
-[![SWR](http://img.youtube.com/vi/QJYeFpiqY8c/0.jpg)](https://www.youtube.com/watch?v=QJYeFpiqY8c "SWR")
-##### Measure Coax Loss
-[![Loss](http://img.youtube.com/vi/mU71rGUKlBI/0.jpg)](https://www.youtube.com/watch?v=mU71rGUKlBI "Loss")
