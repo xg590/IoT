@@ -1,3 +1,12 @@
+# How to play with Arduino board or compatible board.
+1. Get usb-to-uart driver installed
+<br/>The driver enables our PC/Mac/Raspberry_Pi to communicate with the arduino board.
+2. Install Arduino IDE<br/>
+This is where we are going to program the board.
+3. Configure board manager in IDE<br/>
+In case we are playing compatible board, we use board manager to install programming toolchain for them. 
+4. Choose the right board in IDE
+5. Do a blink test
 ## Table of Contents
 1. [Program Arduino on Raspberry Pi (Linux)](#Linux)  
 1. [Program Arduino on PC (Win10)](#Win10)  

@@ -1,3 +1,25 @@
+### Pins
+<img src="connector_pins.jpg"></img>
+### Arduino drives SG90
+```
+#include <Servo.h>
+ 
+const int servo_pin = 2; 
+int pos = 0;       // variable to store the servo position 
+Servo myServo;  // create servo object to control a servo 
+
+void moveToAngle(int angle) {
+  if (angle > pos) {
+    for (pos = 0; pos <= angle; pos += 1) myServo.write(pos);
+  } else {
+    for (pos = 180; pos >= angle; pos -= 1) myServo.write(pos);
+  }
+} 
+
+void setup(void) { 
+  myServo.attach(servo_pin);
+}
+```
 ### PiGPIO to drive SG90
 Library
 ```
