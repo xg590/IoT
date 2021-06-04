@@ -11,9 +11,9 @@
 4. Before feed the demodulated signal to our audio sink (sound card), whose sample rate is 44.1KHz, we need a rational resampler to downsample the signal from 200KHz to 44.1KHz.
 5. Listen to the radio.
 * A Gnu Radio Companion [save file](FM_93.9MHz.grc) is avaiable for this flowchart.
-* Cutoff freq for low-pass filter is a guess value. It is the <UL><FONT FACE="Symbol">D</FONT>f, <I>the peak frequency deviation</I> </UL>of RF signal from many FM stations. It means the freq band we are interested is [93.9MHz-75kHz, 93.9MHz+75kHz] and this band is pass band for our low-pass filter.
+* Cutoff freq 75kHz for low-pass filter is a guess value. It means the freq band we are interested is [93.9MHz-75kHz, 93.9MHz+75kHz] and this band is pass band for our low-pass filter.</br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Butterworth_lowpass.png"></img>
-* Transition width is which freq range we want to attenuate the signal around cutoff freq.
+* Transition width controls the range we want to attenuate the signal around cutoff freq.
 ### Walkie Talkie 
 * Change WBFM receiver to NBFM (narrowband) receiver
 * Tweak the resampler parameters   
