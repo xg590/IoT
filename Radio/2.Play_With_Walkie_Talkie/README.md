@@ -25,9 +25,3 @@
 * Use mouse wheel to tune hardware frequency to 462.6875 MHz 
 * Select Narrow FM mode 
 * Start listen and use walkie talkie to talk
-### Play short music clip to MH230R with Yard Stick One
-#### Hardware
-* Yard Stick One
-   * 
-#### Software (Ubuntu)
-* gnuradio  
