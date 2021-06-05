@@ -1,6 +1,6 @@
 ### T-beam
 * Version: LILYGO® TTGO T-Beam V1.1
-* LoRa: Semtech SX127X (the last digit does not matter)
+* LoRa: Semtech SX1278
 * VCP Driver: CP2102
 * Board name in Arduino IDE: T-beam
 * Official GitHub: https://github.com/Xinyuan-LilyGO/LilyGo-LoRa-Series
@@ -17,3 +17,11 @@
 #define LILYGO_TBeam_V1_1 
 #define LoRa_frequency      433.0
 ``` 
+### Recv.py
+```
+$ pip install pyserial
+import serial
+with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s:
+  while 1:
+    print(s.readline())
+```
