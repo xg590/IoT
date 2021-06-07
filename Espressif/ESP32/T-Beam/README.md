@@ -15,7 +15,7 @@
 * Must uncomment board version and change LoRa_frequency in [utilities.h](utilities.h) 
 ``` 
 #define LILYGO_TBeam_V1_1 
-#define LoRa_frequency      433.0
+#define LoRa_frequency      915.0
 ``` 
 ### Recv.py
 ```
