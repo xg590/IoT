@@ -13,12 +13,12 @@
 #### Software (Ubuntu)
 * Disable the original driver for the dongle and install the RTL-SDR driver 
 ```
+sudo apt install -y rtl-sdr
 echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
-sudo apt install rtl-sdr
 ```
 * Install open source software defined radio receiver
 ```
-sudo apt install gqrx-sdr 
+sudo apt install -y gqrx-sdr 
 ```
 * Use Gqrx
 ```
