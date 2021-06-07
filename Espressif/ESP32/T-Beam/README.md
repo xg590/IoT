@@ -20,8 +20,8 @@
 ### Recv.py
 ```
 $ pip install pyserial
-import serial
+import serial, datetime
 with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s:
   while 1:
-    print(s.readline().decode())
+    print(datetime.datetime.now().strftime("%Y%m%d_%H%M%S"),' | ',s.readline().decode())
 ```
