@@ -9,19 +9,23 @@
 * LoRa is the Physical Layer protocol that supports Network Layer protocol LoRaWAN.
 * LoRa is about RF signal and LoRaWAN addresses MAC/Encryption.
 ### Two libraries in LilyGo-LoRa-Series examples
-* Arduino LoRa is the library for LoRa operations. 
+* Arduino LoRa is the library for LoRa operations.
 * RadioLib supports LoRa operations but intends to include LoRaWAN functions.
 ### Play examples
-* Must uncomment board version and change LoRa_frequency in [utilities.h](utilities.h) 
-``` 
-#define LILYGO_TBeam_V1_1 
+* Must uncomment board version and change LoRa_frequency in [utilities.h](utilities.h)
+```
+#define LILYGO_TBeam_V1_1
 #define LoRa_frequency      915.0
-``` 
+```
+* GPS / OLED / SX1276_Tx are three minimalistic examples that demonstrate how to use different component on T-Beam board.
+* [Tracker](tracker) is the final project that report GPS info via LoRa protocol while display some info on screen.
 ### Recv.py
+* Use LilyGo-LoRa-Series-master/examples/RadioLibExamples/SX1276/SX1276_Receive_Interrupt to program the receiver. 
 ```
 $ pip install pyserial
 import serial, datetime
-with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s:
+with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s, open('tracker.log','w') as fw:
   while 1:
-    print(datetime.datetime.now().strftime("%Y%m%d_%H%M%S"),' | ',s.readline().decode())
+    print(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),' | ',s.readline().decode(), file=fw)
+    fw.flush()
 ```
