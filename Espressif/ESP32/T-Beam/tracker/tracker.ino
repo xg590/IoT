@@ -59,8 +59,8 @@ void loop()
         Serial.println("[  GPS  ] Invalid"); 
     }
     
-    String msg = String(char_vol)+","+String(char_amp)+","+ 
-                 String(char_latLng)+","+String(char_timestamp)+","+String(char_sat);
+    String msg = String(char_vol)+"|"+String(char_amp)+"|"+ 
+                 String(char_latLng)+"|"+String(char_timestamp)+"|"+String(char_sat);
     Serial.println(String("[  MSG  ] ")+msg);
     
     int state = radio.transmit(msg);
