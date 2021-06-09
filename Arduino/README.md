@@ -1,31 +1,33 @@
-# How to play with Arduino board or compatible board.
-1. Get usb-to-uart driver installed
-<br/>The driver enables our PC/Mac/Raspberry_Pi to communicate with the arduino board.
+## Play with Arduino board or compatible board on Windows.
+1. Get usb-to-uart driver installed<br/>
+The driver enables our PC to communicate with the board.
 2. Install Arduino IDE<br/>
 This is where we are going to program the board.
 3. Configure board manager in IDE<br/>
 In case we are playing compatible board, we use board manager to install programming toolchain for them. 
 4. Choose the right board in IDE
 5. Do a blink test
-## Table of Contents
-1. [Program Arduino on Raspberry Pi (Linux)](#Linux)  
-1. [Program Arduino on PC (Win10)](#Win10)  
-### Program Arduino on Raspberry Pi (Linux)<a name="Linux"></a>
-#### Install Arduino IDE on Raspberry Pi
-1. Download [ARDUINO IDE / Linux ARM 32 bits](https://www.arduino.cc/en/Main/Software)
-2. Decompress it
-```shell
-tar Jxvf arduino-1.8.10-linuxarm.tar.xz
+## Use Arduino-CLI to program compatible board (Ubuntu 20.04)
 ```
-3. Create a shortcut
-```shell
-sudo ln -s /home/pi/arduino-1.8.10/arduino /usr/local/bin/arduino
-```
-3. Setup right permission of accessing /dev/ttyUSB0
-```shell 
-sudo usermod -aG dialout pi 
+wget arduino-cli_0.18.3_Linux_64bit.tar.gz
+tar zxvf arduino-cli_0.18.3_Linux_64bit.tar.gz
+sudo mv arduino-cli /usr/local/bin/arduino-cli 
+arduino-cli core install esp8266:esp8266 --additional-urls https://arduino.esp8266.com/stable/package_esp8266com_index.json   
+mkdir /tmp/blink
+cat << EOF > /tmp/blink/blink.ino
+void setup() { pinMode(LED_BUILTIN, OUTPUT); }
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH); delay(1000);  
+  digitalWrite(LED_BUILTIN,  LOW); delay(1000);  
+}
+EOF
+arduino-cli compile --fqbn esp8266:esp8266:d1_mini /tmp/blink
+sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-cli 
 newgrp dialout
+arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn esp8266:esp8266:d1_mini 
 ```
+## Table of Contents 
+1. [Program Arduino on PC (Win10)](#Win10)   
 #### Test blink 
 * Connect USB ports on Pi and Arduino Nano 
 ![alt text](https://github.com/xg590/IoT/blob/master/Arduino/Arduino_Nano_Pinout.jpg?raw=true "Nano")
