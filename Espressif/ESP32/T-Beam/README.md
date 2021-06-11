@@ -29,3 +29,9 @@ with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s, open('tracker.log'
     print(datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),' | ',s.readline().decode(), file=fw)
     fw.flush()
 ```
+###
+```
+arduino-cli compile --fqbn esp32:esp32:t-beam $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive && arduino-cli upload  --fqbn esp32:esp32:t-beam -p /dev/ttyUSB2 $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive  
+
+arduino-cli compile --fqbn esp32:esp32:t-beam $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Transmit && arduino-cli upload  --fqbn esp32:esp32:t-beam -p /dev/ttyUSB1 $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Transmit
+```
