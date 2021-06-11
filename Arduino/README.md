@@ -26,6 +26,9 @@ sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn esp8266:esp8266:d1_mini 
 ```
+```
+arduino-cli board listall
+```
 ## Table of Contents 
 1. [Program Arduino on PC (Win10)](#Win10)   
 #### Test blink 
