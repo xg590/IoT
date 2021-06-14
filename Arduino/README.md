@@ -36,7 +36,7 @@ digitalWrite( 1, LOW);  // sets the digital pin 1 off
 * You would risk to fry the sensor if there is a mismatch 
 * BTW, raspberry pi's GPIO pins are 5v.
 * Use a logic level converter to step down the voltage for fragile sensor.
-### Program the board on Raspberry Pi? Arduino-CLI is here for help. (#Arduino-CLI) 
+### Program the board on Raspberry Pi? Arduino-CLI is here for help. <a name="Arduino-CLI"></a>
 1. Download the tool
 ```
 wget arduino-cli_0.18.3_Linux_64bit.tar.gz && tar zxvf 
