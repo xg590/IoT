@@ -31,11 +31,12 @@ digitalWrite(A1, HIGH); // sets the analog pin 1 on
 digitalWrite( 1, LOW);  // sets the digital pin 1 off
 ``` 
 ### 3.3v board and 5v board
-* Among Uno, Nano and Pro Mini, only Pro Mini has the 3.3v version, which means the GPIO pins operate at between 0~3.3v (voltage)
-* Some sensors (loads) need 5V voltage to power but communicates with the board on a 3.3v logic level
+* Arduino board's GPIOs are generally 5v.
+* Among Uno, Nano and Pro Mini, only Pro Mini has the 3.3v version, which means the GPIO pins operate at between 0~3.3v (voltage). 
+* Some sensors (loads) need 5V voltage to power but communicates with arduino board on a 3.3v logic level
 * You would risk to fry the sensor if there is a mismatch 
-* BTW, raspberry pi's GPIO pins are 5v.
 * Use a logic level converter to step down the voltage for fragile sensor.
+* BTW, [raspberry pi's GPIO pins are 3.3v](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md). So if you want your Pi talk to arduino via uart interface, use a logic level converter as well.
 ### Program the board on Raspberry Pi? Arduino-CLI is here for help. <a name="Arduino-CLI"></a>
 1. Download the tool
 ```
@@ -67,4 +68,4 @@ arduino-cli compile /tmp/blink --fqbn arduino:avr:nano
 sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-cli 
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
-```
+``` 
