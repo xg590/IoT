@@ -1,32 +1,33 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h> 
-
-#ifndef STASSID
-#define STASSID "ssid"
-#define STAPSK  "passwd"
-#endif
+#include "/etc/wifi_secret.h" /* 
+cat << EOF > /etc/wifi_secret.h
+#define STASSID "widi_ssid"
+#define STAPSK  "wifi_passwd"
+EOF
+*/ 
 
 const char *ssid = STASSID;
 const char *password = STAPSK;
 const int  switch_pin = 0;
+int switch_flag = 0;
 
 ESP8266WebServer server(80);
     
 void _switch() {  
-  int val = 0;
-  for (uint8_t i = 0; i < server.args(); i++) {
-    if (server.argName(i)=="status") {
-      if (server.arg(i)=="on") {
-        val = 1;
-      } else {
-        val = 0;
-      } 
-    }  
-  }
-  server.send(200, "text/plain", "switch");
+  String s = "<!DOCTYPE html><html><head><title>Light Switch</title></head><body>This switch is ";
+  if (switch_flag) {
+    switch_flag = 0;
+    s += "OFF, click <a href=\"switch\">here</a> to turn it ON";
+  } else {
+    switch_flag = 1;
+    s += "ON, click <a href=\"switch\">here</a> to turn it OFF";
+  } 
+  s += "</body></html>";
+  server.send(200, "text/html", s);
   
-  digitalWrite(switch_pin, val);
+  digitalWrite(switch_pin, switch_flag);
   digitalWrite(LED_BUILTIN, 0);
   delay(500);
   digitalWrite(LED_BUILTIN, 1);
@@ -59,6 +60,7 @@ void setup(void) {
   digitalWrite(LED_BUILTIN, 1);
   digitalWrite(switch_pin, 0);
   Serial.begin(115200);
+  Serial.println("STASSID");
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("");
