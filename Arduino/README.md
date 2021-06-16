@@ -74,4 +74,8 @@ sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
 ``` 
+### C++ note 
+```
+uint8_t = atof(String.c_str()) // Convert String to int
 
+```
