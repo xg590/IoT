@@ -23,10 +23,10 @@
 * For example, I2C pins are A4/A5 on Arduino Nano
 * Uno<br/><img src="pinout/Uno.svg"></img>
 * Nano
-  * Vin: Accepts 6~12V unregulated power source
-  * 5V : Accepts 5V regulated power source<br/><img src="pinout/Nano.png"></img>
+  * Vin: Accepts 6~12V unregulated external power source
+  * 5V : Emits 5V regulated power<br/><img src="pinout/Nano.png"></img>
 * Pro Mini
-  * RAW: Accepts 6~12V unregulated power source
+  * RAW: Accepts 6~12V unregulated external power source
   * VCC: Accepts 5V regulated power source<br/><img src="pinout/Pro_Mini.png"></img>
 ### Analog pin and digital pin in Arduino IDE
 * In Arduino IDE, use A1 to indicate an analog pin, and use 1 to indicate a digital pin
