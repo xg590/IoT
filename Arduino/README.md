@@ -24,7 +24,8 @@
 * Uno<br/><img src="pinout/Uno.svg"></img>
 * Nano
   * Vin: Accepts 6~12V unregulated external power source
-  * 5V : Emits 5V regulated power<br/><img src="pinout/Nano.png"></img>
+  * 5V : Accepts 5V regulated power source 
+  * 5V : Also, emits 5V regulated power<br/><img src="pinout/Nano.png"></img>
 * Pro Mini
   * RAW: Accepts 6~12V unregulated external power source
   * VCC: Accepts 5V regulated power source<br/><img src="pinout/Pro_Mini.png"></img>
