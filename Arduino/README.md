@@ -22,8 +22,12 @@
 * We need a pinout map to find special GPIO pins on each board
 * For example, I2C pins are A4/A5 on Arduino Nano
 * Uno<br/><img src="pinout/Uno.svg"></img>
-* Nano<br/><img src="pinout/Nano.jpg"></img>
-* Pro Mini<br/><img src="pinout/Pro_Mini.png"></img>
+* Nano
+  * Vin: Accepts 6~12V unregulated power source
+  * 5V : Accepts 5V regulated power source<br/><img src="pinout/Nano.png"></img>
+* Pro Mini
+  * RAW: Accepts 6~12V unregulated power source
+  * VCC: Accepts 5V regulated power source<br/><img src="pinout/Pro_Mini.png"></img>
 ### Analog pin and digital pin in Arduino IDE
 * In Arduino IDE, use A1 to indicate an analog pin, and use 1 to indicate a digital pin
 ```
@@ -69,3 +73,4 @@ sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
 ``` 
+
