@@ -27,3 +27,7 @@ FM:  V<SUB>FM</SUB> (t) = V<SUB>co</SUB> sin (2 π [f <SUB>c</SUB> + (Δf/V<SUB>
   * MHF or U.FL: appears on my M.2 wireless NIC
   * MHF4: appears on GPS breakout
   * RP-SMA: reverse-polarity SubMiniature version A  
+* Link Budget: How the energy of EM Wave dissipates during the transmition
+  * <br/>
+  * [Image Credit](https://academy.infinetwireless.com/en/online-education/wireless-networking-fundamentals/8)
+<img src="budget.png"></img>
