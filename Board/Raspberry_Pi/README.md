@@ -1,15 +1,15 @@
 
 ### Setup Raspberry Pi 
-1. Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
+1) Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
 https://downloads.raspberrypi.org/raspbian_latest 
-2. Write the img or iso of Raspbian to an empty 8GB+ Micro SD card. <br>
+2) Write the img or iso of Raspbian to an empty 8GB+ Micro SD card. <br>
 https://www.raspberrypi.org/documentation/installation/installing-images/<br>
 Using rufus in Windows: https://rufus.ie/<br>
 Using dd in Linux: dd bs=4M if=2018-11-13-raspbian-stretch.img of=/dev/sdX conv=fsync
-3. Configure SSH and WIFI so the SBC could be accessed remotely few minites after booting up.<br>
-A new partition named "Boot" appeared after the Raspbian was written to the Micro SD card. Two files should be created in that partition. 
-  - 3.1 Create an empty file named "ssh" 
-  - 3.2 Create a file named "wpa_supplicant.conf" and the content should be like
+3) Configure SSH and WIFI so the SBC (single-board computer) could be accessed remotely few minites after booting up.
+* A new partition named "Boot" appeared after the Raspbian was written to the Micro SD card. Two files should be created in that partition. 
+  * 3.1 Create an empty file named "ssh" 
+  * 3.2 Create a file named "wpa_supplicant.conf" and the content should be like
 ```shell
   ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
   network={
@@ -20,7 +20,7 @@ A new partition named "Boot" appeared after the Raspbian was written to the Micr
 ```
 Caution: The 'NewLine Character' in wpa_supplicant.conf should follow Unix convention.  
 
-4. Dealing with NYU WiFi. Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
+4) Dealing with NYU WiFi. Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
 I have the access to NYU Wireless service, which is protected by the wpa-enterprise protocol. Here is how I configure my Raspberry Pi. <br>
 Edit the /etc/wpa_supplicant/wpa_supplicant.conf and add a new network configuration <br>
 ```shell
@@ -50,15 +50,4 @@ allow-hotplug wlan0
 iface wlan0 inet manual
     pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
     post-down killall -q wpa_supplicant
-```
-Useful commands
-```
-sudo apt install -y screen python3-pip
-pip3 install jupyter
-mkdir ~/.jupyter
-cat << EOF >> ~/.jupyter/jupyter_notebook_config.py
-c.NotebookApp.ip = '0.0.0.0'
-c.NotebookApp.port = 8888
-c.NotebookApp.password = 'sha1:ffed18eb1683:ee67a85ceb6baa34b3283f8f8735af6e2e2f9b55'
-EOF
 ```
