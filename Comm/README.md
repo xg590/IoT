@@ -32,7 +32,9 @@
 ```
 ### Wireless protocol: LoRa
 * LoRa: Long Range communication
-  * Spreading Factor: The frequency of digital signal is fixed. But LoRa use CSS (Chirp Spread Spectrum) tech to modulate it. The frequency of modulated signal spreads across a broad spectrum. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
+* A practical analog singal is typically not pure in frequency. For example, our voice is a combination of sine waves. If we do a fourier transform, we will see a frequency specturm. If our voice undergoes the frequency modulation, the modulated signal will produce a frequency specturm as well. 
+* The frequency of digital signal is fixed. When we send out a message, it is digitally coded in a sequence of 0 and 1. The frequency of this sequence is fixed. We choose to frequency-modulate it and get a modulated analog signal. This modulated signal varies in frequency. The frequency of frequency varying is determined by Spreading factor.
+  * Spreading Factor:  But LoRa use CSS (Chirp Spread Spectrum) tech to modulate it. The frequency of modulated signal spreads across a broad spectrum. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
   * Bandwidth
   * Coding Rate: Code Rate is the degree of redundancy implemented by the forward error correction (FEC)
 used to detect errors and correct them
