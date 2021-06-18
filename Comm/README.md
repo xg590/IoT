@@ -1,6 +1,6 @@
 ### Wired protocols: UART / I2C / SPI
 * A master device (micro-controller or micro-processor) can use them to talk with a slave module (a sensor breakout or whatever)
-* For example: Many sensor communicates with Arduino Pro Mini via I2C and UART. Arduino Pro Mini reports to Raspberry Pi through UART interface. This will save a lot of pins and processing power of Raspberry Pi. This scheme is used on my IoT-Rover project.
+* For example: My sensors communicates with Arduino Pro Mini via I2C and UART. But Arduino Pro Mini reports to Raspberry Pi through UART interface. This will save a lot of pins and processing power of Raspberry Pi. This scheme is used on my IoT-Rover project.
 * UART Pins
   * RX: Receive
   * TX: Transmit
@@ -32,10 +32,10 @@
 ```
 ### Wireless protocol: LoRa
 * LoRa: Long Range communication
-* A practical analog singal is typically not pure in frequency. For example, our voice is a combination of sine waves. If we do a fourier transform, we will see a frequency specturm. If our voice undergoes the frequency modulation, the modulated signal will produce a frequency specturm as well. 
-* The frequency of digital signal is fixed. When we send out a message, it is digitally coded in a sequence of 0 and 1. The frequency of this sequence is fixed. We choose to frequency-modulate it and get a modulated analog signal. This modulated signal varies in frequency. The frequency of frequency varying is determined by Spreading factor.
-  * Spreading Factor:  But LoRa use CSS (Chirp Spread Spectrum) tech to modulate it. The frequency of modulated signal spreads across a broad spectrum. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
-  * Bandwidth
+* A practical analog singal is typically not pure in frequency. For example, our voice is a combination of sine waves. If we do a fourier transform, we will see a broad frequency specturm. If our voice undergoes the frequency modulation, the modulated signal will produce a frequency specturm as well. 
+* When we send out a message, it is digitally coded by our microprocessor/microcontroller in a sequence of 0 and 1. The frequency of this sequence is fixed. This sequence then goes through LoRa module, where it undergoes frequency modulation and a modulated analog signal leaves transmitter antenna. This modulated signal varies in frequency. The signal spreads across frequency domain. The frequency of <i>frequency varying</i> is determined by Spreading factor.
+  * Spreading Factor: LoRa use CSS (Chirp Spread Spectrum) tech to modulate the digital signal. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
+  * Bandwidth: Varying range of modulated signal on frequency domain.
   * Coding Rate: Code Rate is the degree of redundancy implemented by the forward error correction (FEC)
 used to detect errors and correct them
-  * Programmed Preamble: LoRa 
+  * Preamble: The modulated signal begins with repeated wave pattern.   
