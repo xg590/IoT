@@ -1,6 +1,7 @@
 ### ESP32-CAM
 <img src="pinout.jpg"></img>  
 1. Wiring 
+* Baudrate: 115200
 * Connect I/O_0 with GND to enter download mode.
 * Disconnect I/O_0 with GND when using. Otherwise, the board will boot into download mode and emit "waiting for download" through Serial.
 ```
