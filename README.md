@@ -5,10 +5,10 @@
   * ESP8266 
   * ESP32
 * Communication
-  * LoRa: 
-  * Radio
   * I2C, SPI, UART
+  * LoRa
   * Infra-red
+  * Radio
 * Motion
   * Motor: DRV8833 / PCA9685+TB6612 
   * Servo
