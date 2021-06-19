@@ -67,39 +67,7 @@ cd arduino-1.8.12/
 ./arduino --install-library "Adafruit BNO055"
 ./arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload bno055.ino
 # Warning: Unexpected conflict between .ino files in the same directory may occur, so keep .ino file in an isolated directory if you only need one. 
-```
-##### Content of <i>bno055.ino</i>
-```cpp
-#include <SoftwareSerial.h>  
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BNO055.h>
-
-Adafruit_BNO055 i2c = Adafruit_BNO055(55, 0x29); 
-
-void setup(void) {
-  Serial.begin(115200); 
-  i2c.begin(); // compass
-  delay(1000);
-}
-
-void loop() {  
-  gy_bno055(); 
-  delay(1000);
-} 
-
-static void gy_bno055() {
-  sensors_event_t bno;
-  i2c.getEvent(&bno, Adafruit_BNO055::VECTOR_EULER); 
-  Serial.print(i2c.getTemp());
-  Serial.print(',');
-  Serial.print(bno.orientation.x);
-  Serial.print(',');
-  Serial.print(bno.orientation.y);
-  Serial.print(',');
-  Serial.print(bno.orientation.z);  
-  Serial.println();  
-} 
-```
+``` 
 #### Read out from Raspberry Pi
 After programming, arduino is reset and start to throw out sensor reading via serial port <i>/dev/ttyUSB0</i> 
 ```python
