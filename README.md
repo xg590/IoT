@@ -18,4 +18,4 @@
 * Sensor
   * GPS: [NEO-6M](Sensor/NEO-6M)
   * Compass: [BNO055](Sensor/BNO055) / MPU-6050  
-  * Datalog; [SD Card Reader](Sensor/SD_Card/ESP8266)
+  * Datalog; [SD Card Reader](Sensor/SD_Card)
