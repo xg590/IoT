@@ -1,9 +1,10 @@
 #include "Adafruit_SHT4x.h"
 Adafruit_SHT4x sht4 = Adafruit_SHT4x();
-int sensorPin = A0;    
- 
+int sensorPin = A0, switch_pin=14;    
+
 void setup() {
   pinMode(sensorPin, INPUT);
+  pinMode(switch_pin, OUTPUT);
   
   Serial.begin(115200); 
   while (!Serial)
@@ -58,9 +59,14 @@ void setup() {
      case SHT4X_LOW_HEATER_100MS: 
        Serial.println("Low heat for 0.1 second");
        break;
-  }
-  
-} 
+  } 
+}  
+
+void kvm() { 
+  digitalWrite(switch_pin, HIGH);
+  delay(100);
+  digitalWrite(switch_pin, LOW);
+}
 
 void loop() {   
   sensors_event_t humidity, temp; 
