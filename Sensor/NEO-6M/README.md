@@ -1,3 +1,6 @@
+### Pins
+VCC: 3.3V , consume 45mA 
+RX, Tx: 3.3V
 ### X86 / ARM 
 * Connect GPS breakout to Raspberry Pi
 * Use Python packages to read and process data 
