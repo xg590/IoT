@@ -1,23 +1,25 @@
 ### Common boards
-* Arduino Uno
-* Arduino Nano
-* Arduino Pro Mini 
+* Arduino Uno / Nano / Pro Mini
 ### Get Started
-* [Windows Caveat] Install the Virtual COM port (VCP) driver for the <b>USB to serial/TTL adapter</b> 
-   * Uno: Adapter chip is CH340, so use this [driver](driver/CH341SER.EXE)
-   * Pro Mimi: My off-board chip is FT232RL, made by FTDI, use this [driver](driver/CDM%20v2.12.28%20WHQL%20Certified.zip). (Or go to manufacturer [FTDI](https://www.ftdichip.com/Drivers/VCP.htm) and check out the latest verion.) Use <b>Windows Device Manager</b> to install driver manually and get an additional COM port.
+* Install a bridge driver of if you are using Windows.
+   * PC (Windows) supports USB communication but Arduino board does not. 
+   * There should be a USB-to-UART Bridge between PC and Arduino.
+     * Uno / Nano has on-board bridge chip while Pro Mini does not
+     * The bridge chip varies by board. (My Uno / Nano clones has CH341. I cannot guarantee for the genuine Arduino)
+   * Install the bridge chip driver on PC, which creates a Virtual COM port (VCP) for communication.
+     </br> <img src="driver/COM_6.png"></img> 
+     * Uno / Nano: Use this [CH341 driver](driver/CH341SER.EXE) 
+     * Pro Mini: Look down for a dedicated section  
 * Install Arduino IDE
 * Choose the right board in IDE
+  * There is a set of parameters for each arduino board, choosing the right one is the key. 
 * Try a blink test 
 ### Pro Mini
-* Pro Mini is the smallest Arduino board
-* It is too small that it does not have the <b>USB to serial/TTL adapter</b> on board while others have. Buy one!  
-* To connect usb-to-serial adapter and Arduino Pro Mini, GND, VCC, RX, TX, and DTR (Data Terminal Ready) should be all connected.
-### USB to serial/TTL adapter
-* Our PC cannot talk to the micro-controller on arduino board directly and we need an adapter as a translator
-* The translator need proper driver to function 
-### Choose board in IDE
-* There is a set of parameters for each arduino board, choosing the right one is the key.
+* Pro Mini is the smallest Arduino board 
+* Bought an adapter, which has a FTDI-made FT232RL bridge chip.
+* use this [FT232RL driver](driver/CDM%20v2.12.28%20WHQL%20Certified.zip) or download from [FTDI](https://www.ftdichip.com/Drivers/VCP.htm).
+* Use <b>Windows Device Manager</b> to install the driver manually. 
+* To connect the adapter and Arduino Pro Mini, GND, VCC, RX, TX, and DTR (Data Terminal Ready) should be all connected. 
 ### Pinout
 * We need a pinout map to find special GPIO pins on each board
 * For example, I2C pins are A4/A5 on Arduino Nano
@@ -77,5 +79,4 @@ arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano
 ### C++ note 
 ```
 uint8_t = atof(String.c_str()) // Convert String to int
-
 ```
