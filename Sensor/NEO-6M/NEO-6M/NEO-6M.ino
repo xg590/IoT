@@ -1,61 +1,63 @@
-/*
-sudo ln -s /home/pi/arduino-1.8.12/arduino /usr/local/bin/arduino
-arduino --install-library "Adafruit Unified Sensor"
-arduino --install-library "Adafruit BNO055"
-arduino --install-library TinyGPS
-arduino --board arduino:avr:uno --port /dev/ttyUSB0 --upload sensor.ino
+#include <SoftwareSerial.h> 
+#include <TinyGPS.h> 
 
-import serial
-with serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=2) as s:
-    while 1: print(s.readline())
+/*
+This is for Arduino, not for ESP8266.
 */
 
-#include <TinyGPS.h> 
-#include <SoftwareSerial.h>  
-#include <Wire.h>
 
-TinyGPS tinygps;
-SoftwareSerial uart(0, 1); 
+TinyGPS gps; // create gps object 
 
-void setup(void) {
-  Serial.begin(115200);
-  uart.begin(9600); // gps 
-  delay(1000);      // delay for compass
-}
+const int GPS_Rx = 2, GPS_Tx = 13;
+const int reportInterval = 1000; // millisecond
 
-void loop() { 
-  gy_neo6mv2();  
-  delay(1000);
-}
+SoftwareSerial  gps_uart( GPS_Rx,  GPS_Tx); 
 
-static void gy_neo6mv2() {
-  while (uart.available()) {
-    char c = uart.read(); 
-    tinygps.encode(c); 
-  } 
-    
-  float lat, lon; unsigned long _; 
-  gps.f_get_position(&lat, &lon, &_); 
-  if (lat                != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" lat|") ; Serial.print(lat                );}
-  if (lon                != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" lon|") ; Serial.print(lon                );}
-  if (gps.f_altitude()   != TinyGPS::GPS_INVALID_F_ALTITUDE) { Serial.print(" alt|") ; Serial.print(gps.f_altitude()   );}
-  if (gps.f_course()     != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" cus|") ; Serial.print(gps.f_course()     );}
-  if (gps.f_speed_kmph() != TinyGPS::GPS_INVALID_F_SPEED   ) { Serial.print(" spd|") ; Serial.print(gps.f_speed_kmph() );}
-  if (gps.satellites()   != TinyGPS::GPS_INVALID_SATELLITES) { Serial.print(" sat|") ; Serial.print(gps.satellites()   );} 
-  print_date(gps);
-  Serial.println(); 
+void setup(){ 
+     Serial.begin(115200); // connect serial  
+   gps_uart.begin(  9600); // connect gps sensor 
 } 
  
-static void print_date(TinyGPS &gps)
-{
-  int year;
-  byte month, day, hour, minute, second, hundredths;
-  unsigned long age; // A varible defined by Library author
-  gps.crack_datetime(&year, &month, &day, &hour, &minute, &second, &hundredths, &age);
-  if (age != TinyGPS::GPS_INVALID_AGE) {
-    char sz[32];
-    sprintf(sz, " ts|%02d-%02d-%02dT%02d:%02d:%02d",
-        year, day, month, hour, minute, second); 
-    Serial.print(sz);
-  }  
-} 
+unsigned long lastReportTime = millis();
+void loop(){  
+    while (gps_uart.available()) { //  a new sentence is correctly encoded.
+        int r = gps_uart.read();
+        gps.encode(r);
+        //Serial.println(r); 
+    }
+    if (millis() - lastReportTime < reportInterval) return;
+    lastReportTime = millis(); 
+
+    char latLng[32] = "\"LL\":\"N/A\"";
+    float lat, lng; unsigned long _;
+    gps.f_get_position(&lat, &lng, &_); 
+    if (lat != TinyGPS::GPS_INVALID_F_ANGLE && lng != TinyGPS::GPS_INVALID_F_ANGLE) {  
+      sprintf(latLng, "\"LL\":\"%d.%07ld,%d.%07ld\"", 
+                      int(lat), abs(long(lat*10000000)) % 10000000, 
+                      int(lng), abs(long(lng*10000000)) % 10000000);  
+    } 
+
+    char sat[16] = "\"Sat\":\"N/A\"";
+    if (gps.satellites() != TinyGPS::GPS_INVALID_SATELLITES) { sprintf(sat, "\"Sat\":\"%02d\"", gps.satellites()); } 
+    /*
+    if (gps.f_altitude()   != TinyGPS::GPS_INVALID_F_ALTITUDE) { Serial.print(" alt|") ; Serial.print(gps.f_altitude()   );}
+    if (gps.f_course()     != TinyGPS::GPS_INVALID_F_ANGLE   ) { Serial.print(" cus|") ; Serial.print(gps.f_course()     );}
+    if (gps.f_speed_kmph() != TinyGPS::GPS_INVALID_F_SPEED   ) { Serial.print(" spd|") ; Serial.print(gps.f_speed_kmph() );}
+     */
+ 
+    char timestamp[32] = "\"TS\":\"N/A\"";
+    int year; byte month, day, hour, minute, second, hundredths; unsigned long age; // A varible defined by Library author
+    gps.crack_datetime(&year, &month, &day, &hour, &minute, &second, &hundredths, &age);
+    if (age != TinyGPS::GPS_INVALID_AGE) {
+      sprintf(timestamp, "\"TS\":\"%02d-%02d-%02dT%02d:%02d:%02dZ\"", year, month, day, hour, minute, second); 
+    } 
+
+    // size_t len = strlen(chararray);
+      
+    int msg_len = 4;
+    msg_len += strlen(timestamp);  
+    msg_len += strlen(sat); 
+    msg_len += strlen(latLng);
+    String msg = "AT+SEND=0," + String(msg_len) +",{"+String(timestamp)+","+String(sat)+","+String(latLng)+"}\r\n";
+    Serial.println(msg);  
+}  
