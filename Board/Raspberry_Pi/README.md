@@ -1,4 +1,6 @@
-
+### Pinout
+* All the same across boards</br>
+<img src="Raspberry_Pi_Pinout.png"></img>
 ### Setup Raspberry Pi 
 1) Download the Operating System "Raspbian" (I prefer the Raspbian Stretch with desktop)<br>
 https://downloads.raspberrypi.org/raspbian_latest 
