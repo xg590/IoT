@@ -2,14 +2,16 @@
 * Arduino Uno / Nano / Pro Mini
 ### Get Started
 * Install a bridge driver of if you are using Windows.
-   * PC (Windows) supports USB communication but Arduino board does not. 
+   * PC (Windows) supports USB communication protocol but Arduino board does not. 
+   * Instead, Arduino supports UART communication. 
    * There should be a USB-to-UART Bridge between PC and Arduino.
      * Uno / Nano has on-board bridge chip while Pro Mini does not
      * The bridge chip varies by board. (My Uno / Nano clones has CH341. I cannot guarantee for the genuine Arduino)
    * Install the bridge chip driver on PC, which creates a Virtual COM port (VCP) for communication.
-     </br> <img src="driver/COM_6.png"></img> 
      * Uno / Nano: Use this [CH341 driver](driver/CH341SER.EXE) 
-     * Pro Mini: Look down for a dedicated section  
+     * Pro Mini: Look down for a dedicated section
+   * Check Windows Device Manager and see the new COM port 
+     </br> <img src="driver/COM_6.png"></img> 
 * Install Arduino IDE
 * Choose the right board in IDE
   * There is a set of parameters for each arduino board, choosing the right one is the key. 
@@ -45,38 +47,6 @@ digitalWrite( 1, LOW);  // sets the digital pin 1 off
 * You would risk to fry the sensor if there is a mismatch 
 * Use a logic level converter to step down the voltage for fragile sensor.
 * BTW, [raspberry pi's GPIO pins are 3.3v](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md). So if you want your Pi talk to arduino via uart interface, use a logic level converter as well.
-### Program the board on Raspberry Pi? Arduino-CLI is here for help. <a name="Arduino-CLI"></a>
-1. Download the tool
-```
-wget arduino-cli_0.18.3_Linux_64bit.tar.gz && tar zxvf 
-sudo mv arduino-cli /usr/local/bin/
-```
-2. Install compile platform of Arduino board family
-```
-arduino-cli core install arduino:avr
-```
-3. What kind of board we can program now?
-```
-arduino-cli board listall # You will see FQBN
-```
-4. Compile the blink test
-```
-mkdir /tmp/blink
-cat << EOF > /tmp/blink/blink.ino
-void setup() { pinMode(LED_BUILTIN, OUTPUT); }
-void loop() {
-  digitalWrite(LED_BUILTIN, HIGH); delay(1000);  
-  digitalWrite(LED_BUILTIN,  LOW); delay(1000);  
-}
-EOF
-arduino-cli compile /tmp/blink --fqbn arduino:avr:nano 
-```
-5. Permit arduino-cli to upload
-```
-sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-cli 
-newgrp dialout
-arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
-``` 
 ### C++ note 
 ```
 uint8_t = atof(String.c_str()) // Convert String to int
