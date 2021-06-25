@@ -4,7 +4,7 @@
 /* 
  radio.begin: Setup radio
  radio.setDio0Action: set an interrupt service routine to call when a valid packet is received
- radio.readData: It works after an interrupt changes receivedFlag
+ radio.readData: It works only after an interrupt changes receivedFlag from false to true.
  */
 
 SX1276 radio = new Module(RADIO_CS_PIN, RADIO_DI0_PIN, RADIO_RST_PIN, RADIO_BUSY_PIN); 
