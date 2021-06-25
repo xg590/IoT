@@ -16,13 +16,11 @@ int switch_flag = 0;
 ESP8266WebServer server(80);
     
 void _switch() {  
-  String s = "<!DOCTYPE html><html><head><title>HDMI Relay</title></head><body>This switch is ";
+  String s = "<!DOCTYPE html><html><head><title>HDMI Relay</title></head><body>";
   if (switch_flag) {
-    switch_flag = 0;
-    s += "OFF, click <a href=\"switch\" style=\"font-size: 400%;\">here</a> to turn it ON";
-  } else {
-    switch_flag = 1;
-    s += "ON, click <a href=\"switch\" style=\"font-size: 400%;\">here</a> to turn it OFF";
+    switch_flag = 0; s += "Turn hdmi <a href=\"switch\"><b style=\"font-size:2em\">ON </b></a>";
+  } else { 
+    switch_flag = 1; s += "Turn hdmi <a href=\"switch\"><b style=\"font-size:2em\">OFF</b></a>";
   } 
   s += "</body></html>";
   server.send(200, "text/html", s);
