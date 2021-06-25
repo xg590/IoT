@@ -2,9 +2,9 @@
 ## By Device 
 * Board
   * Raspberry Pi: [ZW / 3A / 3B / 4](Board/Raspberry_Pi)
-  * Arduino: Uno / Nano / Pro Mini
+  * Arduino: [Uno / Nano / Pro Mini](Board/Arduino)
   * ESP8266: [D1_mini](Board/Espressif/ESP8266/D1_Mini) / [NodeMCU](Board/Espressif/ESP8266/NodeMCU)
-  * ESP32: [ESP32-CAM](Board/Espressif/ESP32/ESP32S_Cam) / [T-Beam](Board/Espressif/ESP32/T-Beam) / [USB32](Board/Espressif/ESP32/USB32/)
+  * ESP32: [ESP32-CAM](Board/Espressif/ESP32/ESP32S_Cam) / [T-Beam](Board/Espressif/ESP32/T-Beam) / [WIFI LoRa 32](Board/Espressif/ESP32/WIFI_LoRa_32) / [USB32](Board/Espressif/ESP32/USB32/)
 * Communication
   * I2C, SPI, UART
   * LoRa: [RYLR896](Comm/LoRa/REYAX) / [E32-433T30D](Comm/LoRa/EByte) / [RFM95W](Comm/LoRa/Adafruit)
@@ -12,10 +12,8 @@
   * Radio
 * Motion
   * Motor: DRV8833 / PCA9685+TB6612 
-  * Servo
-  * Relay
-  * MOSFET
   * Rotary Encoder
+  * Servo
 * Sensor
   * GPS: [NEO-6M](Sensor/NEO-6M)
   * Compass: [BNO055](Sensor/BNO055) / MPU-6050  
