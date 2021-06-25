@@ -13,6 +13,7 @@
 * Install Arduino IDE
 * Choose the right board in IDE
   * There is a set of parameters for each arduino board, choosing the right one is the key. 
+  </br> <img src="choose_board.png"></img> 
 * Try a blink test 
 ### Pro Mini
 * Pro Mini is the smallest Arduino board 
