@@ -21,4 +21,7 @@
 * [C for D1 mini](hub/hub.ino)
 * [Python for Linux workstation](hub.ipynb)
 ### D1 mini in action
-<img src="smart_home_d1_mini.jpg"></img>
+* Luminous intensity number is 843
+* Temperature is 26.6 degree Celsius
+* Relative humidity is 50.27%
+</br><img src="smart_home_d1_mini.jpg"></img>
