@@ -1,15 +1,51 @@
+#include "SSD1306Wire.h"
 #include "Adafruit_SHT4x.h"
-Adafruit_SHT4x sht4 = Adafruit_SHT4x();
-int sensorPin = A0, switch_pin=14;    
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h> 
+#include "/etc/wifi_secret.h" /* 
+cat << EOF > /etc/wifi_secret.h
+#define STASSID "wifi_ssid"
+#define STAPSK  "wifi_passwd"
+#define URL "http://192.168.x.x:x/" 
+EOF
+*/ 
+
+WiFiClient client;
+HTTPClient http; 
+
+Adafruit_SHT4x sht4 = Adafruit_SHT4x(); 
+const int sensorPin = A0, OLED_SDA = D2, OLED_SCL = D1;
+SSD1306Wire display(0x3c, OLED_SDA, OLED_SCL, GEOMETRY_64_48);// 
+ 
+void initScreen() { // 64x48 
+    display.init();
+    //display.flipScreenVertically();
+    display.setFont(ArialMT_Plain_10);  
+    display.clear(); 
+    display.setTextAlignment(TEXT_ALIGN_LEFT  );  display.drawString( 0,  0, "UL");
+    display.setTextAlignment(TEXT_ALIGN_RIGHT );  display.drawString(64,  0, "UR");
+    display.setTextAlignment(TEXT_ALIGN_CENTER);  display.drawString(32, 16, "Center");
+    display.setTextAlignment(TEXT_ALIGN_LEFT  );  display.drawString( 0, 32, "BL");
+    display.setTextAlignment(TEXT_ALIGN_RIGHT );  display.drawString(64, 32, "BR"); 
+    display.display();// write the buffer to the display 
+}
+ 
+String IpAddress2String(const IPAddress& ipAddress) // author apicquot from https://forum.arduino.cc/index.php?topic=228884.0
+{
+    return String("x.x.") +
+           String(ipAddress[2]) + String(".") +
+           String(ipAddress[3]);
+}
 
 void setup() {
+  initScreen();
   pinMode(sensorPin, INPUT);
-  pinMode(switch_pin, OUTPUT);
   
   Serial.begin(115200); 
   while (!Serial)
-    delay(10);     // will pause Zero, Leonardo, etc until serial console opens
-
+    delay(10);     // will pause Zero, Leonardo, etc until serial console opens 
+  Serial.print("\n\n\n");
+  
   Serial.println("Adafruit SHT4x test");
   if (! sht4.begin()) {
     Serial.println("Couldn't find SHT4x");
@@ -59,23 +95,55 @@ void setup() {
      case SHT4X_LOW_HEATER_100MS: 
        Serial.println("Low heat for 0.1 second");
        break;
+  }
+
+  WiFi.begin(STASSID, STAPSK);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected! IP address: ");
+  Serial.println(WiFi.localIP()); 
+  display.clear(); 
+  display.setFont(ArialMT_Plain_10);  
+  display.setTextAlignment(TEXT_ALIGN_CENTER);  display.drawString(32, 16, "IP: "+IpAddress2String(WiFi.localIP())); 
+  display.display();// write the buffer to the display  
+  delay(3000);
+  display.setTextAlignment(TEXT_ALIGN_LEFT  );  
+  http.begin(client, URL); //HTTP
+} 
+
+float T, H; int P; 
+void loop() {
+  // wait for WiFi connection
+  if ((WiFi.status() == WL_CONNECTED)) {
+    sensors_event_t humidity, temp; 
+    sht4.getEvent(&humidity, &temp);// populate temp and humidity objects with fresh data   
+    T = temp.temperature; 
+    H = humidity.relative_humidity; 
+    P = analogRead(sensorPin); 
+    display.clear();  
+    display.drawString( 0,  0, "P: "+String(P)); 
+    display.setFont(ArialMT_Plain_16);  
+    display.drawString( 0, 14, "T: "+String(T)); 
+    display.setFont(ArialMT_Plain_10);  
+    display.drawString( 0, 32, "H: "+String(H)+"%");   
+    display.display();// write the buffer to the display 
+    char json[96];  
+    sprintf(json,"{\"Temperature (C)\":%f,\"Humidity (%% rH)\":%f,\"Photoresistor\":%d}", T, H, P);  
+    Serial.println("[HTTP] POSTing "+String(json)); 
+    http.addHeader("Content-Type", "application/json"); 
+    int httpCode = http.POST(json); 
+    if (httpCode == HTTP_CODE_OK) { 
+        // const String& payload = http.getString();
+        Serial.print("[HTTP] Payload received~\n\n");   
+    } else {
+        Serial.printf("[HTTP] Problematic returncode: %s\n\n", http.errorToString(httpCode).c_str());
+    }  
   } 
-}  
-
-void kvm() { 
-  digitalWrite(switch_pin, HIGH);
-  delay(100);
-  digitalWrite(switch_pin, LOW);
+  delay(3000);
 }
 
-void loop() {   
-  sensors_event_t humidity, temp; 
-  sht4.getEvent(&humidity, &temp);// populate temp and humidity objects with fresh data  
-  int Pr = analogRead(sensorPin);    
-  float T = temp.temperature, rH = humidity.relative_humidity;
-  Serial.print("{\"Temperature (C)\": "); Serial.print(T); 
-  Serial.print(", \"Humidity (% rH)\": "); Serial.print(rH); 
-  Serial.print(", \"Photoresistor\": "); Serial.print(Pr); 
-  Serial.println("},");  
-  delay(1000);
-}
+// http.end();
