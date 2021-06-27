@@ -1,5 +1,5 @@
 ### Smart Home Project
-* I have a smart light blub and smart plug. 
+* I have a smart light bulb and smart plug. 
 * There is an air conditioner on the plug.
 * I want to automate their on/offs.
   * If it is too dark, turn on the light.
@@ -8,8 +8,8 @@
 * SHT40 sensor
 * Photoresistor
 * D1 mini OLED (optional)
-* TP-Link LB120
-* TP-Link HS105
+* TP-Link LB120 (smart light bulb)
+* TP-Link HS105 (smart plug and air conditioner)
 * LOLIN D1 mini
 * Linux workstation
 ### Plot
@@ -20,5 +20,5 @@
 ### Code
 * [C for D1 mini](hub/hub.ino)
 * [Python for Linux workstation](hub.ipynb)
-### Pic
+### D1 mini in action
 <img src="smart_home_d1_mini.jpg"></img>
