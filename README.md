@@ -30,6 +30,7 @@
 * Count motor speed
 * Drive a servo
 * Log data
+* [Smart Home](Board/Espressif/ESP8266/D1_Mini/smart_home) 
 * Control projector
 * Long range communication
 * Read data from Xbox controller
