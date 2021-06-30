@@ -6,7 +6,7 @@
 cat << EOF > /etc/wifi_secret.h
 #define STASSID "wifi_ssid"
 #define STAPSK  "wifi_passwd"
-#define URL "http://192.168.x.x:x/" 
+#define LOG_URL "http://192.168.x.x:x/log" 
 EOF
 */ 
 
@@ -112,7 +112,7 @@ void setup() {
   display.display();// write the buffer to the display  
   delay(3000);
   display.setTextAlignment(TEXT_ALIGN_LEFT  );  
-  http.begin(client, URL); //HTTP
+  http.begin(client, LOG_URL); //HTTP
 } 
 
 float T, H; int P; 
