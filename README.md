@@ -25,7 +25,7 @@
 * Communication between Raspbery Pi and Arduino
 * Get geoLocation
 * Know orientation
-* Make an electrical switch
+* Make an electrical switch ([MOSFET](Board/Espressif/ESP8266/D1_Mini/light_mosfet/) / [Relay](Board/Espressif/ESP8266/D1_Mini/hdmi_relay/))
 * Drive a motor
 * Count motor speed
 * Drive a servo
