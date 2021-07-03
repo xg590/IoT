@@ -20,10 +20,10 @@
   * [SPI SD Card Reader](Sensor/SD_Card)
 
 ## By Project
-* [Hello World: Blink an Arduino](Board/Arduino)
-* [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino_CLI.md)
-* Communication between Raspbery Pi and Arduino
-* [Get geoLocation](Sensor/NEO-6M)
+* [Hello World: Blink an Arduino](Board/Arduino#get-started)
+* [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino_CLI.md) 
+* [Arduino talks to Raspbery Pi](Board/Arduino#talk-to-raspberry-pi)
+* [Get GeoLocation](Sensor/NEO-6M)
 * [Know orientation](Sensor/BNO055)
 * Make an electrical switch ([MOSFET](Board/Espressif/ESP8266/D1_Mini/light_mosfet/) / [Relay](Board/Espressif/ESP8266/D1_Mini/hdmi_relay/))
 * Drive a motor
