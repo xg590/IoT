@@ -30,6 +30,14 @@ sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
 ```
+### Trouble shooting
+* May need python and pyserial library
+```
+sudo apt update
+sudo apt install python3-pip
+ln -s /usr/bin/python3 /usr/bin/python
+pip3 install pyserial
+```
 ### ESP8266 and Arduino-CLI <a name="ESP-CLI"></a>
 ```  
 arduino-cli core install esp8266:esp8266 --additional-urls https://arduino.esp8266.com/stable/package_esp8266com_index.json 
