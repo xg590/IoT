@@ -15,16 +15,16 @@
   * Rotary Encoder
   * Servo
 * Sensor
-  * GPS: [NEO-6M](Sensor/NEO-6M)
-  * Compass: [BNO055](Sensor/BNO055) / MPU-6050  
-  * Datalog; [SD Card Reader](Sensor/SD_Card)
+  * [NEO-6M](Sensor/NEO-6M)
+  * [BNO055](Sensor/BNO055) / MPU-6050  
+  * [SPI SD Card Reader](Sensor/SD_Card)
 
 ## By Project
-* Hello World: Blink an Arduino
-* Program arduino from Raspberry Pi
+* [Hello World: Blink an Arduino](Board/Arduino)
+* [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino_CLI.md)
 * Communication between Raspbery Pi and Arduino
-* Get geoLocation
-* Know orientation
+* [Get geoLocation](Sensor/NEO-6M)
+* [Know orientation](Sensor/BNO055)
 * Make an electrical switch ([MOSFET](Board/Espressif/ESP8266/D1_Mini/light_mosfet/) / [Relay](Board/Espressif/ESP8266/D1_Mini/hdmi_relay/))
 * Drive a motor
 * Count motor speed
