@@ -1,5 +1,5 @@
 ### Program Arduino board on Raspberry Pi? Arduino-CLI is here for help. <a name="Arduino-CLI"></a>
-1. Download the tool
+1. [Download the tool](https://github.com/arduino/arduino-cli/releases)
 ```
 wget arduino-cli_0.18.3_Linux_64bit.tar.gz && tar zxvf 
 sudo mv arduino-cli /usr/local/bin/
