@@ -49,6 +49,11 @@ digitalWrite( 1, LOW);  // sets the digital pin 1 off
 * You would risk to fry the sensor if there is a voltage mismatch 
 * Use a logic level converter to step down the voltage for fragile sensor.
 * BTW, [raspberry pi's GPIO pins are 3.3v](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md). So if you want your Pi talk to arduino via uart interface, use a logic level converter as well.
+### Talk to Raspberry Pi
+* It is so easy by using UART protocol.
+* Hook Rx/Tx pins of Arduino with Tx/Rx pins of Raspberry Pi
+* On Arduino, we use Serial.print to output message
+* On Raspberry Pi, use pyserial to get the message. (Don't forget enable UART interface via raspi-config)
 ### C++ note 
 ```
 uint8_t = atof(String.c_str()) // Convert String to int
