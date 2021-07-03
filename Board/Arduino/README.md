@@ -1,7 +1,7 @@
 ### Common boards
 * Arduino Uno / Nano / Pro Mini
 ### Get Started
-* Install a bridge driver of if you are using Windows.
+* [<b>Windows</b> Only] Install a USB-to-UART bridge driver.
    * PC (Windows) supports USB communication protocol but Arduino board does not. 
    * Instead, Arduino supports UART communication. 
    * There should be a USB-to-UART Bridge between PC and Arduino.
@@ -16,7 +16,9 @@
 * Choose the right board in IDE
   * There is a set of parameters for each arduino board, choosing the right one is the key. 
   </br> <img src="choose_board.png"></img> 
-* Try a blink test 
+* Try a blink test of on-board LED
+  * File -> Examples -> 01.Basics -> Blink 
+  * Sketch -> Upload
 ### Pro Mini
 * Pro Mini is the smallest Arduino board 
 * Bought an adapter, which has a FTDI-made FT232RL bridge chip.
@@ -44,7 +46,7 @@ digitalWrite( 1, LOW);  // sets the digital pin 1 off
 * Arduino board's GPIOs are generally 5v.
 * Among Uno, Nano and Pro Mini, only Pro Mini has the 3.3v version, which means the GPIO pins operate at between 0~3.3v (voltage). 
 * Some sensors (loads) need 5V voltage to power but communicates with arduino board on a 3.3v logic level
-* You would risk to fry the sensor if there is a mismatch 
+* You would risk to fry the sensor if there is a voltage mismatch 
 * Use a logic level converter to step down the voltage for fragile sensor.
 * BTW, [raspberry pi's GPIO pins are 3.3v](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md). So if you want your Pi talk to arduino via uart interface, use a logic level converter as well.
 ### C++ note 
