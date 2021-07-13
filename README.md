@@ -1,7 +1,7 @@
 # How to
 ## By Device 
 * Board
-  * Raspberry Pi: [ZW / 3A / 3B / 4](Board/Raspberry_Pi)
+  * Raspberry Pi: [ZW / 3A / 3B / 4](Board/Raspberry_Pi) / [Pico](Board/Raspberry_Pi/Pico.md)
   * Arduino: [Uno / Nano / Pro Mini](Board/Arduino)
   * ESP8266: [D1_mini](Board/Espressif/ESP8266/D1_Mini) / [NodeMCU](Board/Espressif/ESP8266/NodeMCU)
   * ESP32: [ESP32-CAM](Board/Espressif/ESP32/ESP32S_Cam) / [T-Beam](Board/Espressif/ESP32/T-Beam) / [WIFI LoRa 32](Board/Espressif/ESP32/WIFI_LoRa_32) / [USB32](Board/Espressif/ESP32/USB32/)
@@ -11,7 +11,7 @@
   * Infra-red
   * Radio
 * Motion
-  * Motor: DRV8833 / PCA9685+TB6612 
+  * Motor: [DRV8833](Motion/DRV8833.md) / PCA9685+TB6612 
   * Rotary Encoder
   * Servo
 * Sensor
