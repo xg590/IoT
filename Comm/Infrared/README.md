@@ -7,7 +7,7 @@
 * Reception Distance up to 18m
 * Lead Pitch: 2.54mm
 ##### Pic
-![alt text](https://github.com/xg590/IoT/raw/master/Infrared/VS1838B.png "VS1838B")
+![alt text](VS1838B.png "VS1838B")
 ##### Wiring ([Good Ref](https://arduino.stackexchange.com/questions/3926/using-vs1838b-with-arduino))
 ```
 OUT <--> D11 (digital pin not A11/Analog Pin)
