@@ -7,7 +7,7 @@
   * ESP32: [ESP32-CAM](Board/Espressif/ESP32/ESP32S_Cam) / [T-Beam](Board/Espressif/ESP32/T-Beam) / [WIFI LoRa 32](Board/Espressif/ESP32/WIFI_LoRa_32) / [USB32](Board/Espressif/ESP32/USB32/)
 * Communication
   * I2C, SPI, UART
-  * LoRa: [RYLR896](Comm/LoRa/REYAX) / [E32-433T30D](Comm/LoRa/EByte) / [RFM95W](Comm/LoRa/Adafruit)
+  * [LoRa](Comm/LoRa): [RYLR896](Comm/LoRa/REYAX) / [E32-433T30D](Comm/LoRa/EByte) / [RFM95W](Comm/LoRa/Adafruit)
   * Infra-red
   * Radio
 * Motion
