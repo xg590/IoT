@@ -30,3 +30,15 @@
     CS     <->  CS1 
                 CS2   <->     CS    
 ```
+### UART
+* No brain protocol.
+* It is hassle-free.
+* Just use a library. 
+### I2C
+* In practice, we need look into I2C device datasheet to find its I2C bus address. 
+* If we are using a sensor, we may want to know register address. 
+* By using these address duo, we can read or write certain bytes of data from or to the device. 
+* An example (Reading compass data) can be found [here]()
+### SPI
+* There is no I2C bus address but we use Chip select pin to specify the SPI device we want to access.
+* 
