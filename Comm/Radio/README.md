@@ -31,3 +31,10 @@ FM:  V<SUB>FM</SUB> (t) = V<SUB>co</SUB> sin (2 π [f <SUB>c</SUB> + (Δf/V<SUB>
   * <br/>
   * [Image Credit](https://academy.infinetwireless.com/en/online-education/wireless-networking-fundamentals/8)
 <img src="budget.png"></img>
+### Frequency domain vs. Time domain vs. Waterfalls
+* One can represent Radio signal in freq domain or time domain
+* Time domain representation can be transformed into frequency domain with the help of Fourier Transform
+<br/><img src="FT.png"> </img> 
+* In both representations, the Y-axis is amplitude (signal strength)
+* Then we have waterfall. (Color stands for signal strength)
+<br/><img src="waterfall.png"> </img> 
