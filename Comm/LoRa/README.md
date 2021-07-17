@@ -1,3 +1,15 @@
+### Theory 
+* LoRa: Long Range communication
+<br/><img src="CSS.png" width="500px" height="400px"></img>(image [credit](https://doi.org/10.3390/su11071917))
+* A practical analog singal is typically not pure in frequency. For example, our voice is a combination of sine waves. If we do a fourier transform, we will see a broad frequency specturm. If our voice undergoes the frequency modulation, the modulated signal will produce a frequency specturm as well. 
+* Freq specturm is a 2D plot can be ploted like a vertical line in above waterfall. The color stands for Y-axis of the 2D plot.
+* When we send out a message, it is digitally coded by our microprocessor/microcontroller in a sequence of 0 and 1. The frequency of this sequence is fixed. This sequence then goes through LoRa module, where it undergoes frequency modulation and a modulated analog signal leaves transmitter antenna. This modulated signal varies in frequency (see the yellow line between 20~30s in above waterfall). The signal spreads across frequency domain. The frequency of <i>frequency varying</i> is determined by Spreading Factor (different SF, different yellow lines).
+  * Spreading Factor: LoRa use CSS (Chirp Spread Spectrum) tech to modulate the digital signal. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
+  * Bandwidth: Varying range of modulated signal on frequency domain. (Bandwidth is about 125kHz for above yellow lines)
+  * Coding Rate: Code Rate is the degree of redundancy implemented by the forward error correction (FEC)
+used to detect errors and correct them
+  * Preamble: The modulated signal begins with repeated wave pattern (0~8s in below waterfall). 
+<br/><img src="LoRa_Sym_generated.png" width="800px" height="400px"></img>(image [credit](http://www.sghoslya.com/p/lora_9.html))
 ### Module
 * UART:
   * E32-433T30D from EByte
