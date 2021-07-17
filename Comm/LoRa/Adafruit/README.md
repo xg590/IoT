@@ -18,5 +18,5 @@ RFM95W     WeMos_D1_mini
     CS <-> D8
    RST <-> D1         
 ```
-### Coding 
+### Coding with Radiolib 
 * [Tx example](RFM95W/RFM95W.ino)
