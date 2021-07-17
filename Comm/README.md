@@ -30,12 +30,3 @@
     CS     <->  CS1 
                 CS2   <->     CS    
 ```
-### Wireless protocol: LoRa
-* LoRa: Long Range communication
-* A practical analog singal is typically not pure in frequency. For example, our voice is a combination of sine waves. If we do a fourier transform, we will see a broad frequency specturm. If our voice undergoes the frequency modulation, the modulated signal will produce a frequency specturm as well. 
-* When we send out a message, it is digitally coded by our microprocessor/microcontroller in a sequence of 0 and 1. The frequency of this sequence is fixed. This sequence then goes through LoRa module, where it undergoes frequency modulation and a modulated analog signal leaves transmitter antenna. This modulated signal varies in frequency. The signal spreads across frequency domain. The frequency of <i>frequency varying</i> is determined by Spreading factor.
-  * Spreading Factor: LoRa use CSS (Chirp Spread Spectrum) tech to modulate the digital signal. (DSSS spread the bandwidth at a higher fixed frequency; CSS spread the frequecy at the same bandwidth)
-  * Bandwidth: Varying range of modulated signal on frequency domain.
-  * Coding Rate: Code Rate is the degree of redundancy implemented by the forward error correction (FEC)
-used to detect errors and correct them
-  * Preamble: The modulated signal begins with repeated wave pattern.   
