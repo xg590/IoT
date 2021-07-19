@@ -12,6 +12,8 @@ $ screen /dev/ttyACM0 115200
 >>> print(sys.version)
 3.4.0
 ```
+### Learn to use REPL is crucial
+* [Getting a MicroPython REPL prompt](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html)
 ### Add MicroPython to ESP32
 * ROM: Read-only memory. Everything that would not lost after power off stays here.
 * Firmware: Codes in the rom.
