@@ -1,110 +1,94 @@
-### Datasheet notes
-##### Data Transmission Sequence (Figure 9)
+### Materials
+* Raspberry Pi Pico (sender)
+* RFM95W
+* Heltec WiFi LoRa 32 V2 (receiver)
+### Wiring
+* Raspberry Pi Pico
+``` 
+# RFM95W       Pico GPIO 
+MISO_Pin     = 16
+CS_Pin       = 17
+SCK_Pin      = 18
+MOSI_Pin     = 19
+G0_Pin       = 20 # DIO0_Pin
+RST_Pin      = 21   
+EN_Pin       = 22
+```
+* Heltec WiFi LoRa 32 V2
+```
+MISO_Pin = 19
+MOSI_Pin = 27
+SCK_Pin  =  5
+CS_Pin   = 18
+RST_Pin  = 14
+DIO0_Pin = 26
+DIO1_Pin = 35
+DIO2_Pin = 34   
+``` 
+### SX1276 Datasheet 
+#### 4.1.2. LoRa ® Digital Interface
+* The LoRa ® modem comprises three types of digital interface, 
+  * static configuration registers 
+  * status registers 
+  * a 256-byte user-defined FIFO data buffer 
+#### Data Transmission Sequence (Figure 9)
 1. Change to Standby mode
 2. Fill FIFO data buffer
 3. Change to Tx mode
 4. Wait for TxDone IRQ
 5. Fall back to Standby mode automatically 
-##### Data Reception Sequence (Figure 10)
-* Single Mode: Tx is periodical and imminent.
+#### Single Mode Data Reception Sequence (Figure 10)
+* Tx is periodical and imminent.
 1. Change to Standby mode 
 2. Change to Rx Single mode
 3. Wait for RxTimeout or RxDone IRQs
-4. RxTimeout and fall back to Standby mode automatically. 
-4'. RxDone 
-5'. Wait for PayloadCrcError IRQ
-6'. Read then fall back to Standby mode automatically. (The FIFO data buffer is safe since it can only be cleared after another Rx mode or Sleep mode requests)
-* Continous Mode
+4. RxTimeout and fall back to Standby mode automatically.
+* Or
+4. RxDone 
+5. Wait for PayloadCrcError IRQ
+6. Read then fall back to Standby mode automatically. (The FIFO data buffer is safe since it can only be cleared after another Rx mode or Sleep mode requests)
+#### Continous Mode Data Reception Sequence (Figure 10) 
 1. Change to Standby mode
 2. Change to Rx Continuous mode
 3. Wait for RxDone IRQs
 4. Wait for PayloadCrcError IRQ
-5. Read then go back to step 3 
-#### 4.1.2. LoRa ® Digital Interface
-* The LoRa ® modem comprises three types of digital interface, 
-  * static configuration registers 
-  * status registers 
-  * a 256-byte user-defined FIFO data buffer
-* Registers Tables 
-```
-Name                 Addr    Default    Note
-RegOpMode
-RegFifoRxBaseAddr            0x00 
-RegFifoTxBaseAddr            0x80 
-RegRxNbBytes                            How many bytes received
-RegFifoAddrPtr       0x07    0x00       Where the data ends in buffer
-``` 
+5. Read then go back to step 3  
+#### Jargon 
+* {LowFreq: Bands 2&3, HF: Band 1}, {Band 1: ~915MHz, Band 2: ~433MHz, Band 3: ~150MHz} 
+* RFI: RF Input 
+* RFO: RF Output
+* Three amplifiers: RFO_LF, RFO_HF, PA_BOOST
+* AFC: automatic frequency correction 
+* PA: Power Amplifier 
+* PA_HP: High Power
+* PA_HF and PA_LF are high efficiency amplifiers
+* RFOP: RF output power
+#### Code
 
-#include <RadioLib.h>  
-
-const int LoRa_CS = 18, LoRa_DIO0 = 26, LoRa_RST = 14;
-const float LoRa_frequency = 915.0;    
-
-SX1276 radio = new Module(LoRa_CS, LoRa_DIO0, LoRa_RST);  // LoRa_DIO0 is for interrupt  
- 
-                          //    float freq, float bw, uint8_t sf, uint8_t cr, uint8_t syncWord, int8_t power, uint16_t preambleLength, uint8_t gain
-    int state = radio.begin(LoRa_frequency,    125.0,          9,          7, SX127X_SYNC_WORD,           10,                       8,            0); 
-     
-    int state = radio.transmit(msg);   
-
-'''
-{Band 1: ~915MHz, Band 2: ~433MHz, Band 3: ~150MHz}
-{LF: Bands 2&3, HF: Band 1} 
-RFI: RF Input 
-RFO: RF Output
-Three amplifiers: RFO_LF, RFO_HF, PA_BOOST
-AFC: automatic frequency correction 
-PA: Power Amplifier 
-PA_HP: High Power
-PA_HF and PA_LF are high efficiency amplifiers
-RFOP: RF output power 
-RegPaDac = 0x10 << 3 | 0x07 # Enables the +20dBm option on PA_BOOST pin
-''' 
-```python
-def _spi_write(register, payload):
-    if type(payload) == int:
-        payload = [payload]
-    elif type(payload) == bytes:
-        payload = [p for p in payload]
-    elif type(payload) == str:
-        payload = [ord(s) for s in payload]
-    cs_pin.value(0)
-    spi.write(bytearray([register | 0x80] + payload))
-    cs_pin.value(1)
-
-def _spi_read(register, length=1):
-    cs_pin.value(0) # Bring the CS pin low to enable communication
-    if length == 1:
-        data = spi.read(length + 1, register)[1]
-    else:
-        data = spi.read(length + 1, register)[1:]
-    cs_pin.value(1) # release the bus.
-    return data  
-
+```python  
 import time, math 
 from machine import SPI, Pin 
 # Pins
-MISO_Pin = 19
-MOSI_Pin = 27
-SCK_Pin = 5
-CS_Pin = 18
-RST_Pin = 14
-DIO0_Pin = 26
-DIO1_Pin = 35
-DIO2_Pin = 34   
-# Reset the board 
+MISO_Pin     = 16
+CS_Pin       = 17
+SCK_Pin      = 18
+MOSI_Pin     = 19
+G0_Pin       = 20 # DIO0_Pin
+RST_Pin      = 21   
+EN_Pin       = 22
+
 rst_pin = Pin(RST_Pin, Pin.OUT)
-rst_pin.value(0);  
-time.sleep(0.01)
-rst_pin.value(1);  
-time.sleep(0.01) 
-cs_pin = Pin(CS_Pin,   Pin.OUT)
-cs_pin.value(1) # Release board from SPI Bus by bringing it into high impedance status.  
-# Setup Interrupt
+cs_pin  = Pin(CS_Pin, Pin.OUT)
 #Pin(DIO0_Pin, Pin.IN).irq(trigger=Pin.IRQ_RISING, handler=_handle_interrupt)
-# baud rate to 5MHz 
-spi = SPI(1, baudrate=5000000, sck=Pin(SCK_Pin), mosi=Pin(MOSI_Pin), miso=Pin(MISO_Pin))
- 
+
+if 1: 
+    rst_pin.value(0); # Reset the board
+    time.sleep(0.01)
+    rst_pin.value(1);  
+    time.sleep(0.01)  
+    cs_pin.value(1) # Release board from SPI Bus by bringing it into high impedance status. 
+    time.sleep(0.01) 
+
 ### LoRa Mode Register Table (Table 41) 
 RegFifo           = 0x00
 RegOpMode         = 0x01
@@ -141,8 +125,32 @@ Mode_TX           = 0b00000011
 Mode_RXCONTINUOUS = 0b00000101
 Mode_CAD          = 0b00000111
  
-# set mode
-_mode = None
+ 
+# Device support SPI mode 0 (polarity & phase = 0) up to a max of 10MHz.
+spi = SPI(0, baudrate=10_000_000, polarity=0, phase=0, 
+          sck=Pin(SCK_Pin), mosi=Pin(MOSI_Pin), miso=Pin(MISO_Pin)) # We are using 0/first/default SPI 
+ 
+def write(reg, data):
+    cs_pin.value(0) # Bring the CS pin low to enable communication
+    spi.write(bytearray([reg | 0x80] + payload))
+    cs_pin.value(1)
+
+def read(reg, length=1):
+    cs_pin.value(0)
+    data = spi.read(length + 1, reg) 
+    cs_pin.value(1) # release the bus. 
+    return data 
+    
+cs_pin.value(0) 
+spi.read(2, RegOpMode)    
+cs_pin.value(1) 
+
+cs_pin.value(0) 
+spi.write(b'12345')  
+cs_pin.value(1) 
+
+
+# set mode 
 _spi_write(RegOpMode, Mode_SLEEP | LongRangeMode) 
 time.sleep(0.1) 
 assert _spi_read(RegOpMode) == (Mode_SLEEP | LongRangeMode), "LoRa initialization failed"
