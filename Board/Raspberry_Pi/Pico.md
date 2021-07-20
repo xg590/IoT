@@ -8,6 +8,8 @@ GPIO25 : On-board LED
 3V3_EN : Pulled-up to VSYS via a 100K resistor. 
          Disable VSYS input by pull this pin down. 
          In other words, transformer (Pico) will not work if this pin connected to GND. 
+SPI RX : MISO
+SPI TX : MOSI 
 ```
 ### Electronics
 * Dual-core cortex M0+ at up to 133MHz (On-board [PLL](https://www.embedded.com/demystifying-phase-locked-loops/) can be asked to vary the clock frequency)
