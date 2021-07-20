@@ -20,6 +20,7 @@
   * [SPI SD Card Reader](Sensor/SD_Card)
 
 ## By Project
+* [MicroPython](Misc/MicroPython) is awesome
 * [Hello World: Blink an Arduino](Board/Arduino#get-started)
 * [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino_CLI.md) 
 * [Arduino talks to Raspbery Pi](Board/Arduino#talk-to-raspberry-pi)
