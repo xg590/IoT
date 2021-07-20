@@ -28,8 +28,9 @@ exit
 ```
 #### 3. Import lib
 ```
-import test
-test.hello_world()
+>>> import test
+>>> test.hello_world()
+Hello World!
 ```
 #### Boot into running a script
 * Just name a script main.py instead of test.py and do the same copy
