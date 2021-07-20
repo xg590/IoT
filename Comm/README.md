@@ -9,31 +9,11 @@
     RX    <->     TX    
     TX    <->     RX
 ```
-* I2C or IIC or SMBus Pins
-  * SCL: Clock line
-  * SDA: Data line
-```
-    Slave1     Master     Slave2
-    SCL    <->  SCL   <->    SCL
-    SDA    <->  SDA   <->    SDA
-```
-* SPI Pins
-  * SCK: SPI Clock
-  * MISO: Master In Slave Out. Data flow out this pin from a slave module.
-  * MOSI: Data pours in a slave module through this pin.
-  * CS: Chip select. For some module, this pin is marked as NSS: Negative Slave Select. This pin is pulled down by the master so that a slave module is on service. 
-```
-    Slave1     Master     Slave2
-    SCK    <->  SCK   <->    SCK
-    MISO   <->  MISO  <->   MISO
-    MOSI   <->  MOSI  <->   MOSI
-    CS     <->  CS1 
-                CS2   <->     CS    
-```
 ### UART
 * No brain protocol.
+* Choose the right baud rate (Look datasheet or google it)
 * It is hassle-free.
-* Just use a library. 
+* Just use the library. 
 ### I2C
 * In practice, we need look into I2C device datasheet to find its I2C bus address. 
 * If we are using a sensor, we may want to know register address. 

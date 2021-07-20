@@ -32,7 +32,6 @@ void setup() {
 void loop() {
   if (flag) {
     Serial.println("motion detected");
-    flag = false;
 
     if ((WiFi.status() == WL_CONNECTED)) { 
       Serial.println("[HTTP] Visiting Lightbulb~");   
@@ -40,18 +39,40 @@ void loop() {
       WiFiClient client;
       HTTPClient http; 
       if (http.begin(client, Kitchen_LB_URL)) { 
-        int httpCode = http.GET(); 
+        http.addHeader("Content-Type", "application/json"); 
+        int httpCode = http.POST("{\"status\":1}");  
         if (httpCode == HTTP_CODE_OK) { 
           // const String& payload = http.getString();
-          Serial.print("[HTTP] Lightbulb visited~\n\n");   
+          Serial.print("[HTTP] Turned Lightbulb On~\n\n");   
         } else {
           Serial.printf("[HTTP] Problematic returncode: [%d] %s\n\n", httpCode, http.errorToString(httpCode).c_str());
         }
       }  
       http.end(); 
     }  
+    Serial.println("Light 10 minutes"); 
+    delay(10*60*1000); 
+    Serial.println("Time is up"); 
+    if ((WiFi.status() == WL_CONNECTED)) { 
+      Serial.println("[HTTP] Visiting Lightbulb~");   
+      
+      WiFiClient client;
+      HTTPClient http; 
+      if (http.begin(client, Kitchen_LB_URL)) { 
+        http.addHeader("Content-Type", "application/json"); 
+        int httpCode = http.POST("{\"status\":0}");  
+        if (httpCode == HTTP_CODE_OK) { 
+          // const String& payload = http.getString();
+          Serial.print("[HTTP] Turned Lightbulb Off~\n\n");  
+        } else {
+          Serial.printf("[HTTP] Problematic returncode: [%d] %s\n\n", httpCode, http.errorToString(httpCode).c_str());
+        }
+      }  
+      http.end(); 
+    }
+    flag = false;
   }   
-}
+} 
 
 ICACHE_RAM_ATTR void interruptHandler() {
   flag = true;
