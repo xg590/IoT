@@ -12,9 +12,9 @@
     CS     <->  CS1
                 CS2   <->     CS
 ```
-### SPI Protocol
+### SPI Protocol for SX1276 (read/write bit could be different)
 * Pull down CS pin
-* MOSI emits 1 byte. First bit indicates operation type {0: write, 1:read} and 7 bits for register address.
+* MOSI emits 1 byte. First bit indicates operation type {1: write, 0:read} and 7 bits for register address.
 * MISO reply if a read operation was performed right before.
 * MOSI emits more data bytes if it is a write operation while MISO idle all the time. (No Ack like i2c)
 * Pull up CS pin
@@ -99,8 +99,7 @@ EN_Pin       = 22
 
 rst_pin = Pin(RST_Pin, Pin.OUT)
 cs_pin  = Pin(CS_Pin, Pin.OUT)
-#Pin(DIO0_Pin, Pin.IN).irq(trigger=Pin.IRQ_RISING, handler=_handle_interrupt)
-
+#Pin(DIO0_Pin, Pin.IN).irq(trigger=Pin.IRQ_RISING, handler=_handle_interrupt) 
 if 1:
     rst_pin.value(0); # Reset the board
     time.sleep(0.01)
@@ -131,8 +130,7 @@ RegPreambleMsb    = 0x20 # Size of preamble
 RegPreambleLsb    = 0x21
 RegPayloadLength  = 0x22
 RegDioMapping1    = 0x40 # Mapping of pins DIO0 to DIO3
-RegPaDac          = 0x4d # Higher power settings of the PA (Power Amplifier) DAC (Digital Analog Converter)
-
+RegPaDac          = 0x4d # Higher power settings of the PA (Power Amplifier) DAC (Digital Analog Converter) 
 ### Register Value
 RxDone            = 0b01000000
 TxDone            = 0b00001000
@@ -145,35 +143,35 @@ Mode_TX           = 0b00000011
 Mode_RXCONTINUOUS = 0b00000101
 Mode_CAD          = 0b00000111
 
-
 # Device support SPI mode 0 (polarity & phase = 0) up to a max of 10MHz.
 spi = SPI(0, baudrate=10_000_000, polarity=0, phase=0,
           sck=Pin(SCK_Pin), mosi=Pin(MOSI_Pin), miso=Pin(MISO_Pin)) # We are using 0/first/default SPI
 
-def write(reg, data):
+def write(reg, data): 
+    if type(data) == int:
+        data = [data]
+    elif type(data) == bytes:
+        data = [p for p in data]
+    elif type(data) == str:
+        data = [ord(s) for s in data]
     cs_pin.value(0) # Bring the CS pin low to enable communication
-    spi.write(bytearray([reg | 0x80] + payload))
-    cs_pin.value(1)
-
-def read(reg, length=1):
-    cs_pin.value(0)
-    data = spi.read(length + 1, reg)
+    spi.write(bytearray([reg | 0x80] + data))
     cs_pin.value(1) # release the bus.
-    return data
 
-cs_pin.value(0)
-spi.read(2, RegOpMode)
-cs_pin.value(1)
-
-cs_pin.value(0)
-spi.write(b'12345')
-cs_pin.value(1)
-
+def read(length=1, reg=None): 
+    cs_pin.value(0)
+    # https://docs.micropython.org/en/latest/library/machine.SPI.html#machine-softspi
+    if length == 1:
+        data = spi.read(length+1, reg)[1]
+    else:
+        data = spi.read(length+1, reg)[1:]
+    cs_pin.value(1)
+    return data 
 
 # set mode
-_spi_write(RegOpMode, Mode_SLEEP | LongRangeMode)
+write(RegOpMode, Mode_SLEEP | LongRangeMode)
 time.sleep(0.1)
-assert _spi_read(RegOpMode) == (Mode_SLEEP | LongRangeMode), "LoRa initialization failed"
+assert read(3, RegOpMode) == (Mode_SLEEP | LongRangeMode), "LoRa initialization failed"
 
 # Use all FIFO buffer. See Datasheet: Principle of Operation
 _spi_write(RegFifoTxBaseAddr, 0x00) # bottom of the memory
