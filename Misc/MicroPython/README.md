@@ -22,7 +22,7 @@ EOF
 ```
 #### 2. Copy lib to board
 ```shell
-.local/bin/rshell
+.local/bin/rshell -p /dev/ttyACM0
 cp test.py /pyboard/
 exit
 ```
