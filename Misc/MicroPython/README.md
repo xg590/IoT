@@ -25,9 +25,7 @@ EOF
 ```
 #### 2. Copy lib to board
 ```shell
-.local/bin/rshell -p /dev/ttyACM0
-cp test.py /pyboard/
-exit
+.local/bin/rshell -p /dev/ttyACM0 cp test.py /pyboard
 ```
 #### 3. Import lib
 ```
