@@ -1,5 +1,6 @@
 #include <RadioLib.h> 
 #include "boards.h"
+#include "SSD1306Wire.h"
 
 /* 
  radio.begin: Setup radio
@@ -8,6 +9,7 @@
  */
 
 SX1276 radio = new Module(RADIO_CS_PIN, RADIO_DI0_PIN, RADIO_RST_PIN, RADIO_BUSY_PIN); 
+SSD1306Wire display(0x3c, I2C_SDA, I2C_SCL);
 
 volatile bool receivedFlag = false;// flag to indicate that a packet was received 
 volatile bool enableInterrupt = true;// disable interrupt when it's not needed
@@ -25,7 +27,7 @@ void setup()
 {
     initBoard(); delay(1500);
                             //  float freq, float bw, uint8_t sf, uint8_t cr, uint8_t syncWord, int8_t power, uint16_t preambleLength, uint8_t gain
-    int state = radio.begin(LoRa_frequency,    125.0,          9,          7, SX127X_SYNC_WORD,           10,                       8,            0); 
+    int state = radio.begin(LoRa_frequency,    125.0,         12,          8, SX127X_SYNC_WORD,           10,                       8,            0); 
     if (state == ERR_NONE) {
         Serial.println(F("[radio.begin] success!"));
     } else {
@@ -44,7 +46,13 @@ void setup()
     } else {
         Serial.print(F("failed, code ")); Serial.println(state);
         while (true);
-    } 
+    }  
+    display.init();
+    //display.flipScreenVertically();
+    display.setFont(ArialMT_Plain_10);
+    display.setTextAlignment(TEXT_ALIGN_CENTER); display.drawString( 64, 24, "Hello~");
+    display.display();// write the buffer to the display 
+    display.setTextAlignment(TEXT_ALIGN_LEFT  );  
 }
 
 
@@ -63,7 +71,12 @@ void loop()
             Serial.print(F("[SX1276] Data:\t\t")); Serial.println(str); 
             Serial.print(F("[SX1276] RSSI:\t\t")); Serial.print(radio.getRSSI()); Serial.println(F(" dBm"));
             Serial.print(F("[SX1276] SNR:\t\t")); Serial.print(radio.getSNR()); Serial.println(F(" dB")); 
-            Serial.print(F("[SX1276] Frequency error:\t\t")); Serial.print(radio.getFrequencyError()); Serial.println(F(" Hz")); 
+            Serial.print(F("[SX1276] Frequency error:\t\t")); Serial.print(radio.getFrequencyError()); Serial.println(F(" Hz"));  
+            display.clear();
+            display.drawString(  0,  0, "[RSSI]  "+String(radio.getRSSI())+" dBm"); 
+            display.drawString(  0, 24, str);
+            display.drawString(  0, 48, "[SNR ]  "+String(radio.getSNR())+" dB");  
+            display.display();// write the buffer to the display 
         } else if (state == ERR_CRC_MISMATCH) { 
             Serial.println(F("[SX1276] CRC error!")); 
         } else { 
