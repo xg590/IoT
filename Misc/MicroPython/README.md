@@ -12,6 +12,9 @@ $ screen /dev/ttyACM0 115200
 >>> print(sys.version)
 3.4.0
 ```
+#### Learning how to paste code into REPL is crucial
+* [2.3.5. Paste mode](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#paste-mode)
+* [2.3.6. Other control commands](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#other-control-commands)
 ### Use [rshell](https://github.com/dhylands/rshell) to add library to MicroPython
 #### 1. Prepare a lib
 ```shell
@@ -35,9 +38,6 @@ Hello World!
 #### Boot into running a script
 * Just name a script main.py instead of test.py and do the same copy
 * When the pico reboot, the script will run. 
-### Learning how to paste code into REPL is crucial
-* [2.3.5. Paste mode](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#paste-mode)
-* [2.3.6. Other control commands](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#other-control-commands)
 ### Add MicroPython to ESP32
 * ROM: Read-only memory. Everything that would not lost after power off stays here.
 * Firmware: Codes in the rom.
