@@ -1,17 +1,3 @@
-### Using Heltec WiFi LoRa 32 V2 as an example
-* List GPIO pin numbers by referring IOT/Board/Espressif/ESP32/WIFI_LoRa_32/WIFI_LoRa_32_V2.1.pdf
-```
-Pin_MISO = 19
-Pin_MOSI = 27
-Pin_SCK = 5
-Pin_CS = 18
-Pin_RST = 14;
-Pin_DIO0 = 26
-Pin_DIO1 = 35
-Pin_DIO2 = 34 
-```
-* Code
-```
 import time
 import math
 from ucollections import namedtuple
@@ -19,66 +5,80 @@ from urandom import getrandbits
 from machine import SPI
 from machine import Pin
 
-### LoRa Mode Register Table (Table 41) 
-RegFifo           = 0x00
-RegOpMode         = 0x01
-RegFrfMsb         = 0x06
-RegFrfMid         = 0x07
-RegFrfLsb         = 0x08
-RegPaConfig       = 0x09
-RegFifoAddrPtr    = 0x0d
-RegFifoTxBaseAddr = 0x0e
-RegFifoRxBaseAddr = 0x0f
-FifoRxCurrentAddr = 0x10
-RegIrqFlags       = 0x12
-RegRxNbBytes      = 0x13 # Number of received bytes
-RegPktSnrValue    = 0x19
-RegModemConfig1   = 0x1d
-RegModemConfig2   = 0x1e
-RegModemConfig3   = 0x26 
-RegPktRssiValue   = 0x1a
-RegPreambleMsb    = 0x20 # Size of preamble
-RegPreambleLsb    = 0x21
-RegPayloadLength  = 0x22
-RegDioMapping1    = 0x40 # Mapping of pins DIO0 to DIO3
-RegPaDac          = 0x4d # Higher power settings of the PA (Power Amplifier) DAC (Digital Analog Converter)
-
-### LoRa Mode Register Map
-PA_DAC_ENABLE  = 0x07 
-PA_DAC_DISABLE = 0x04
-PaSelect      = 0b1_000_0000 # Select PA_BOOST pin
-MaxPower      = 0b0_111_0000 # 15dBm = 10.8 + 0.6 * 7 
-OutputPower   = 0b0_000_1111 # 17    = 17 - ( 15 - 0b0_000_1111) since we choose PA_BOOST pin by setting PaSelect
-
-
-RxDone         = 0b01000000 
-TxDone         = 0b00001000
-CadDone        = 0b00000100
-CadDetected    = 0b00000001 
-
-LongRangeMode     = 0b01000000 
-Mode_SLEEP        = 0b00000000
-Mode_STDBY        = 0b00000001
-Mode_TX           = 0b00000011
-Mode_RXCONTINUOUS = 0b00000101
-Mode_CAD          = 0b00000111
-
 #Constants
 FLAGS_ACK = 0x80
 BROADCAST_ADDRESS = 255
 
-  
+REG_00_FIFO = 0x00
+REG_01_OP_MODE = 0x01
+REG_06_FRF_MSB = 0x06
+REG_07_FRF_MID = 0x07
+REG_08_FRF_LSB = 0x08
+REG_0E_FIFO_TX_BASE_ADDR = 0x0e
+REG_0F_FIFO_RX_BASE_ADDR = 0x0f
+REG_10_FIFO_RX_CURRENT_ADDR = 0x10
+REG_12_IRQ_FLAGS = 0x12
+REG_13_RX_NB_BYTES = 0x13
+REG_1D_MODEM_CONFIG1 = 0x1d
+REG_1E_MODEM_CONFIG2 = 0x1e
+REG_19_PKT_SNR_VALUE = 0x19
+REG_1A_PKT_RSSI_VALUE = 0x1a
+REG_20_PREAMBLE_MSB = 0x20
+REG_21_PREAMBLE_LSB = 0x21
+REG_22_PAYLOAD_LENGTH = 0x22
+REG_26_MODEM_CONFIG3 = 0x26
+
+REG_4D_PA_DAC = 0x4d
+REG_40_DIO_MAPPING1 = 0x40
+REG_0D_FIFO_ADDR_PTR = 0x0d
+
+PA_DAC_ENABLE = 0x07
+PA_DAC_DISABLE = 0x04
+PA_SELECT = 0x80
+
+CAD_DETECTED_MASK = 0x01
+RX_DONE = 0x40
+TX_DONE = 0x08
+CAD_DONE = 0x04
+CAD_DETECTED = 0x01
+
+LONG_RANGE_MODE = 0x80
+MODE_SLEEP = 0x00
+MODE_STDBY = 0x01
+MODE_TX = 0x03
+MODE_RXCONTINUOUS = 0x05
+MODE_CAD = 0x07
+
+REG_09_PA_CONFIG = 0x09
+FXOSC = 32000000.0
+FSTEP = (FXOSC / 524288)
+
+class ModemConfig():
+    Bw125Cr45Sf128 = (0x72, 0x74, 0x04) #< Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on. Default medium range
+    Bw500Cr45Sf128 = (0x92, 0x74, 0x04) #< Bw = 500 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on. Fast+short range
+    Bw31_25Cr48Sf512 = (0x48, 0x94, 0x04) #< Bw = 31.25 kHz, Cr = 4/8, Sf = 512chips/symbol, CRC on. Slow+long range
+    Bw125Cr48Sf4096 = (0x78, 0xc4, 0x0c) #/< Bw = 125 kHz, Cr = 4/8, Sf = 4096chips/symbol, low data rate, CRC on. Slow+long range
+    Bw125Cr45Sf2048 = (0x72, 0xb4, 0x04) #< Bw = 125 kHz, Cr = 4/5, Sf = 2048chips/symbol, CRC on. Slow+long range
+
+class SPIConfig():
+    # spi pin defs for various boards (channel, sck, mosi, miso)
+    rp2_0 = (0, 6, 7, 4)
+    rp2_1 = (1, 10, 11, 8)
+    esp8286_1 = (1, 14, 13, 12)
+    esp32_1 = (1, 14, 13, 12)
+    esp32_2 = (2, 18, 23, 19)
+
 class LoRa(object):
-    def __init__(self, spi_channel, irq_pin, this_address, cs_pin, rst_pin=None, freq=868.0, tx_power=14,
+    def __init__(self, spi_channel, interrupt, this_address, cs_pin, reset_pin=None, freq=868.0, tx_power=14,
                  modem_config=ModemConfig.Bw125Cr45Sf128, receive_all=False, acks=False, crypto=None):
         """
         Lora(channel, interrupt, this_address, cs_pin, reset_pin=None, freq=868.0, tx_power=14,
                  modem_config=ModemConfig.Bw125Cr45Sf128, receive_all=False, acks=False, crypto=None)
         channel: SPI channel, check SPIConfig for preconfigured names
-        irq_pin: GPIO interrupt pin
+        interrupt: GPIO interrupt pin
         this_address: set address for this device [0-254]
         cs_pin: chip select pin from microcontroller 
-        rst_pin: the GPIO used to reset the RFM9x if connected
+        reset_pin: the GPIO used to reset the RFM9x if connected
         freq: frequency in MHz
         tx_power: transmit power in dBm
         modem_config: Check ModemConfig. Default is compatible with the Radiohead library
@@ -87,6 +87,10 @@ class LoRa(object):
         crypto: if desired, an instance of ucrypto AES (https://docs.pycom.io/firmwareapi/micropython/ucrypto/) - not tested
         """
         
+        self._spi_channel = spi_channel
+        self._interrupt = interrupt
+        self._cs_pin = cs_pin
+
         self._mode = None
         self._cad = None
         self._freq = freq
@@ -106,84 +110,68 @@ class LoRa(object):
         self.wait_packet_sent_timeout = 0.2
         self.retry_timeout = 0.2
         
-        # Pins
-        Pin_MISO = 19
-        Pin_MOSI = 27
-        Pin_SCK = 5
-        Pin_CS = 18
-        Pin_RST = 14
-        Pin_DIO0 = 26
-        Pin_DIO1 = 35
-        Pin_DIO2 = 34  
-
-        # Reset the board
-        if Pin_RST:
-            Pin(Pin_RST, Pin.OUT).value(0);  time.sleep(0.01)
-            Pin(Pin_RST, Pin.OUT).value(1);  time.sleep(0.01)
-
-        # Release board from SPI Bus
-        Pin(Pin_CS,   Pin.OUT).value(1) # Into high impedance status 
+        # Setup the module
+#        gpio_interrupt = Pin(self._interrupt, Pin.IN, Pin.PULL_DOWN)
+        gpio_interrupt = Pin(self._interrupt, Pin.IN)
+        gpio_interrupt.irq(trigger=Pin.IRQ_RISING, handler=self._handle_interrupt)
         
-        # Setup Interrupt
-        Pin(Pin_DIO0, Pin.IN ).irq(trigger=Pin.IRQ_RISING, handler=self._handle_interrupt)
+        # reset the board
+        if reset_pin:
+            gpio_reset = Pin(reset_pin, Pin.OUT)
+            gpio_reset.value(0)
+            time.sleep(0.01)
+            gpio_reset.value(1)
+            time.sleep(0.01)
 
-        # baud rate to 5MHz 
-        self.spi = SPI(id=0, baudrate=5000000, sck=Pin(Pin_SCK), mosi=Pin(Pin_MOSI), miso=Pin(Pin_MISO))
-  
+        # baud rate to 5MHz
+        self.spi = SPI(self._spi_channel[0], 5000000,
+                       sck=Pin(self._spi_channel[1]), mosi=Pin(self._spi_channel[2]), miso=Pin(self._spi_channel[3]))
+
+        # cs gpio pin
+        self.cs = Pin(self._cs_pin, Pin.OUT)
+        self.cs.value(1)
+        
         # set mode
-        self._spi_write(RegOpMode, Mode_SLEEP | LongRangeMode) 
-        time.sleep(0.1) 
-        assert self._spi_read(RegOpMode) == (Mode_SLEEP | LongRangeMode), "LoRa initialization failed"
+        self._spi_write(REG_01_OP_MODE, MODE_SLEEP | LONG_RANGE_MODE)
+        time.sleep(0.1)
         
-        # Use all FIFO buffer. See Datasheet: Principle of Operation
-        self._spi_write(RegFifoTxBaseAddr, 0x00) # bottom of the memory
-        self._spi_write(RegFifoRxBaseAddr, 0x00)
+        # check if mode is set
+        assert self._spi_read(REG_01_OP_MODE) == (MODE_SLEEP | LONG_RANGE_MODE), \
+            "LoRa initialization failed"
+
+        self._spi_write(REG_0E_FIFO_TX_BASE_ADDR, 0)
+        self._spi_write(REG_0F_FIFO_RX_BASE_ADDR, 0)
+        
         self.set_mode_idle()
 
-        # See 4.4. LoRa Mode Register Map
-        self._spi_write(RegModemConfig1, 0b0111_001_0)  # Bw:125kHz, CodingRate:4/5, ImplicitHeaderModeOn: On
-        self._spi_write(RegModemConfig2, 0b0111_0_0_00) # SpreadingFactor: 7, TxContinuousMode: Normal, RxPayloadCrcOn: On, SymbTimeout(9:8):0
-        self._spi_write(RegModemConfig3, 0x04)
- 
+        # set modem config (Bw125Cr45Sf128)
+        self._spi_write(REG_1D_MODEM_CONFIG1, self._modem_config[0])
+        self._spi_write(REG_1E_MODEM_CONFIG2, self._modem_config[1])
+        self._spi_write(REG_26_MODEM_CONFIG3, self._modem_config[2])
 
-        # Preamble length (8)
-        self._spi_write(RegPreambleMsb, 0x0) # Preamble can be 64kb long, much longer than payload 
-        self._spi_write(RegPreambleLsb, 0x8) # but we just use 8-byte preamble
+        # set preamble length (8)
+        self._spi_write(REG_20_PREAMBLE_MSB, 0)
+        self._spi_write(REG_21_PREAMBLE_LSB, 8)
 
-        # 4.1.4. Frequency Settings
-        FXOSC = 32e6 # Freq of XOSC
-        FSTEP = FXOSC / 2^19
-        Frf = int(915e6 / FSTEP)
-        self._spi_write(RegFrfMsb, (Frf >> 16) & 0xff)
-        self._spi_write(RegFrfMid, (Frf >>  8) & 0xff)
-        self._spi_write(RegFrfLsb,  Frf        & 0xff)
-         
+        # set frequency
+        frf = int((self._freq * 1000000.0) / FSTEP)
+        self._spi_write(REG_06_FRF_MSB, (frf >> 16) & 0xff)
+        self._spi_write(REG_07_FRF_MID, (frf >> 8) & 0xff)
+        self._spi_write(REG_08_FRF_LSB, frf & 0xff)
+        
         # Set tx power
         if self._tx_power < 5:
             self._tx_power = 5
         if self._tx_power > 23:
             self._tx_power = 23
-        '''
-        {Band 1: ~915MHz, Band 2: ~433MHz, Band 3: ~150MHz}
-        {LF: Bands 2&3, HF: Band 1} 
-        RFI: RF Input 
-        RFO: RF Output
-        Three amplifiers: RFO_LF, RFO_HF, PA_BOOST
-        AFC: automatic frequency correction 
-        PA: Power Amplifier 
-        PA_HP: High Power
-        PA_HF and PA_LF are high efficiency amplifiers
-        RFOP: RF output power
-        PaDac is 0x04 or 0x07 
-        RegPaDac = 0x10 << 3 | 0x07 # Enables the +20dBm option on PA_BOOST pin
-        ''' 
+
         if self._tx_power < 20:
-            self._spi_write(RegPaDac, PA_DAC_ENABLE)
+            self._spi_write(REG_4D_PA_DAC, PA_DAC_ENABLE)
             self._tx_power -= 3
         else:
-            self._spi_write(RegPaDac, PA_DAC_DISABLE)
+            self._spi_write(REG_4D_PA_DAC, PA_DAC_DISABLE)
 
-        self._spi_write(RegPaConfig, PA_SELECT | (self._tx_power - 5))
+        self._spi_write(REG_09_PA_CONFIG, PA_SELECT | (self._tx_power - 5))
         
     def on_recv(self, message):
         # This should be overridden by the user
@@ -191,24 +179,24 @@ class LoRa(object):
 
     def sleep(self):
         if self._mode != MODE_SLEEP:
-            self._spi_write(RegOpMode, MODE_SLEEP)
+            self._spi_write(REG_01_OP_MODE, MODE_SLEEP)
             self._mode = MODE_SLEEP
 
     def set_mode_tx(self):
         if self._mode != MODE_TX:
-            self._spi_write(RegOpMode, MODE_TX)
+            self._spi_write(REG_01_OP_MODE, MODE_TX)
             self._spi_write(REG_40_DIO_MAPPING1, 0x40)  # Interrupt on TxDone
             self._mode = MODE_TX
 
     def set_mode_rx(self):
         if self._mode != MODE_RXCONTINUOUS:
-            self._spi_write(RegOpMode, MODE_RXCONTINUOUS)
+            self._spi_write(REG_01_OP_MODE, MODE_RXCONTINUOUS)
             self._spi_write(REG_40_DIO_MAPPING1, 0x00)  # Interrupt on RxDone
             self._mode = MODE_RXCONTINUOUS
             
     def set_mode_cad(self):
         if self._mode != MODE_CAD:
-            self._spi_write(RegOpMode, MODE_CAD)
+            self._spi_write(REG_01_OP_MODE, MODE_CAD)
             self._spi_write(REG_40_DIO_MAPPING1, 0x80)  # Interrupt on CadDone
             self._mode = MODE_CAD
 
@@ -245,9 +233,9 @@ class LoRa(object):
         return False
 
     def set_mode_idle(self):
-        if self._mode != Mode_STDBY:
-            self._spi_write(RegOpMode, Mode_STDBY)
-            self._mode = Mode_STDBY
+        if self._mode != MODE_STDBY:
+            self._spi_write(REG_01_OP_MODE, MODE_STDBY)
+            self._mode = MODE_STDBY
 
     def send(self, data, header_to, header_id=0, header_flags=0):
         self.wait_packet_sent()
@@ -310,13 +298,25 @@ class LoRa(object):
         self.cs.value(1)
 
     def _spi_read(self, register, length=1):
-        self.cs.value(0) # Bring the CS pin low to enable communication
+        self.cs.value(0)
         if length == 1:
             data = self.spi.read(length + 1, register)[1]
         else:
             data = self.spi.read(length + 1, register)[1:]
-        self.cs.value(1) # release the bus.
-        return data 
+        self.cs.value(1)
+        return data
+        
+    def _decrypt(self, message):
+        decrypted_msg = self.crypto.decrypt(message)
+        msg_length = decrypted_msg[0]
+        return decrypted_msg[1:msg_length + 1]
+
+    def _encrypt(self, message):
+        msg_length = len(message)
+        padding = bytes(((math.ceil((msg_length + 1) / 16) * 16) - (msg_length + 1)) * [0])
+        msg_bytes = bytes([msg_length]) + message + padding
+        encrypted_msg = self.crypto.encrypt(msg_bytes)
+        return encrypted_msg
 
     def _handle_interrupt(self, channel):
         irq_flags = self._spi_read(REG_12_IRQ_FLAGS)
@@ -378,4 +378,3 @@ class LoRa(object):
 
     def close(self):
         self.spi.deinit()
-```
