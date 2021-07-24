@@ -13,29 +13,25 @@
 #### Waveform
 </br><img src="waveform.png" height="150px" width="400px"></img>
 #### Coding for [MicroPython](../../Misc/MicroPython/driver/rotary.py) on Raspberry Pi Pico
-* We have 4 independent events [Rising A, Falling A, Rising B, Falling B] and 4 pin states [High A, Low A, High B, Low B]
-  * MicroPython identifies rising event as 8 and falling event as 4
-  * Obviously, high pin state is 1 and low is 0 
-  * Since we have two pins, we can shift the pin B's event identifiers to 32 and 16 
-  * When two sets of identifiers combine, we have [5, 16, 8, 33, 9, 17, 4, 32] 
-    * Rising A and High B can be combined together
-    * But Rising A and Low A cannot be together 
-    * Given
-      * Rising  A, Low or High B =  8 or  9  
-      * Falling A, Low or High B =  4 or  5
-      * Rising  B, Low or High B = 32 or 33 if we shift rising event's value by 8 << 2
-      * Falling B  Low or High B = 16 or 17                                     4 << 2
-* Look at the waveform, we will only encounter combined event [5, 16, 8, 33] when rotates clockwisely or encounter [9, 17, 4, 32] when counter-clockwisely
-* Another observation is one combined event only succeeds another specific one 
-  * 16 would only happen after 5, otherwise, it is either error or rotation direction reversing that happens
-  * We now have a EED (Event Expectation Dict) and ERR [ERRor dict]
-  ```
-    EED = {5:16, 16:8, 8:33, 33:5, 9:17, 17:4, 4:32, 32:9}
-    ERR = {5: 5, 16:5, 8: 5, 33:5, 9: 9, 17:9, 4: 9, 32:9} 
-    if NewEvent == EED[OldEvent]:  # New event is as expected 
-        if   NewEvent ==  8: print('CW')
-        elif NewEvent == 17: print('CCW') 
-        OldEvent = NewEvent
-    else:                         # New event is unexpected, reset beginning event
-        OldEvent = ERR[NewEvent]  # We update old event because NewEvent could be 8 while OldEvent is 5
-  ``` 
+* We use 2 independent events [Rising A, Rising B] and 4 pin states [High A, Low A, High B, Low B]
+     * MicroPython identifies rising event as 8 
+     * Obviously, high pin state is 1 and low is 0 
+     * Since we have two pins, we can right-shift the second pin's event identifier to 4
+     * When two sets of identifiers combine, we have [8, 5, 9, 4] 
+       * Rising A and High B can be combined together, the new combined identifier is 9
+         * Rising  A, Low or High B =  8        or 9   
+         * Rising  B, Low or High B =  4 (8>>1) or 5 ((8>>1)+1) 
+       * But Rising A and Low A cannot be together  
+   * Look at the waveform, we will only encounter combined event [8, 5] when rotates clockwisely or encounter [9, 4] when counter-clockwisely
+   * Combined event 9 will not follow 8, only 5 follows 8. Otherwise, rotation direction reversesing happens
+     * We now have a EED (Event Expectation Dict) and ERR [ERRor dict]
+     ```
+       EED = {8:5, 5:8, 9:4, 4:9} # Expectation
+       ERR = {8:5, 5:5, 9:9, 4:9} # when direction reversed, we need reset OldEvent to a default value
+       if NewEvent == EED[OldEvent]:  # New event is as expected 
+           if   NewEvent ==  8: print('CW')
+           elif NewEvent ==  4: print('CCW') 
+           OldEvent = NewEvent
+       else:                         # New event is unexpected, reset beginning event
+           OldEvent = ERR[NewEvent]  # We update old event because NewEvent could be 9 while OldEvent is 5
+     ```  
