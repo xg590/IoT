@@ -15,25 +15,20 @@ class ROTARY():
         self._ERR = {8:5, 5:5, 9:9, 4:9}
         self.counter = 0
 
-    def _irq_handler_a(self, pin_a): # [8, 9]
-        _NE = self._pin_b.value() +  pin_a.irq().flags()    
-        #print('a',_NE)
+    def _irq_handler_a(self, pin_a):
+        _NE = self._pin_b.value() +  pin_a.irq().flags() # [8, 9] 
         if self._EED[self._OE] == _NE:  
             if _NE == 8: 
-                self.counter += 1
-                #print(self.counter, 'a counter')
+                self.counter += 1 
             self._OE = _NE
         else:
             self._OE = self._ERR[_NE]   
 
-    def _irq_handler_b(self, pin_b): # [4, 5]
-        _NE = self._pin_a.value() + (pin_b.irq().flags() >> 1)  
-        #print('b',_NE)
+    def _irq_handler_b(self, pin_b):
+        _NE = self._pin_a.value() + (pin_b.irq().flags() >> 1) # [4, 5] 
         if self._EED[self._OE] == _NE:  
             if _NE == 4: 
-                self.counter -= 1
-                #print(self.counter, 'b counter')
+                self.counter -= 1 
             self._OE = _NE
         else:
-            self._OE = self._ERR[_NE]
-
+            self._OE = self._ERR[_NE] 

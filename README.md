@@ -12,7 +12,7 @@
   * Radio
 * Motion
   * Motor: [DRV8833](Motion/DRV8833.md) / PCA9685+TB6612 
-  * Rotary Encoder
+  * [Rotary Encoder](Motion/Rotary_Encoder)
   * Servo
 * Sensor
   * [NEO-6M](Sensor/NEO-6M)
