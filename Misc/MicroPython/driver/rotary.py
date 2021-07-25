@@ -1,4 +1,4 @@
-# Xiaokang Guo @ 2021-07-24 
+# Inspired by buxtronix's idea and implemented by Xiaokang Guo @ 2021-07-24 
 from machine import Pin 
 class ROTARY():
     def __init__(self, pin_a, pin_b, reverse=False): 
