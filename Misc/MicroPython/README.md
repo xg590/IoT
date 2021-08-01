@@ -64,3 +64,13 @@ $ screen /dev/ttyUSB0 115200
 >>> print(sys.version)
 3.4.0
 ```
+### Add MicroPython to ESP8266
+* Flash MicroPython
+```shell
+esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210618-v1.16.bin
+```
+* Use [jupyter-notebook](https://github.com/goatchurchprime/jupyter_micropython_kernel) instead of terminal
+```
+pip install jupyter_micropython_kernel
+python -m jupyter_micropython_kernel.install
+```

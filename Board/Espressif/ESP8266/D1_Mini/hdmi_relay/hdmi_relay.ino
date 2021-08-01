@@ -3,31 +3,44 @@
 #include <ESP8266WebServer.h> 
 #include "/etc/wifi_secret.h" /* 
 cat << EOF > /etc/wifi_secret.h
-#define STASSID "widi_ssid"
-#define STAPSK  "wifi_passwd"
+#define HUB_STASSID "wifi_ssid"
+#define HUB_STAPSK  "wifi_passwd"
 EOF
 */ 
-
-const char *ssid = STASSID;
-const char *password = STAPSK;
-const int  switch_pin = D8;
-int switch_flag = 0;
+  
+const char *ssid = HUB_STASSID;
+const char *password = HUB_STAPSK;
+int mswda_flag = 0; // microsoft_wireless_display_adapter
+const int  relay_pin = D8; // relay that control power of display adapter
+const int  kvm_switch_pin = D5;
 
 ESP8266WebServer server(80);
     
-void _switch() {  
+void _mswda() {  // microsoft_wireless_display_adapter
   String s = "<!DOCTYPE html><html><head><title>HDMI Relay</title></head><body>";
-  if (switch_flag) {
-    switch_flag = 0; s += "Turn hdmi <a href=\"switch\"><b style=\"font-size:2em\">ON </b></a>";
+  if (mswda_flag) {
+    mswda_flag = 0; s += "Turn Microsoft Wireless Display Adapter <a href=\"mswda\"><b style=\"font-size:2em\">ON </b></a>";
   } else { 
-    switch_flag = 1; s += "Turn hdmi <a href=\"switch\"><b style=\"font-size:2em\">OFF</b></a>";
+    mswda_flag = 1; s += "Turn Microsoft Wireless Display Adapter <a href=\"mswda\"><b style=\"font-size:2em\">OFF</b></a>";
   } 
   s += "</body></html>";
+  server.send(200, "text/html", s); 
+  
+  digitalWrite(relay_pin, mswda_flag);
+  digitalWrite(LED_BUILTIN, 0); 
+  delay(200); 
+  digitalWrite(LED_BUILTIN, 1);
+} 
+
+void _kvm() {  
+  String s = "<!DOCTYPE html><html><head><title>KVM</title></head><body>Swtich KVM in 5 seconds</body></html>";
   server.send(200, "text/html", s);
   
-  digitalWrite(switch_pin, switch_flag);
+  delay(5000); 
   digitalWrite(LED_BUILTIN, 0);
-  delay(500);
+  digitalWrite(kvm_switch_pin, 0);
+  delay(200);
+  digitalWrite(kvm_switch_pin, 1); 
   digitalWrite(LED_BUILTIN, 1);
 } 
 
@@ -53,10 +66,12 @@ void handleNotFound() {
 } 
 
 void setup(void) {
-  pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(switch_pin, OUTPUT);
-  digitalWrite(LED_BUILTIN, 1);
-  digitalWrite(switch_pin, 0);
+  pinMode(     LED_BUILTIN   , OUTPUT);
+  digitalWrite(LED_BUILTIN   ,      1);
+  pinMode(     relay_pin     , OUTPUT);
+  digitalWrite(relay_pin     ,      0);
+  pinMode(     kvm_switch_pin, OUTPUT); 
+  digitalWrite(kvm_switch_pin,      1); 
   Serial.begin(115200);
   Serial.println("STASSID");
   WiFi.mode(WIFI_STA);
@@ -78,7 +93,8 @@ void setup(void) {
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
   });
-  server.on("/switch", _switch); 
+  server.on("/mswda", _mswda); 
+  server.on("/kvm", _kvm); 
   server.onNotFound(handleNotFound);
   server.begin();
   Serial.println("HTTP server started");

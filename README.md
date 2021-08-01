@@ -1,5 +1,5 @@
 # How to
-## By Device 
+## By Device
 * Board
   * Raspberry Pi: [ZW / 3A / 3B / 4](Board/Raspberry_Pi) / [Pico](Board/Raspberry_Pi/Pico.md)
   * Arduino: [Uno / Nano / Pro Mini](Board/Arduino)
@@ -11,18 +11,22 @@
   * Infra-red
   * Radio
 * Motion
-  * Motor: [DRV8833](Motion/DRV8833.md) / PCA9685+TB6612 
+  * Motor: [DRV8833](Motion/DRV8833.md) / PCA9685+TB6612
   * [Rotary Encoder](Motion/Rotary_Encoder)
   * Servo
 * Sensor
   * [NEO-6M](Sensor/NEO-6M)
-  * [BNO055](Sensor/BNO055) / MPU-6050  
+  * [BNO055](Sensor/BNO055) / MPU-6050
   * [SPI SD Card Reader](Sensor/SD_Card)
 
 ## By Project
+* [What](Misc/MicroPython#add-micropython-to-esp32) is ROM, Firmware, Bootloader, or Sketch?
 * [MicroPython](Misc/MicroPython) is awesome
+  * LoRa
+  * Rotary
+  * OLED
 * [Hello World: Blink an Arduino](Board/Arduino#get-started)
-* [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino_CLI.md) 
+* [Program Arduino/ESP8266/ESP32 in terminal](Board/Arduino/Arduino_CLI.md)
 * [Arduino talks to Raspbery Pi](Board/Arduino#talk-to-raspberry-pi)
 * [Get GeoLocation](Sensor/NEO-6M)
 * [Know orientation](Sensor/BNO055)
@@ -31,7 +35,7 @@
 * Count motor speed
 * Drive a servo
 * Log data
-* [Smart Home](Board/Espressif/ESP8266/D1_Mini/smart_home) 
+* [Smart Home](Board/Espressif/ESP8266/D1_Mini/smart_home)
 * Control projector
 * Long range communication
 * Read data from Xbox controller
