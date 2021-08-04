@@ -20,5 +20,24 @@
 * By using these address duo, we can read or write certain bytes of data from or to the device.
 * An example (Reading compass data) can be found [here]()
 ### SPI
+#### Wiring
+* Pins
+  * SCK: SPI Clock
+  * MISO: Master In Slave Out. Data flow out this pin from a slave module.
+  * MOSI: Data pours in a slave module through this pin.
+  * CS: Chip select. For some module, this pin is marked as NSS: Negative Slave Select. This pin is pulled down by the master so that a slave module is on service.
+```
+    Slave1     Master     Slave2
+    SCK    <->  SCK   <->    SCK
+    MISO   <->  MISO  <->   MISO
+    MOSI   <->  MOSI  <->   MOSI
+    CS     <->  CS1
+                CS2   <->     CS
+```
+#### Protocol
 * There is no I2C bus address but we use Chip select pin to specify the SPI device we want to access.
-*
+* Pull down CS pin
+* MOSI emits 1 byte. First bit indicates operation type {1: write, 0:read} and 7 bits for register address.
+* MISO reply if a read operation was performed right before.
+* MOSI emits more data bytes if it is a write operation while MISO idle all the time. (No Ack like i2c)
+* Pull up CS pin
