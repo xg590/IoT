@@ -74,3 +74,5 @@ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 e
 pip install jupyter_micropython_kernel
 python -m jupyter_micropython_kernel.install
 ```
+### Troubleshooting
+* ENOMEM: Not enough memory
