@@ -1,12 +1,5 @@
 import time, urandom
-from machine import SPI, Pin
-'''
-Overview: How to use SX1276
-1. Enable the module
-2. Configure SPI communication
-3. Configure the LoRa mode
-4. Transmit
-'''
+from machine import SPI, Pin 
 ####################
 #                  #
 #     1.Enable     #
@@ -166,8 +159,25 @@ DioMapping = {
     'Dio4' : {},
     'Dio5' : {},
 }
-write(RegDioMapping1, DioMapping['Dio0']['TxDone'])  # Configure Pin Dio0 so that this pin interrupts on TxDone, see Table 18 DIO Mapping LoRa ® Mode
+write(RegDioMapping1, DioMapping['Dio0']['RxDone'])  # Configure Pin Dio0 so that this pin interrupts on TxDone, see Table 18 DIO Mapping LoRa ® Mode
+ 
+RegPktSnrValue = 0x19 
+RegPktRssiValue = 0x1A
+RegRssiValue    = 0x1B
 
+
+# Reg and value
+RegFifoAddrPtr       = 0x0d
+RegFifo              = 0x00
+RegPayloadLength     = 0x22
+RegFifoRxCurrentAddr = 0x10
+RegRxNbBytes         = 0x13 # Number of received bytes
+RegPktSnrValue       = 0x19
+RegPktRssiValue      = 0x1a 
+RegVersion           = 0x42
+              
+
+        
 RegIrqFlags = 0x12
 IrqFlags = {
     'RxTimeout'        : 0b1 << 7,
@@ -179,11 +189,30 @@ IrqFlags = {
     'FhssChangeChannel': 0b1 << 1,
     'CadDetected'      : 0b1 << 0
 }
-
 def _handler(pin):
-    assert read(RegIrqFlags) == IrqFlags['TxDone'], 'IRQ Error for TxDone'
-    print('TxDone~')
-    write(RegIrqFlags, 0xab) # write anything could clear all types of interrupt flags
+    irq_flags = read(RegIrqFlags) 
+    write(RegIrqFlags, 0xff) # write anything could clear all types of interrupt flags  
+    if irq_flags & IrqFlags['RxDone'] and irq_flags & IrqFlags['ValidHeader'] : 
+        PacketSnr  = read(RegPktSnrValue)
+        SNR = PacketSnr / 4
+        PacketRssi = read(RegPktRssiValue) 
+        #Rssi = read(RegRssiValue) 
+        if SNR < 0:
+            RSSI = -157 + PacketRssi + SNR
+        else:
+            RSSI = -157 + 16 / 15 * PacketRssi 
+        RSSI = round(RSSI, 2) # Table 7 Frequency Synthesizer Specification 
+        print('SNR: {}, RSSI: {}'.format(SNR, RSSI))
+
+        write(RegFifoAddrPtr, read(RegFifoRxCurrentAddr)) 
+        packet = read(RegFifo, read(RegRxNbBytes)) 
+        print('Payload: {}\n'.format(packet.decode()) ) 
+
+    else: 
+        for i, j in IrqFlags.items():
+            if irq_flags & j:
+                print(i) 
+      
 
 lora_irq_pin = Pin(LoRa_G0_Pin, Pin.IN)
 lora_irq_pin.irq(handler=_handler, trigger=Pin.IRQ_RISING)
@@ -205,22 +234,17 @@ write(RegIrqFlagsMask, IrqFlagsMask['TxDoneMask'])  #  This will deactivate inte
 
 ####################
 #                  #
-#       4.Tx       #
+#       4.Rx       #
 #                  #
 ####################
 
-
-### LoRa Mode Register Table (Table 41)
-FifoRxCurrentAddr = 0x10
-RegRxNbBytes      = 0x13 # Number of received bytes
-RegPktSnrValue    = 0x19
-RegPktRssiValue   = 0x1a
-RegSyncWord       = 0x39
-RegVersion        = 0x42
-
 ### Register Value
-Mode_RXCONTINUOUS = 0b00000101
-Mode_CAD          = 0b00000111
+Mode = { # see Table 16 LoRa ® Operating Mode Functionality
+  'CAD'          : 0b00000111, 
+  'STANDBY'      : 0b00000001,
+  'TX'           : 0b00000011,
+  'RXCONTINUOUS' : 0b00000101 
+} 
 '''
 SX1276 has a 256 byte memory area as the FIFO buffer for Tx/Rx operations.
 How do we know which area is for Tx and which is for Rx.
@@ -235,29 +259,6 @@ Fifo_Bottom       = 0x00 # We choose this value to max buffer we can write (then
 write(RegFifoTxBaseAddr, Fifo_Bottom)
 write(RegFifoRxBaseAddr, Fifo_Bottom)
 
-while 1:
-    # Prepare the payload
-    data = str(urandom.randint(100,999))+") Hello1~"
-    print(data)
-    CLIENT_ADDRESS = 1
-    SERVER_ADDRESS = 2
-    header = [SERVER_ADDRESS, CLIENT_ADDRESS, 1, 0]
-    data = [ord(s) for s in data]
-    payload = header + data
-
-    # Reg and value
-    RegFifoAddrPtr    = 0x0d
-    Mode_STDBY        = 0b00000001
-    RegFifo           = 0x00
-    RegPayloadLength  = 0x22
-    Mode_TX           = 0b00000011
-
-    # Send Data
-    write(RegOpMode, Mode_STDBY)       # Request Standby mode so SX1276 performs transmition initialization.
-    write(RegFifoAddrPtr, Fifo_Bottom) # Before fill the buffer, move this point manually to where we set for RegFifoTxBaseAddr.
-                                       # Static configuration registers can only be accessed in Sleep mode, Standby mode or FSTX mode.
-    write(RegFifo, payload)            # Write Data FIFO
-    assert read(RegFifoAddrPtr) == len(payload), 'Prove me wrong' # After writing, RegFifoAddrPtr moves to Fifo_Bottom + len(payload)
-    write(RegPayloadLength, len(payload))
-    write(RegOpMode, Mode_TX)          # Request Standby mode so SX1276 send out payload
-    time.sleep(10)
+write(RegOpMode, Mode['STANDBY'])  # Request Standby mode so SX1276 performs reception initialization.   
+# Receive Data
+write(RegOpMode, Mode['RXCONTINUOUS'])          # Request Standby mode so SX1276 send out payload  
