@@ -36,3 +36,16 @@
 * Wait for IRQ (RxDone and ValidHeader/PayloadCrcError)
   * In ISR, Read FIFO data buffer to get payload
 * Next IRQ 
+### Packet Structure
+<img src="Packet_Structure.png"></img>
+* Header (exists in explicit mode): Payload length, payload's coding rate (Tx tells Rx which CR it uses)
+* Explicit header's coding rate is 4/8 and payload's could be different.
+* SF is for whole packet
+### FIFO Buffer
+<img src="FIFO_Buffer.png"></img>
+* In order to write packet data into FIFO user should:
+  1. Set RegFifoAddrPtr to *RegFifoTxBaseAddr.
+  2. Write *RegPayloadLength bytes to the FIFO (RegFifo)
+* In order to read packet data from FIFO user should:
+  1. Set RegFifoAddrPtr to *RegFifoRxCurrentAddr.
+  2. Read RegRxNbBytes from RegFifo 
