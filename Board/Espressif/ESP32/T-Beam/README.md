@@ -5,6 +5,8 @@
 * Board name in Arduino IDE: T-beam
 * Official GitHub: https://github.com/Xinyuan-LilyGO/LilyGo-LoRa-Series
 * Install libraries: Move all sub-folders in LilyGo-LoRa-Series/libdeps to ~/Arduino/libraries
+### Pinout
+<img src="Pinout.webp"></img> 
 ### Difference between LoRa and LoRaWAN
 * LoRa is the Physical Layer protocol that supports Network Layer protocol LoRaWAN.
 * LoRa is about RF signal and LoRaWAN addresses MAC/Encryption.
