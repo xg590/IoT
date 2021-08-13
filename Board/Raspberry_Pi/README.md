@@ -24,4 +24,6 @@ SPI TX : MOSI
 * 2MByte Flash
 * 264kByte SRAM
 ### Pinout
+* SPIx_TX = MOSI
+* SPIx_RX = MISO
 <img src="Pico_Pinout.png"></img>

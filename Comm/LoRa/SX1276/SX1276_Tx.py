@@ -274,5 +274,10 @@ if __name__ == "__main__":
     Pin(LoRa_EN_Pin, Pin.OUT).on()
     lora = LoRa(LoRa_RST_Pin, LoRa_CS_Pin, SPI_CH, LoRa_SCK_Pin, LoRa_MOSI_Pin, LoRa_MISO_Pin, LoRa_G0_Pin)
 
-    lora.packet_handler = lambda self, packet, SNR, RSSI: print(packet, SNR, RSSI)   
-    lora.RxCont() 
+    lora.write('RegDioMapping1', lora.DioMapping['Dio0']['TxDone'])     
+    lora.after_TxDone = lambda self: print('TxDone')
+    import urandom
+    while 1:
+        payload = str(urandom.randint(100,999))+") Hello~"   
+        lora.send(payload)
+        time.sleep(5) 

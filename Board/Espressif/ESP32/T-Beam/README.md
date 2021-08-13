@@ -6,7 +6,16 @@
 * Official GitHub: https://github.com/Xinyuan-LilyGO/LilyGo-LoRa-Series
 * Install libraries: Move all sub-folders in LilyGo-LoRa-Series/libdeps to ~/Arduino/libraries
 ### Pinout
-<img src="Pinout.webp"></img> 
+```
+LoRa_MISO_Pin = 19
+LoRa_MOSI_Pin = 27
+LoRa_SCK_Pin  =  5
+LoRa_CS_Pin   = 18
+LoRa_RST_Pin  = 23
+LoRa_G0_Pin   = 26
+SPI_CH        =  1
+```
+<img src="Pinout.webp"></img>
 ### Difference between LoRa and LoRaWAN
 * LoRa is the Physical Layer protocol that supports Network Layer protocol LoRaWAN.
 * LoRa is about RF signal and LoRaWAN addresses MAC/Encryption.
@@ -22,7 +31,7 @@
 * GPS / OLED / SX1276_Tx are three minimalistic examples that demonstrate how to use different component on T-Beam board.
 * [Tracker](tracker) is the final project that report GPS info via LoRa protocol while display some info on screen.
 ### Recv.py
-* Use LilyGo-LoRa-Series-master/examples/RadioLibExamples/SX1276/SX1276_Receive_Interrupt to program the receiver. 
+* Use LilyGo-LoRa-Series-master/examples/RadioLibExamples/SX1276/SX1276_Receive_Interrupt to program the receiver.
 ```
 $ pip install pyserial
 import serial, datetime
@@ -33,7 +42,7 @@ with serial.Serial(port='/dev/ttyUSB0',baudrate=115200) as s, open('tracker.log'
 ```
 ###
 ```
-arduino-cli compile --fqbn esp32:esp32:t-beam $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive && arduino-cli upload  --fqbn esp32:esp32:t-beam -p /dev/ttyUSB2 $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive  
+arduino-cli compile --fqbn esp32:esp32:t-beam $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive && arduino-cli upload  --fqbn esp32:esp32:t-beam -p /dev/ttyUSB2 $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Receive
 
 arduino-cli compile --fqbn esp32:esp32:t-beam $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Transmit && arduino-cli upload  --fqbn esp32:esp32:t-beam -p /dev/ttyUSB1 $HOME/IoT-master/Espressif/ESP32/T-Beam/SX1276_Transmit
 ```

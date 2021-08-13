@@ -1,8 +1,13 @@
-import time 
+import time, urandom, struct
 from machine import Pin, SPI   
 
 class LoRa:
-    def __init__(self, RST_Pin, CS_Pin, SPI_CH, SCK_Pin, MOSI_Pin, MISO_Pin, DIO0_Pin, plus20dBm=False):
+    def __init__(self, RST_Pin, CS_Pin, SPI_CH, SCK_Pin, MOSI_Pin, MISO_Pin, DIO0_Pin, LoRa_id = 0, wait_ACK=True, plus20dBm=False): 
+        self.ack_token  = 0
+        self.sending    = False
+        self.send_id    = LoRa_id
+        self.header_fmt = 'HHH' # self.send_id, recv_id, self.ack_token
+        self._mode      = None
         ####################
         #                  #
         #     1.Reset      # 
@@ -14,6 +19,7 @@ class LoRa:
         time.sleep(0.01)
         rst_pin.on()
         time.sleep(0.01) 
+
         ####################
         #                  #
         #      2.SPI       #
@@ -34,6 +40,7 @@ class LoRa:
         self.spi = SPI(SPI_CH, baudrate=10_000_000, polarity=0, phase=0,
                        sck=Pin(SCK_Pin), mosi=Pin(MOSI_Pin), miso=Pin(MISO_Pin)
                       ) 
+
         ####################
         #                  #
         #      3.Lora      #
@@ -191,16 +198,29 @@ class LoRa:
         }
         write(RegIrqFlagsMask, IrqFlagsMask['TxDoneMask'])  #  This will deactivate interrupt on TxDone.
         ''' 
-        self.write('RegOpMode', self.Mode['STANDBY'])      # Request Standby mode so SX1276 performs reception initialization. 
+
+        self.mode = 'STANDBY' # Request Standby mode so SX1276 performs reception initialization. 
     
-    def write(self, reg, data): 
+    @property
+    def mode(self):
+        return self._mode
+
+    @mode.setter
+    def mode(self, value):   
+        if self.mode != value:
+            if   value == 'TX':
+                self.write('RegDioMapping1', self.DioMapping['Dio0']['TxDone'])   
+            elif value == 'RXCONTINUOUS':
+                self.write('RegDioMapping1', self.DioMapping['Dio0']['RxDone'])  
+            self.write('RegOpMode', self.Mode[value])     
+            self._mode = value
+
+    def write(self, reg, data, fifo=False): 
         wb = bytes([self.RegTable[reg] | 0x80]) # Create a writing byte
-        if isinstance(data, int):
-            data = wb + bytes([data]) 
-        elif isinstance(data, str):
-            data = wb + bytes(data, 'utf-8')
+        if fifo:
+            data = wb + data
         else:
-            raise
+            data = wb + bytes([data])  
         self.cs_pin.value(0) # Bring the CS pin low to enable communication 
         self.spi.write(data)
         self.cs_pin.value(1) # release the bus. 
@@ -215,64 +235,74 @@ class LoRa:
         self.cs_pin.value(1)
         return data
     
-    def _irq_handler(self, pin): 
-        irq_flags = self.read('RegIrqFlags') 
-        self.write('RegIrqFlags', 0xff) # write anything could clear all types of interrupt flags  
-        if irq_flags & self.IrqFlags['RxDone']:
-            if irq_flags & self.IrqFlags['PayloadCrcError']: 
+    def _irq_handler(self, pin):
+        irq_flags = self.read('RegIrqFlags')
+        if irq_flags & self.IrqFlags['TxDone']:  
+            self.mode = 'RXCONTINUOUS' 
+            while 1:
+                1
+            self.after_TxDone(self)
+
+        elif irq_flags & self.IrqFlags['RxDone']:
+            if irq_flags & self.IrqFlags['PayloadCrcError']:
                 print('PayloadCrcError')
             else:
-                self.write('RegFifoAddrPtr', self.read('RegFifoRxCurrentAddr')) 
-                packet     = self.read('RegFifo', self.read('RegRxNbBytes')) 
+                self.write('RegFifoAddrPtr', self.read('RegFifoRxCurrentAddr'))
+                packet     = self.read('RegFifo', self.read('RegRxNbBytes'))
                 PacketSnr  = self.read('RegPktSnrValue')
                 SNR        = PacketSnr / 4
-                PacketRssi = self.read('RegPktRssiValue') 
-                #Rssi = read(RegRssiValue) 
+                PacketRssi = self.read('RegPktRssiValue')
+                #Rssi = read(RegRssiValue)
                 if SNR < 0:
                     RSSI = -157 + PacketRssi + SNR
                 else:
-                    RSSI = -157 + 16 / 15 * PacketRssi 
-                RSSI = round(RSSI, 2) # Table 7 Frequency Synthesizer Specification 
-                self.packet_handler(self, packet, SNR, RSSI)   
-
-        elif irq_flags & self.IrqFlags['TxDone']: 
-            self.after_TxDone(self)
-        else: 
+                    RSSI = -157 + 16 / 15 * PacketRssi
+                RSSI = round(RSSI, 2) # Table 7 Frequency Synthesizer Specification
+                self.packet_handler(self, packet, SNR, RSSI) 
+            self.Tx() 
+        else:
             for i, j in self.IrqFlags.items():
                 if irq_flags & j:
-                    print(i) 
-                    
-    def RxCont(self):    
-        self.write('RegDioMapping1', self.DioMapping['Dio0']['RxDone'])  
-        self.write('RegOpMode', self.Mode['RXCONTINUOUS']) # Request Standby mode so SX1276 send out payload   
-        
-    def Tx(self): 
-        self.write('RegDioMapping1', self.DioMapping['Dio0']['TxDone'])   
-    
-    def send(self, data): 
+                    print(i)
+
+        self.write('RegIrqFlags', 0xff) # write anything could clear all types of interrupt flags
+                      
+         
+    def send(self, data, recv_id=0): 
+        if len(data) > 240: raise # want to send a too large message 
+        self.ack_token = urandom.randint(0,65535)
+        header = struct.pack('<HHH', self.send_id, recv_id, self.ack_token)
+        data = header + data.encode()
+        print(data)
         self.write('RegFifoAddrPtr', self.Fifo_Bottom) 
-        self.write('RegFifo', data)            # Write Data FIFO 
+        self.write('RegFifo', data, fifo=True)            # Write Data FIFO 
         self.write('RegPayloadLength', len(data)) 
-        self.write('RegOpMode', self.Mode['TX'])          # Request Standby mode so SX1276 send out payload  
- 
+        self.mode = 'TX'                                  # Request Standby mode so SX1276 send out payload 
+        while self.ack_token:
+            time.sleep(1) 
+
     def packet_handler(self, packet, SNR, RSSI):
         pass
     
-    def after_TxDone(self):
-        pass  
+    def after_TxDone(self,q=1):
+        pass 
 
-if __name__ == "__main__":
-    # RFM95W         Pico GPIO old
-    LoRa_MISO_Pin  = 16
-    LoRa_CS_Pin    = 17
-    LoRa_SCK_Pin   = 18
-    LoRa_MOSI_Pin  = 19
-    LoRa_G0_Pin    = 20 # DIO0_Pin
-    LoRa_EN_Pin    = 21
-    LoRa_RST_Pin   = 22
-    SPI_CH         =  0  
-    Pin(LoRa_EN_Pin, Pin.OUT).on()
-    lora = LoRa(LoRa_RST_Pin, LoRa_CS_Pin, SPI_CH, LoRa_SCK_Pin, LoRa_MOSI_Pin, LoRa_MISO_Pin, LoRa_G0_Pin)
+# RFM95W         Pico GPIO old
+LoRa_MISO_Pin  = 16
+LoRa_CS_Pin    = 17
+LoRa_SCK_Pin   = 18
+LoRa_MOSI_Pin  = 19
+LoRa_G0_Pin    = 20 # DIO0_Pin
+LoRa_EN_Pin    = 21
+LoRa_RST_Pin   = 22
+SPI_CH         =  0 
 
-    lora.packet_handler = lambda self, packet, SNR, RSSI: print(packet, SNR, RSSI)   
-    lora.RxCont() 
+#from ulora import LoRa 
+Pin(LoRa_EN_Pin, Pin.OUT).on()   
+send_id = 1
+lora = LoRa(LoRa_RST_Pin, LoRa_CS_Pin, SPI_CH, LoRa_SCK_Pin, LoRa_MOSI_Pin, LoRa_MISO_Pin, LoRa_G0_Pin, LoRa_id=2)    
+lora.after_TxDone = lambda self: print('TxDone')
+while 1:
+    payload = str(urandom.randint(100,65536))+") Hello~"   
+    lora.send(payload, recv_id=1)
+    time.sleep(5) 
