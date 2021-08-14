@@ -87,12 +87,14 @@ class LoRa:
         Bw                   = {'125KHz':0b0111, '500kHz':0b1001}
         CodingRate           = {5:0b001, 6:0b010, 7:0b011, 8:0b100}
         ImplicitHeaderModeOn = {'Implicit':0b1, 'Explicit':0b0}
-        self.write('RegModemConfig1', Bw['125KHz'] << 4 | CodingRate[5] << 1 | ImplicitHeaderModeOn['Explicit'])
+        self.write('RegModemConfig1', Bw['125KHz'] << 4 | CodingRate[8] << 1 | ImplicitHeaderModeOn['Explicit'])
         SpreadingFactor  = {7:0x7, 9:0x9, 12:0xC}
         TxContinuousMode = {'normal':0b0, 'continuous':0b1}
         RxPayloadCrcOn   = {'disable':0b0, 'enable':0b1}
-        self.write('RegModemConfig2', SpreadingFactor[7] << 4 | TxContinuousMode['normal'] << 3 | RxPayloadCrcOn['enable'] << 2 | 0x00) # Last 0x00 is SymbTimeout(9:8)
-        self.write('RegModemConfig3', 0x04) # 0x04 is SymbTimeout(7:0)
+        self.write('RegModemConfig2', SpreadingFactor[12] << 4 | TxContinuousMode['normal'] << 3 | RxPayloadCrcOn['disable'] << 2 | 0x00) # Last 0x00 is SymbTimeout(9:8)
+        LowDataRateOptimize = {'Disabled':0b0, 'Enabled':0b1}
+        AgcAutoOn = {'register LnaGain':0b0, 'internal AGC loop':0b1}
+        self.write('RegModemConfig3', LowDataRateOptimize['Enabled'] << 3 | AgcAutoOn['internal AGC loop'] << 2)  
         
         # Preamble length
         self.write('RegPreambleMsb', 0x0) # Preamble can be (2^15)kb long, much longer than payload
@@ -278,6 +280,7 @@ if __name__ == "__main__":
     lora.after_TxDone = lambda self: print('TxDone')
     import urandom
     while 1:
-        payload = str(urandom.randint(100,999))+") Hello~"   
+        payload = str(urandom.randint(100,999))+")abc Hello~"
+        print(payload)   
         lora.send(payload)
         time.sleep(5) 

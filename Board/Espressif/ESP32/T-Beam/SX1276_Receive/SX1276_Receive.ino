@@ -78,6 +78,7 @@ void loop()
             display.drawString(  0, 48, "[SNR ]  "+String(radio.getSNR())+" dB");  
             display.display();// write the buffer to the display 
         } else if (state == ERR_CRC_MISMATCH) { 
+            Serial.println("[Err] "+str); 
             Serial.println(F("[SX1276] CRC error!")); 
         } else { 
             Serial.print(F("[SX1276] Failed, code ")); Serial.println(state);
