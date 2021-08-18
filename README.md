@@ -20,8 +20,8 @@
   * [SPI SD Card Reader](Sensor/SD_Card)
 
 ## By Project
-* [What](Misc/MicroPython#add-micropython-to-esp32) is ROM, Firmware, Bootloader, or Sketch?
-* [MicroPython](Misc/MicroPython) is awesome
+* [What](MicroPython#add-micropython-to-esp32) is ROM, Firmware, Bootloader, or Arduino Sketch?
+* [MicroPython](MicroPython) is awesome and I will develop new project only with it. 
   * LoRa
   * Rotary
   * OLED
