@@ -13,9 +13,9 @@
       newgrp dialout
     ```
   * Flash: Adding more codes is called flashing because we are storing codes in flash memory. 
-## Add MicroPython 
+## Flash MicroPython to boards 
 <details>
-  <summary> Add to Raspberry Pi Pico (Hello world)</summary>
+  <summary> To Raspberry Pi Pico (Hello world)</summary>
   
   1. Connect Pico to PC via USB cable.
   2. A new removable media appears as RPI-RP2
@@ -34,7 +34,7 @@
 </details>
  
 <details>
-  <summary> Add to ESP32 </summary>
+  <summary> To ESP32 </summary>
   
   * Remove "more codes"
   ```
@@ -57,7 +57,7 @@
 </details>
 
 <details>
-  <summary> Add to ESP8266 </summary>
+  <summary> To ESP8266 </summary>
   
   * Flash MicroPython
   ```shell
