@@ -73,16 +73,21 @@
   2. Search <i>Pico-Go</i> in extensions marketplace
   3. Create a folder so we can configure Pico-Go
   4. In Vscode's <i>Command Palette</i>, run "Pico-Go > Global settings".
-    * change auto_connect's value from true to false in global settings' pico-go.json 
+     * Change global settings' pico-go.json 
+     ```
+     { 
+       "auto_connect": false
+     }
+     ```
   5. In Vscode's <i>Command Palette</i>, run "Pico-Go > configurate project"
-  6. Add new key and value in project's pico-go.json 
-  ```
-  {
-    "sync_folder": "",
-    "open_on_start": true,  
-	  "manual_com_device": "/dev/ttyACM0"
-  }
-  ```
+     * Add new key and value in project's pico-go.json 
+     ```
+     {
+       "sync_folder": "",
+       "open_on_start": true,  
+       "manual_com_device": "/dev/ttyACM0"
+     }
+     ```
 </details> 
 
 <details> 
