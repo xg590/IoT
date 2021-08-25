@@ -67,7 +67,7 @@
 
 ## Use MicroPython
 <details> 
-  <summary> Use IDE </summary>  
+  <summary> Use VScode as IDE </summary>  
   
   1. Install [VScode](https://code.visualstudio.com/)
   2. Search <i>Pico-Go</i> in extensions marketplace
@@ -88,6 +88,7 @@
        "manual_com_device": "/dev/ttyACM0"
      }
      ```
+  6. Restart VScode
 </details> 
 
 <details> 
