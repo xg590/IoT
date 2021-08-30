@@ -1,7 +1,7 @@
 # How to
 ## By Device
 * Board
-  * Raspberry Pi: [ZW / 3A / 3B / 4](Board/Raspberry_Pi) / [Pico](Board/Raspberry_Pi/Pico.md)
+  * Raspberry Pi: [ZW / 3A / 3B / 4 / Pico](Board/Raspberry_Pi) 
   * Arduino: [Uno / Nano / Pro Mini](Board/Arduino)
   * ESP8266: [D1_mini](Board/Espressif/ESP8266/D1_Mini) / [NodeMCU](Board/Espressif/ESP8266/NodeMCU)
   * ESP32: [ESP32-CAM](Board/Espressif/ESP32/ESP32S_Cam) / [T-Beam](Board/Espressif/ESP32/T-Beam) / [WIFI LoRa 32](Board/Espressif/ESP32/WIFI_LoRa_32) / [USB32](Board/Espressif/ESP32/USB32/)
