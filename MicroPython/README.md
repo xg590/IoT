@@ -36,16 +36,16 @@
 <details>
   <summary> To ESP32 </summary>
   
-  * Remove "more codes"
+ * Remove "more codes" (For some special board like <i>Heltec Wireless Stick Lite</i>, One has to bring down GPIO0 to flash the board)
   ```
   pip install esptool
-  .local/bin/esptool.py --port /dev/ttyUSB0              erase_flash # Erase flash. Only bootload left in ROM
+  esptool.py --port /dev/ttyUSB0 erase_flash                         # Erase flash. Only bootload left in ROM
   ```
   * Add "more codes" which is MicroPython
   ```
   # https://micropython.org/download/esp32/
   wget https://micropython.org/resources/firmware/esp32-20210623-v1.16.bin
-  .local/bin/esptool.py --port /dev/ttyUSB0 --chip esp32 write_flash -z 0x1000 esp32-20210623-v1.16.bin
+  esptool.py --port /dev/ttyUSB0 --chip esp32 write_flash -z 0x1000 esp32-20210623-v1.16.bin
   ```
   * Hello World
   ```
@@ -89,17 +89,24 @@
      }
      ```
   6. Restart VScode
-</details> 
+</details>  
+ 
+<details> 
+  <summary> Run a script after boot</summary> 
+  
+  * Just name a script main.py instead of test.py and use [rshell](https://github.com/dhylands/rshell) to upload
+  * When the board reboot, the script will run. 
+</details>  
 
 <details> 
-  <summary> Paste code into REPL in screen </summary>  
+  <summary> Paste code into REPL in screen (Better to use VScode) </summary>  
   
   * [2.3.5. Paste mode](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#paste-mode)
   * [2.3.6. Other control commands](https://docs.micropython.org/en/latest/esp8266/tutorial/repl.html#other-control-commands)
 </details> 
 
 <details> 
-  <summary> Use jupyter-notebook instead of screen </summary>  
+  <summary> Use jupyter-notebook instead of screen (Better to use VScode) </summary>  
   
   * Add MicroPython [Kernel](https://github.com/goatchurchprime/jupyter_micropython_kernel)
   ```
@@ -109,7 +116,7 @@
 </details> 
 
 <details> 
-  <summary> Use rshell for file upload </summary> 
+  <summary> Use rshell for file upload (Better to use VScode) </summary> 
   
   1. Prepare a lib on Desktop
   ```shell
@@ -129,13 +136,6 @@
   Hello World!
   ```
 </details> 
- 
-<details> 
-  <summary> Boot into running a script </summary> 
-  
-  * Just name a script main.py instead of test.py and use [rshell](https://github.com/dhylands/rshell) to upload
-  * When the board reboot, the script will run. 
-</details>  
 
 ## Troubleshooting
 * ENOMEM: Not enough memory
