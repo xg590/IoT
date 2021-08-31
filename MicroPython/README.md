@@ -36,7 +36,7 @@
 <details>
   <summary> To ESP32 </summary>
   
- * Remove "more codes" (For some special board like <i>Heltec Wireless Stick Lite</i>, One has to bring down GPIO0 to flash the board)
+ * Remove "more codes" (For some special board like <i>Heltec Wireless Stick Lite</i>, One [has to](https://github.com/espressif/esptool/wiki/ESP32-Boot-Mode-Selection) bring down GPIO0 to flash the board)
   ```
   pip install esptool
   esptool.py --port /dev/ttyUSB0 erase_flash                         # Erase flash. Only bootload left in ROM
