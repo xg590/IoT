@@ -106,8 +106,13 @@ iface wlan0 inet manual
   * Modify a Raspbian OS image so after written to sd card:
     * It starts a SSH server
     * It connects to a remote wireless network
-    * It ssh_s to a jump host
+    * It sshs to a jump host
     * We log into the SSH server via jump host 
+  * How to  
+    * Create a ssh file in /boot partition
+    * Create a wpa_supplicant.conf file in /boot partition
+    * Create ssh key pair for the Raspbian image
+    * Add a cron job 
 </details> 
 
 ### Pinout
