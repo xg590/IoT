@@ -65,7 +65,6 @@ iface wlan0 inet manual
 ``` 
 </details> 
 
-
   <details>
   <summary> <b> Modify Raspbian image on Ubuntu    </b></summary>
   
@@ -99,6 +98,16 @@ iface wlan0 inet manual
   touch /tmp/raspbian_os_boot/ssh # Enable ssh server at first boot
   ```
   * Umount then the modified image can be write to SD card. 
+</details> 
+ 
+  <details>
+  <summary> <b> Remote deployment </b></summary>
+  
+  * Modify a Raspbian OS image so after written to sd card:
+    * It starts a SSH server
+    * It connects to a remote wireless network
+    * It ssh_s to a jump host
+    * We log into the SSH server via jump host 
 </details> 
 
 ### Pinout
