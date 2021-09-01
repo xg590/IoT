@@ -77,15 +77,22 @@ iface wlan0 inet manual
     * startsector of boot partition begins at 8192
     * offset is 8192 * 512 byte/sector
   ```
-  file 2021-05-07-raspios-buster-armhf-lite.img 
-    DOS/MBR boot sector; 
-    partition 1 : ID=0x0c, start-CHS ( 0x40,0, 1), end-CHS (0x3ff,3,32), startsector   8192,  524288 sectors; 
-    partition 2 : ID=0x83, start-CHS (0x3ff,3,32), end-CHS (0x3ff,3,32), startsector 532480, 7241728 sectors
+  $ fdisk -l 2021-05-07-raspios-buster-armhf.img
+  Disk 2021-05-07-raspios-buster-armhf.img: 3.72 GiB, 3980394496 bytes, 7774208 sectors
+  Units: sectors of 1 * 512 = 512 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disklabel type: dos
+  Disk identifier: 0xf4481065
+  
+  Device                               Boot  Start     End Sectors  Size Id Type
+  2021-05-07-raspios-buster-armhf.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
+  2021-05-07-raspios-buster-armhf.img2      532480 7774207 7241728  3.5G 83 Linux 
   ```
-  * Mount boot partition 
+  * Mount boot partition (First partition is FAT32 and it support uid when mount)
   ```
   mkdir /tmp/raspbian_os_boot
-  sudo mount 2021-05-07-raspios-buster-armhf-lite.img -o offset=$((8192*512)) -o umask=0002,gid=$UID /tmp/raspbian_os_boot
+  sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID 2021-05-07-raspios-buster-armhf-lite.img  /tmp/raspbian_os_boot 
   ```
   * Add / Change files 
   ```
