@@ -44,8 +44,8 @@
   * Add "more codes" which is MicroPython
   ```
   # https://micropython.org/download/esp32/
-  wget https://micropython.org/resources/firmware/esp32-20210623-v1.16.bin
-  esptool.py --port /dev/ttyUSB0 --chip esp32 write_flash -z 0x1000 esp32-20210623-v1.16.bin
+  wget https://micropython.org/resources/firmware/esp32-20210902-v1.17.bin
+  esptool.py --port /dev/ttyUSB0 --chip esp32 write_flash -z 0x1000 esp32-20210902-v1.17.bin
   ```
   * Hello World
   ```
@@ -61,11 +61,34 @@
   
   * Flash MicroPython
   ```shell
-  esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210618-v1.16.bin
+  esptool.py --port /dev/ttyUSB0               erase_flash
+  esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210902-v1.17.bin
   ```
 </details> 
 
 ## Use MicroPython
+
+<details> 
+  <summary> Develop on a remote device --- socat Relay </summary>  
+  
+  * Partial credit to [FloHimself](https://unix.stackexchange.com/a/201763) 
+  * An ESP8266 is attached to a respberry "piMachine"
+  * We can relay /dev/ttyUSB0 on pi to local machine, a Linux VM.
+  ```
+  # Start a remote screen session on pi 
+  ssh piMachine "screen -s /bin/bash -d -m -S mySocat"
+  # Run socat in remote screen session so that 127.0.0.1:12345 is listening.
+  ssh piMachine "screen                    -S mySocat -X stuff \"socat /dev/ttyUSB0,RAW TCP-LISTEN:12345,BIND=127.0.0.1 ^M\"" 
+  # Forward remote 127.0.0.1:12345 to local 54321
+  ssh -NfL 54321:127.0.0.1:12345 piMachine 
+  # Create a symbolic link foo
+  socat PTY,raw,link=foo tcp:127.0.0.1:54321 &
+  # Use foo
+  screen foo 115200
+  ```
+  
+</details>
+
 <details> 
   <summary> Use VScode as IDE </summary>  
   
