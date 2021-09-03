@@ -78,7 +78,7 @@
   # Start a remote screen session on pi 
   ssh piMachine "screen -s /bin/bash -d -m -S mySocat"
   # Run socat in remote screen session so that 127.0.0.1:12345 is listening.
-  ssh piMachine "screen                    -S mySocat -X stuff \"socat /dev/ttyUSB0,RAW TCP-LISTEN:12345,BIND=127.0.0.1 ^M\"" 
+  ssh piMachine "screen                    -S mySocat -X stuff \"socat /dev/ttyUSB0,RAW TCP-LISTEN:12345,BIND=127.0.0.1,FORK ^M\"" 
   # Forward remote 127.0.0.1:12345 to local 54321
   ssh -NfL 54321:127.0.0.1:12345 piMachine 
   # Create a symbolic link foo
