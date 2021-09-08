@@ -30,6 +30,11 @@ sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-
 newgrp dialout
 arduino-cli upload /tmp/blink -p /dev/ttyUSB0 --fqbn arduino:avr:nano 
 ```
+6. Install library
+```
+arduino-cli lib search SHT4x
+arduino-cli lib install "Adafruit SHT4x Library"
+```
 ### Trouble shooting
 * May need python and pyserial library
 ```
