@@ -1,22 +1,22 @@
-## Infrared
 ### Use receiver VS1838B([Amazon](https://www.amazon.com/gp/product/B06XYNDRGF/)) to decode remote signal
-##### Specifications:
+#### Receiver Specifications:
 * Operating Voltage: 2.7 – 5.5vDC
 * Infrared Frequency: 38kHz 1838 NEC Code
 * Reception Angle: ~45 Degrees
 * Reception Distance up to 18m
 * Lead Pitch: 2.54mm
-##### Pic
+#### Pic
 ![alt text](VS1838B.png "VS1838B")
-##### Wiring ([Good Ref](https://arduino.stackexchange.com/questions/3926/using-vs1838b-with-arduino))
+#### Wiring ([Good Ref](https://arduino.stackexchange.com/questions/3926/using-vs1838b-with-arduino))
+* Resistor is not needed.
 ```
-OUT <--> D11 (digital pin not A11/Analog Pin)
+OUT <--> D11 (digital pin not A11/Analog Pin 11) 
 GND <--> GND
 VCC <--> VCC 
 ```
-##### Code
+#### Code
 * Library: IRremote by shirriff, z3t0, ArminJo Ver. 3.3.0
-* Find protocol enum decode_type_t in [IRProtocol.h](https://github.com/Arduino-IRremote/Arduino-IRremote/blob/master/src/IRProtocol.h)  
+* Find protocol (NEC protocol?) enum decode_type_t in [IRProtocol.h](https://github.com/Arduino-IRremote/Arduino-IRremote/blob/master/src/IRProtocol.h)  
 ```C
 #include <IRremote.h>
 #define IR_RECEIVE_PIN 11
@@ -39,31 +39,24 @@ void loop() {
     }
 }
 ```
-##### Sample Result  
+#### Sample Result  
 ```
 20:25:00.723 -> P=7 Address=0xF483 Command=0x17 Raw=0xE817F483
 ```
-### Sender 
-Infrared LED  
-##### Wiring
-```
-D11 <-150 Oh-> OUT (Longer electrode)
-GND <--------> GND (Shorter)
-```
-##### Code
+#### ViewSonic M1 Mini Portable LED Projector
+* NEC protocol
 ```C
-#define IR_SEND_PIN 11
-#include <IRremote.h>
-void setup() {
-    IrSender.begin(IR_SEND_PIN, ENABLE_LED_FEEDBACK);
-}
-uint16_t sAddress = 0xF483; // uint16_t sAddress = atoi("62595");
-uint8_t sRepeats = 0;
-void loop() {
-    uint8_t sCommand = 0x28; 
-    IrSender.sendNEC(sAddress, sCommand, sRepeats);
-    // IrSender.sendNECRaw(0xD728F483, sRepeats); 
-    delay(3600*1000);
-}
+IrSender.sendNECRaw(0xF00FF483, sRepeats);
+Power         0xE817F483
+Home          0xE916F483
+Up            0xF40BF483
+Left          0xF10EF483
+OK            0xEA15F483
+Right         0xF00FF483
+Settings      0xCF30F483
+Down          0xF30CF483
+Back          0xD728F483
+Vol-          0x7C83F483
+Mute          0xEB14F483
+Vol+          0x7D82F483
 ```
-// Results for the first loop to: Protocol=NEC Address=0x102 Command=0x34 Raw-Data=0xCB340102 (32 bits)
