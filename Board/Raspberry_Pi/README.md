@@ -93,6 +93,11 @@ iface wlan0 inet manual
   mkdir /tmp/raspbian_os_boot
   sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID 2021-05-07-raspios-buster-armhf-lite.img  /tmp/raspbian_os_boot 
   ```
+  * Mount system partition (Second partition is EXT4 format)
+  ```
+  mkdir /tmp/raspbian_os_sys
+  sudo mount -o offset=$((532480*512)) 2021-05-07-raspios-buster-armhf-lite.img /tmp/raspbian_os_sys/
+  ```
   * Add / Change files 
   ```
   touch /tmp/raspbian_os_boot/ssh # Enable ssh server at first boot
