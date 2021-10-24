@@ -22,3 +22,5 @@
 * Server monitors the temperature and fetches sunrise/sunset data to turn on/off (A/C plugged) power plug and light bulb
 * Bring WiFi to a relay that controlling a USB port 
 <img src="relay/relay.jpg"></img>
+* Control a light switch  
+<img src="light_switch/Control_a_Light_Switch.png"></img>
