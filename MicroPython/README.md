@@ -69,6 +69,34 @@
 ## Use MicroPython
 
 <details> 
+  <summary> Access ESP board via WebSocket </summary>  
+ 
+  * [WebREPL](https://learn.adafruit.com/micropython-basics-esp8266-webrepl/access-webrepl)
+    1. Flash MicroPython (>1.8.6)
+    2. Use Serial Communication
+    ```
+    screen /dev/ttyUSB0 115200
+    >>> import webrepl_setup
+    >>> E (Press Shift + E Keys)
+    >>> 123456 (As WebREPL password)
+    ``` 
+    3. Connect MicroPython's WiFi access point. 
+    4. Visit https://micropython.org/webrepl/ so you can connect to ESP board.
+  * Access WebREPL when ESP board is in Station Mode 
+    * Just join the board to a WiFi network and it will be accessiable via WebSocket automatically even after reboot. 
+    ```
+    >>> import network 
+    >>> wlan = network.WLAN(network.STA_IF)
+    >>> wlan.active(True)
+    #5 ets_task(xxxxxxxx, xx, xxxxxx, xx)
+    >>> wlan.connect('ssid', 'password')
+    >>> wlan.ifconfig()
+    ('192.168.x.128', '255.255.255.0', '192.168.x.x', '8.8.8.8')
+    ```
+ 
+</details>
+
+<details> 
   <summary> Develop on a remote device --- socat Relay </summary>  
   
   * Partial credit to [FloHimself](https://unix.stackexchange.com/a/201763) 
