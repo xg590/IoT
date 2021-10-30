@@ -70,15 +70,22 @@ while 1:
     s.connect((js['hub_ip'], js['hub_port']))
     req = 'GET /remote?pin=%d HTTP/1.0\r\nHost: foo\r\n\r\nbar' % (remote.pin_pressed, )
     s.send(req.encode())
-    OK = s.readline()
-    s.readline()
-    s.readline()
-    s.readline()
-    s.readline()
-    s.readline()
-    res_js = ujson.loads(s.readline())
+    first_line = s.readline()
+    protocol, return_code, message = first_line.split(b' ', 2) 
+    is_json, res_js = False, {'display':'Serv Err'}
+    if return_code == b'200': 
+        while 1:
+            line = s.readline()
+            if line == b'\r\n': 
+                if is_json:
+                    res_js = ujson.loads(s.read(cLen)) 
+                s.close()
+                break
+            if line == b'Content-Type: application/json\r\n': is_json = True 
+            key, value = line.split(b':', 1)
+            if key == b'Content-Length':
+                cLen = int(value)  
     print(res_js['display'])
-    s.close()
 
     remote.count += 1
     oled.fill(0)   
