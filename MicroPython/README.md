@@ -80,10 +80,10 @@
     >>> E (Press Shift + E Keys)
     >>> 123456 (As WebREPL password)
     ``` 
-    3. Connect MicroPython's WiFi access point. 
-    4. Visit https://micropython.org/webrepl/ so you can connect to ESP board.
+    3. Visit https://micropython.org/webrepl/ so one can connect to ESP board after step 4.
+    4. Connect MicroPython's WiFi access point so the board can be accessed remotely. 
   * Access WebREPL when ESP board is in Station Mode 
-    * Just join the board to a WiFi network and it will be accessiable via WebSocket automatically even after reboot. 
+    * Run following code via Serial Com to join the board to a WiFi network and it will be accessiable via WebSocket automatically even after reboot. 
     ```
     >>> import network 
     >>> wlan = network.WLAN(network.STA_IF)
