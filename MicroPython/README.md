@@ -1,4 +1,7 @@
-## Concept
+## Why use MicroPython
+* Python is more user-friendly than C/C++
+* Board can be remotely controlled via WebREPL in a real-time manner: [Here](ESP8266_WebREPL.ipynb) is a Python client.
+## Concept to learn before flashing MicroPython to boards 
   * ROM: Read-only memory. Everything that would not lost after power off the device stays here.
   * Firmware: Codes in the rom.
   * Bootloader: 
@@ -13,7 +16,7 @@
       newgrp dialout
     ```
   * Flash: Adding more codes is called flashing because we are storing codes in flash memory. 
-## Flash MicroPython to boards 
+## Flashing 
 <details>
   <summary> To Raspberry Pi Pico (Hello world)</summary>
   
