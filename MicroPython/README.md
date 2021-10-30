@@ -69,9 +69,9 @@
 ## Use MicroPython
 
 <details> 
-  <summary> Access ESP board via WebSocket </summary>  
+  <summary> Access ESP board Remotely (WebSocket) </summary>  
  
-  * [WebREPL](https://learn.adafruit.com/micropython-basics-esp8266-webrepl/access-webrepl)
+  * Setup [WebREPL](https://learn.adafruit.com/micropython-basics-esp8266-webrepl/access-webrepl)
     1. Flash MicroPython (>1.8.6)
     2. Use Serial Communication
     ```
@@ -93,6 +93,7 @@
     >>> wlan.ifconfig()
     ('192.168.x.128', '255.255.255.0', '192.168.x.x', '8.8.8.8')
     ```
+  * [Here](ESP8266_WebREPL.ipynb) is a Python client
  
 </details>
 
