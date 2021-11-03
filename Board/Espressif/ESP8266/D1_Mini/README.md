@@ -28,3 +28,25 @@ GPIO       Pull
 15          No      Rising  
 16               Unable to INT   
 ---------------------------- 
+```
+* MicroPython
+```
+from machine import Pin 
+   
+Pin(0, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(0) )  
+Pin(2, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(2) )   
+Pin(4, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(4) )  
+Pin(5, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(5) )  
+Pin(12, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(12) )   
+Pin(13, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(13) )    
+Pin(14, Pin.IN).irq(trigger=Pin.IRQ_FALLING, handler=\
+                                  lambda pin: print(14) )   
+Pin(15, Pin.IN).irq(trigger=Pin.IRQ_RISING, handler=\
+                                  lambda pin: print(15) )   
+```
