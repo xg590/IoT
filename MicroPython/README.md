@@ -194,3 +194,11 @@
 
 ## Troubleshooting
 * ENOMEM: Not enough memory
+## Cheat sheet
+* create output pin on GPIO14 
+``` 
+from time import sleep 
+from machine import Pin  
+p = Pin(14, Pin.OUT, value=0)  
+p.value(1)   
+```
