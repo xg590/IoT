@@ -11,7 +11,7 @@
 D11 <-150 Oh-> OUT (Longer electrode)
 GND <--------> GND (Shorter)
 ```
-<img src="trasmitter.jpg"></img> 
+<img src="transmitter.jpg"></img> 
 ### Decoded IR signal from the original projector remote 
 * In receiver part of this project, we have following result:
 ``` 
