@@ -112,9 +112,10 @@ iface wlan0 inet manual
   ```
   mkdir /tmp/raspbian_os_sys
   sudo mount -o offset=$((532480*512)) 2021-05-07-raspios-buster-armhf-lite.img /tmp/raspbian_os_sys/
-  mkdir -p                                 /tmp/raspbian_os_boot/home/pi/.ssh
-  ssh-keygen -t rsa -b 4096 -N '' -C '' -f /tmp/raspbian_os_boot/home/pi/.ssh/id_rsa
-  chown -R 1000:1000                       /tmp/raspbian_os_boot/home/pi/.ssh/
+  mkdir -p                                 /tmp/raspbian_os_sys/home/pi/.ssh
+  ssh-keygen -t rsa -b 4096 -N '' -C '' -f /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa
+  chown -R 1000:1000                       /tmp/raspbian_os_sys/home/pi/.ssh/
+  umount                                   /tmp/raspbian_os_sys/
   ```
   * Umount then the modified image can be write to SD card. 
 </details>
