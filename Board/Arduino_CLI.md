@@ -16,8 +16,10 @@ arduino-cli board listall # You will see FQBN
 ```
 mkdir /tmp/blink
 cat << EOF > /tmp/blink/blink.ino
-void setup() { pinMode(LED_BUILTIN, OUTPUT); }
-void loop() {
+int count = 0;
+void setup() { pinMode(LED_BUILTIN, OUTPUT); Serial.begin(9600);} 
+void loop() { 
+  count++; Serial.println(count);
   digitalWrite(LED_BUILTIN, HIGH); delay(1000);  
   digitalWrite(LED_BUILTIN,  LOW); delay(1000);  
 }
