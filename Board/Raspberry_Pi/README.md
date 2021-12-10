@@ -2,8 +2,22 @@
 * All the same across boards</br>
 * GPIO pins operated at 3.3V
 ### Setup 
+
   <details> 
          
+  <summary> <b> Set a static ip for the wired interface </b> </summary>
+    
+  ```
+  cat << EOF >> /etc/dhcpcd.conf # This is config file for dhcp client 
+  interface eth0
+  static ip_address=192.168.3.3/24
+  static routers=192.168.3.0
+  EOF
+  ```
+  </details>  
+   
+  <details> 
+   
   <summary> <b> Home WiFi </b> </summary>
          
 1. Download the Operating System "[Raspbian](https://downloads.raspberrypi.org/raspbian_latest)" 
