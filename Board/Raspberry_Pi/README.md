@@ -3,7 +3,54 @@
 * GPIO pins operated at 3.3V
 ### Setup 
 
-  <details> 
+<details> 
+         
+  <summary> <b> How to use Two Wireless Interfaces (When I Bought a WiFi Dongle) </b> </summary>
+  
+  * I bought a pi-compatible WiFi dongle but how to use it?
+  * wpa_supplicant ? Not so easy.
+  * We will prepare two config files
+  ```
+  tee /etc/wpa_supplicant/wpa_supplicant.0.conf << EOF > /dev/null 
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  country=US
+  update_config=1
+  network={
+      ssid="oneWiFi"
+      psk="password"
+      key_mgmt=WPA-PSK
+  }
+  EOF
+  ```
+  ```
+  tee /etc/wpa_supplicant/wpa_supplicant.1.conf << EOF > /dev/null 
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  country=US
+  update_config=1
+  network={
+      ssid="anotherWiFi"
+      psk="password"
+      key_mgmt=WPA-PSK
+  }
+  EOF
+  ```
+  ```
+  tee /etc/network/interfaces.d/wlan << EOF > /dev/null  
+  auto lo wlan0 wlan1
+  iface lo inet loopback
+  
+  iface wlan0 inet manual
+      pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.0.conf
+      post-down killall -q wpa_supplicant
+  
+  iface wlan1 inet manual
+      pre-up wpa_supplicant -B -Dwext -i wlan1 -c /etc/wpa_supplicant/wpa_supplicant.1.conf
+      post-down killall -q wpa_supplicant
+  EOF
+  ```
+</details>  
+
+<details> 
          
   <summary> <b> Set a static ip for the wired interface </b> </summary>
     
@@ -14,7 +61,7 @@
   static routers=192.168.3.0
   EOF
   ```
-  </details>  
+</details>  
    
   <details> 
    
