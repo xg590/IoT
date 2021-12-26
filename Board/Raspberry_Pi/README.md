@@ -5,6 +5,16 @@
 
 <details> 
          
+  <summary> <b> Clone Raspberry Pi SD card </b> </summary>
+  
+  ```
+  dd if=/dev/sdx | pv | gzip > piOS.img.gz 
+  gzip -dc piOS.img.gz | dd of=/dev/sdx
+  eject /dev/sdx
+  ```
+</details>  
+<details> 
+         
   <summary> <b> How to use Two Wireless Interfaces (When I Bought a WiFi Dongle) </b> </summary>
   
   * I bought a pi-compatible WiFi dongle but how to use it?
