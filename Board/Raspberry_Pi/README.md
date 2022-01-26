@@ -5,6 +5,19 @@
 
 <details> 
          
+  <summary> <b> As a router </b> </summary>
+  
+  ```
+  echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward
+  sudo ip addr add 192.168.3.3/24 dev eth0
+  sudo ip link set eth0 down
+  sudo ip link set eth0 up 
+  sudo iptables -t nat -A POSTROUTING -s 192.168.3.0/24 -o wlan0 -j MASQUERADE 
+  ```
+</details>  
+
+<details> 
+         
   <summary> <b> Clone Raspberry Pi SD card </b> </summary>
   
   ```
@@ -13,6 +26,7 @@
   eject /dev/sdx
   ```
 </details>  
+
 <details> 
          
   <summary> <b> How to use Two Wireless Interfaces (When I Bought a WiFi Dongle) </b> </summary>
