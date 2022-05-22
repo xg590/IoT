@@ -57,7 +57,7 @@ def startGPIOdaemon():
         print( 'pigpiod was just started' )
     sock.close()
 ```
-### PCA9685 16-Channel 12-bit PWM/Servo Driver
+### PCA9685 16-Channel 12-bit PWM/Servo Driver (See board specs on the back) 
 Libraries
 ```
 pip install adafruit-circuitpython-pca9685 adafruit-circuitpython-servokit
@@ -82,18 +82,7 @@ class Servo:
             self.kit.servo[self.servo_map[name]].angle = i
             time.sleep(0.001)
 s = Servo()
-
-s.arm_ele_near = 0
-s.arm_ele_far = 800
-s.clamp = 0
-s.arm_rot = 600
-s.arm_ele_near = 1000
-s.arm_rot = 0
-s.arm_ele_far = 500
-s.clamp = 1000
-s.arm_ele_near = 0
-s.arm_ele_far = 800
-s.clamp = 1000
-s.arm_rot = 600
-s.clamp = 0
+ 
+s.arm_rot = 600 
+s.arm_rot = 0 
 ```
