@@ -1,5 +1,9 @@
 ### Common boards
 * Arduino Uno / Nano / Pro Mini
+* Pin Comments:
+  * RAW: Unregulated voltage input (up to 12V?). If the board is powered via USB, the voltage at this pin will be about 4.8V.
+  * VCC: Regulated voltage input (MUST be 5V or 3.3V). If the board is powered via USB or RAW, the voltage can supplies other devices.  
+  * RST: Pulled up. Connecting to the ground initiates a reset. The board will remain "off" until the reset line is pulled back to high.
 ### Get Started
 * [<b>Windows</b> Only] Install a USB-to-UART bridge driver.
    * PC (Windows) supports USB communication protocol but Arduino board does not. 
@@ -25,6 +29,8 @@
 * use this [FT232RL driver](driver/CDM%20v2.12.28%20WHQL%20Certified.zip) or download from [FTDI](https://www.ftdichip.com/Drivers/VCP.htm).
 * Use <b>Windows Device Manager</b> to install the driver manually. 
 * To connect the adapter and Arduino Pro Mini, GND, VCC, RX, TX, and DTR (Data Terminal Ready) should be all connected. 
+### Pro Micro
+* ATmega32u4
 ### Pinout
 * We need a pinout map to find special GPIO pins on each board
 * For example, I2C pins are A4/A5 on Arduino Nano
@@ -36,6 +42,8 @@
 * Pro Mini
   * RAW: Accepts 6~12V unregulated external power source
   * VCC: Accepts 5V regulated power source<br/><img src="pinout/Pro_Mini.png"></img>
+* Pro Micro
+  <br/><img src="pinout/Pro_Micro.png"></img> 
 ### Analog pin and digital pin in Arduino IDE
 * In Arduino IDE, use A1 to indicate an analog pin, and use 1 to indicate a digital pin
 ```
