@@ -155,28 +155,29 @@ iface wlan0 inet manual
   
   * Download a Raspbian OS image
   ```
-  unzip 2021-05-07-raspios-buster-armhf-lite.zip 
+  img=2022-09-06-raspios-bullseye-armhf-lite.img
+  xz -dk $img.xz
   ```  
   * Get offset 
     * startsector of boot partition begins at 8192
     * offset is 8192 * 512 byte/sector
   ```
-  $ fdisk -l 2021-05-07-raspios-buster-armhf.img
-  Disk 2021-05-07-raspios-buster-armhf.img: 3.72 GiB, 3980394496 bytes, 7774208 sectors
-  Units: sectors of 1 * 512 = 512 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disklabel type: dos
-  Disk identifier: 0xf4481065
-  
-  Device                               Boot  Start     End Sectors  Size Id Type
-  2021-05-07-raspios-buster-armhf.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
-  2021-05-07-raspios-buster-armhf.img2      532480 7774207 7241728  3.5G 83 Linux 
+$ fdisk -l $img
+Disk 2022-09-06-raspios-bullseye-armhf-lite.img: 1.75 GiB, 1874853888 bytes, 3661824 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xac1488a6
+
+Device                                      Boot  Start     End Sectors  Size Id Type
+2022-09-06-raspios-bullseye-armhf-lite.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
+2022-09-06-raspios-bullseye-armhf-lite.img2      532480 3661823 3129344  1.5G 83 Linux
   ```
   * Mount boot partition (First partition is FAT32 and it support uid when mount)
   ```
   mkdir /tmp/raspbian_os_boot
-  sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID 2021-05-07-raspios-buster-armhf-lite.img  /tmp/raspbian_os_boot 
+  sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID $img /tmp/raspbian_os_boot 
   ```
   * Add / Change files 
   ```
@@ -196,7 +197,7 @@ iface wlan0 inet manual
   * Mount system partition (Second partition is EXT4 format)
   ```
   mkdir /tmp/raspbian_os_sys
-  sudo mount -o offset=$((532480*512)) 2021-05-07-raspios-buster-armhf-lite.img /tmp/raspbian_os_sys/
+  sudo mount -o offset=$((532480*512)) $img /tmp/raspbian_os_sys/
   mkdir -p                                        /tmp/raspbian_os_sys/home/pi/.ssh
   ssh-keygen -t rsa -b 4096 -N '' -C '' -f        /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa
   cp /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa.pub /tmp/raspbian_os_sys/home/pi/.ssh/authorized_keys
