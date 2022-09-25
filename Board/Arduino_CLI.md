@@ -45,10 +45,16 @@ sudo apt install python3-pip
 ln -s /usr/bin/python3 /usr/bin/python
 pip3 install pyserial
 ```
-### ESP8266 and Arduino-CLI <a name="ESP-CLI"></a>
+### More about Arduino-CLI <a name="ESP-CLI"></a>
 ```  
 arduino-cli core install esp8266:esp8266 --additional-urls https://arduino.esp8266.com/stable/package_esp8266com_index.json 
 arduino-cli core install esp32:esp32     --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+arduino-cli core install seeeduino:samd  --additional-urls https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json
 arduino-cli board listall 
 arduino-cli compile --fqbn esp8266:esp8266:d1_mini /tmp/blink 
+cat << EOF >> ~/.bashrc
+export PATH=\$PATH:~/bin
+alias    xiao='arduino-cli compile . --fqbn Seeeduino:samd:seeed_XIAO_m0 && arduino-cli upload . --fqbn Seeeduino:samd:seeed_XIAO_m0 -p'
+alias d1_mini='arduino-cli compile . --fqbn      esp8266:esp8266:d1_mini && arduino-cli upload . --fqbn      esp8266:esp8266:d1_mini -p'
+EOF
 ```
