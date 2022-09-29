@@ -5,6 +5,16 @@
 
 <details> 
          
+  <summary> <b> Restart network interface </b> </summary>
+  
+  ``` 
+  sudo ip link set wlan0 down
+  sudo ip link set wlan0 up
+  ```
+</details>  
+
+<details> 
+         
   <summary> <b> As a router </b> </summary>
   
   ```
