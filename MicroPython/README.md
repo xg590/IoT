@@ -75,26 +75,8 @@
   <summary> All-in-One script: Flash ESP8266 and Enable WebREPL </summary>  
    
   ```shell 
-  esptool.py --port /dev/ttyUSB0               erase_flash
-  esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210902-v1.17.bin 
-  
-  screen -d -m -S esp8266 /dev/ttyUSB0 115200  
-  screen -S esp8266 -X stuff "^M"
-  screen -S esp8266 -X stuff "import webrepl_setup ^M"
-  screen -S esp8266 -X stuff "E^M"
-  screen -S esp8266 -X stuff "123456^M"
-  screen -S esp8266 -X stuff "123456^M"
-  screen -S esp8266 -X stuff "y^M" 
-  sleep 5
-  screen -S esp8266 -X stuff "^M"
-  screen -S esp8266 -X stuff "import network ^M"
-  screen -S esp8266 -X stuff "wlan = network.WLAN(network.STA_IF) ^M"
-  screen -S esp8266 -X stuff "wlan.active(True) ^M"
-  screen -S esp8266 -X stuff "wlan.config(dhcp_hostname='IRreceiver') ^M"
-  screen -S esp8266 -X stuff "wlan.connect('SSID', 'PASSWORD') ^M"
-  sleep 5
-  screen -S esp8266 -X stuff "wlan.ifconfig() ^M" 
-  screen -S esp8266 -X quit   
+  wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin
+  bash flash_esp.sh --model esp8266 --port /dev/ttyUSB0 --bin esp8266-20220618-v1.19.1.bin --hostname myESP8266 --webrepl-passwd 123456 --ssid xxx --wifi-passwd xxx
   ```
 </details>
 
