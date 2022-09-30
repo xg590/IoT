@@ -2,7 +2,7 @@
 #include <ESP8266HTTPClient.h> 
 #include "wifi_secret.h"
 /*
-cat << EOF > /wifi_secret.h
+cat << EOF > wifi_secret.h
 #define STASSID "wifi_ssid"
 #define STAPSK  "wifi_passwd"
 #define URL "http://192.168.x.x:x/log" 
