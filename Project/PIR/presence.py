@@ -1,13 +1,91 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ### D1_mini + Raspberry Pi
+# ### Heltec WiFi LoRa 32 V2 + D1_mini + Raspberry Pi
+# 
+# ### Download drivers ssd1306, umqtt, pyWebREPL 
+# ```shell 
+# wget https://raw.githubusercontent.com/xg590/IoT/master/MicroPython/driver/ssd1306.py -O driver/ssd1306.py
+# wget https://raw.githubusercontent.com/micropython/micropython-lib/master/micropython/umqtt.simple/umqtt/simple.py -O driver/umqtt.py 
+# wget https://raw.githubusercontent.com/xg590/pyWebREPL/v1.1/pyWebREPL.py -O driver/pyWebREPL.py
+# ``` 
+# ### Copy to ESP32
+# ```shell 
+# rshell -p /dev/ttyUSB0 cp driver/ssd1306.py driver/umqtt.py driver/main.py /pyboard/
+# ```
+# 
+# ### Setup ESP32
 
 # In[ ]:
 
 
-# pip install flask 
+import pandas as pd
+'''
+wifi_secret.h
+#define STASSID "xxx"
+#define STAPSK "xxx"
+#define URL "http://192.168.xxx.xxx:5009/pirLog"
+#define webrepl_host_ip "192.168.xxx.xxx"
+#define mqtt_host_ip "192.168.xxx.xxx"
+'''
+df = pd.read_csv('wifi_secret.h',sep=' ',names=['1','key','val'])
+df = df.set_index('key')
+webrepl_host_ip=df.loc['webrepl_host_ip','val']
+mqtt_host_ip   =df.loc['mqtt_host_ip','val'] 
 
+
+# In[ ]:
+
+
+import sys
+sys.path.append("driver")
+from pyWebREPL import WEBREPL 
+
+webrepl = WEBREPL(host=webrepl_host_ip, password='123456') 
+webrepl.send('''
+p2.on()  # Turn on the on-board LED            
+time.sleep(0.5) 
+p2.off()   # Turn off the on-board LED    
+
+oled.fill(0)
+#oled.text('Upper Line1', 0, 0, col=1) 
+#oled.text('Middle Line', 0, 27, col=1) 
+#oled.text('Lower Line', 0, 54, col=1)
+oled.show()    
+''')
+webrepl.recv()  
+webrepl.send('''
+counter = 0
+def sub_cb(topic, msg):   
+    if msg==b"Hello From ESP8266":
+        global counter 
+        counter += 1
+        oled.fill(0)
+        oled.text('[Counter] '+str(counter), 0, 0, col=1) 
+        oled.text(msg, 0, 27, col=1)  
+        oled.show()
+''') 
+webrepl.recv() 
+webrepl.close()
+# sub_cb("dddd",b"Hello From ESP8266")
+# mosquitto_pub -h 192.168.xxx.xxx -t testTopic -m "Hello From ESP8266" 
+
+webrepl = WEBREPL(host=webrepl_host_ip, password='123456') 
+webrepl.send(f'''
+from umqtt import MQTTClient
+c = MQTTClient("client_id", "{mqtt_host_ip}") 
+c.set_callback(sub_cb)
+c.connect()
+c.subscribe(b"testTopic")
+while 1: 
+    c.wait_msg()
+
+''')  
+# We are not going to receive anything from ESP32 anymore because mqtt has block the main process
+webrepl.close()
+
+
+# ### Setup Raspberry Pi
 
 # In[ ]:
 
@@ -66,11 +144,17 @@ app = flask.Flask(__name__)
 def index():
     return "FrontPage"
 
+
+import paho.mqtt.client as mqtt
+mqtt_client = mqtt.Client() 
+mqtt_client.connect(mqtt_host_ip, 1883, 60)  
+
 @app.route('/pirLog', methods=["POST"])
 def pirLog():  
     js = flask.request.json
     if js['B']:
         database_operator(('insert', js)) 
+        mqtt_client.publish("testTopic", payload="Hello From ESP8266", qos=0, retain=False)
     return "Hello World"
 
 @app.route('/heartbeat', methods=['GET']) 
