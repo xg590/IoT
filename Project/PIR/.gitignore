@@ -1,4 +1,5 @@
 # exclude everything except directory foo/bar
 .ipynb_checkpoints
+__pycache__
 wifi_secret.h
 log/*
