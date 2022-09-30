@@ -5,6 +5,6 @@
 </br><img style="height:200px; width:200px" src="misc/esp8266.png"></img>
 * The Flask put the data into a SQLite database and push a message of human-in-front-of-sensor to the "testTopic" on MQTT service. 
 * An ESP32 (with OLED screen) subscribes to the "testTopic" and display the MQTT message.
-</br><img style="height:200px; width:400px" src="misc/esp32.png"></img>
+</br><img style="height:160px; width:400px" src="misc/esp32.png"></img>
 * We can visit the hist page of the Flask app to see a visualized count of the human-in-front-of-sensor. 
-</br><img style="height:400px; width:400px" src="misc/matplotlib.png"></img>
+</br><img style="height:300px; width:400px" src="misc/matplotlib.png"></img>
