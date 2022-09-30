@@ -1,0 +1,4 @@
+# exclude everything except directory foo/bar
+.ipynb_checkpoints
+wifi_secret.h
+log/*
