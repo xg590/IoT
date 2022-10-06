@@ -57,6 +57,10 @@ alias     bbc='arduino-cli compile . --fqbn sandeepmistry:nRF5:BBCmicrobit && ar
 EOF
 ```
 ### Trouble shooting
+* error while loading shared libraries: libfl.so.2
+```
+sudo apt install libfl-dev
+```
 * May need python and pyserial library
 ```
 sudo apt update && sudo apt install python3-pip
