@@ -1,509 +1,403 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<style> 
-			h1 {
-			text-align: center;
-			font-size: 1.8em;
-			font-family: monospace;
-			padding: 0.7em;
-			}
-			
-			.keyboard {
-				text-align: center;
-				font-size: 14px;
-				font-family: sans-serif;
-			}
-			
-			.keyboard__row {
-				display: inline-block;
-				height: 3em;
-				margin: 0.2em;
-			}
-			
-			.keyboard__row--h1 {
-				height: 1.7em;
-				line-height: 1.4em;
-			}
-			
-			.keyboard__row--h3 {
-				height: 3.3em;
-			}
-			
-			.keyboard__row > * {
-				position: relative;
-				background: #333;
-				text-align: center;
-				color: #eee;
-				float: left;
-				border-radius: 0.3em;
-				margin: 0.2em;
-				padding: 0.2em;
-				width: 3.3em;
-				height: 100%;
-				box-sizing: border-box;
-				cursor: pointer;
-				-webkit-user-select: none;
-				border: 1px solid #444;
-				box-shadow: 0 0.2em 0 0.05em #222;
-				border-bottom-color: #555;
-			}
-			
-			.keyboard__row--h1 > div {
-				width: 3.5em;
-			}
-			
-			.keyboard__row > div[data-pressed],
-			.keyboard__row > div:active {
-				background: #2a2a2a;
-				color: #aaa;
-				position: relative;
-				top: 0.2em;
-				box-shadow: 0 0 0 0.05em black;
-			}
-			
-			.key--w3 {
-				width: 4.6em;
-			}
-			
-			.key--w4 {
-				width: 6em;
-			}
-			
-			.key--w5 {
-				width: 6.5em;
-			}
-			
-			.key--w6 {
-				width: 8.3em;
-			}
-			
-			.key--space {
-				width: 18em;
-			}
-			
-			.key--double > * {
-				padding-top: 0.1em;
-			}
-			
-			.key--letter {
-				line-height: 2.8em;
-			}
-			
-			.key--bottom-left > * {
-				position: absolute;
-				text-align: left;
-				bottom: 0.4em;
-				left: 0.4em;
-			}
-			
-			.key--bottom-right > * {
-				position: absolute;
-				text-align: right;
-				bottom: 0.4em;
-				right: 0.4em;
-			}
-			
-			.key--fn > * {
-				font-size: 0.6em;
-				line-height: 1em;
-				padding-top: 1.2em;
-				padding-right: 0.2em;
-				text-align: right;
-				float: right;
-			}
-			
-			.key--word > * {
-				font-size: 0.8em;
-			}
-			
-			.key--arrow--tall > *,
-			.key--arrow > * {
-				font-size: 0.5em;
-				line-height: 3em;
-			}
-			
-			.key--arrow {
-				height: 1.8em;
-				margin-top: 1.7em;
-				line-height: 0.5em;
-			}
-			
-			.key--arrow--tall > * {
-				padding-top: 0.2em;
-			}
-			
-			.keyboard > .keyboard__row {
-				text-align: center;
-			}
+		<style>
+            .keyboard {
+                border: 1px dashed #c91c1c;
+                display:flex;
+                flex-direction:row;
+                font-size: 14px;
+                font-family: sans-serif;
+            }
+
+            .main {
+                display:flex;
+                flex-direction:column;
+            }
+
+            .row { 
+                display:flex;
+                flex-direction:row;
+                justify-content:space-between;
+                align-items: center;
+				
+                border: 1px dashed #33c91c; 
+                margin: 0.1em;
+            }
+
+            .col {
+                display:flex;
+                flex-direction:column;
+                justify-content:space-between;
+                align-items: center;
+            }
+
+            .key {
+                border: 2px dashed #1c47c9;
+                text-align: center;
+                background: #333;
+                color: #eee;
+                float: left;
+                border-radius: 0.5em;
+                margin: 0.1em;
+                box-sizing: border-box;
+                cursor: pointer;
+                -webkit-user-select: none;
+                border: 1px solid rgb(183, 25, 25);
+                box-shadow: 0 0.2em 0 0.05em #222;
+                border-bottom-color: #555;
+
+            }
+
+            .key[data-pressed],
+            .key:active {
+                background: #2a2a2a;
+                color: #aaa;
+                position: relative;
+                top: 0.2em;
+                box-shadow: 0 0 0 0.05em black;
+            }
+
+            span {
+                border: 0px dashed #1cc92d;
+            }
+
+            .height-full {
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items: center;
+                height: 3em;
+            }
+
+            .height-half {
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items: center;
+                height: 1.5em;
+            }
+
+            .height-double {
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items: center;
+                height: 6em;
+            }
+
+            .width-full {
+                width: 5em;
+            }
+
+            .width-double {
+                width: 10em;
+            }
+
+            .width-backspace { width: 7.5em; }
+            .width-tab       { width: 7.5em; }
+            .width-caps      { width: 7.5em; }
+            .width-return    { width: 7.5em; }
+            .width-shift     { width: 10em; }
+            .width-alt       { width: 6.5em; }
+            .width-space     { width: 30em; }
 		</style>
 	</head>
 	<body>
-		<h1>HTML + CSS Keyboard</h1>
 		<div class="keyboard">
-			<script> 
-				function getKey (e) {
-					var location = e.location;
-					var selector;
-					if (location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-						selector = ['[data-key="' + e.keyCode + '-R"]']
-					} else {
-						var code = e.keyCode || e.which;
-						selector = [
-							'[data-key="' + code + '"]',
-							'[data-char*="' + encodeURIComponent(String.fromCharCode(code)) + '"]'
-						].join(',');
-					}
-					return document.querySelector(selector);
-				}
-		
-				function pressKey (char) {
-					var key = document.querySelector('[data-char*="' + char.toUpperCase() + '"]');
-					if (!key) {
-						return console.warn('No key for', char);
-					}
-					key.setAttribute('data-pressed', 'on');
-					setTimeout(function () {
-						key.removeAttribute('data-pressed');
-					}, 200);
-				}
-		
-				var h1 = document.querySelector('h1');
-				var originalQueue = h1.innerHTML;
-				var queue = h1.innerHTML;
-		
-				function next () {
-					var c = queue[0];
-					queue = queue.slice(1);
-					h1.innerHTML = originalQueue.slice(0, originalQueue.length - queue.length);
-					pressKey(c);
-					if (queue.length) {
-						setTimeout(next, Math.random() * 200 + 50);
-					}
-				}
-		
-				h1.innerHTML = "&nbsp;";
-				//setTimeout(next, 500);
-		
-				document.body.addEventListener('keydown', function (e) {
-					var key = getKey(e);
-					if (!key) {
-						return console.warn('No key for', e.keyCode);
-					}
-		
-					key.setAttribute('data-pressed', 'on');
-				});
-		
-				document.body.addEventListener('keyup', function (e) {
-					var key = getKey(e);
-					key && key.removeAttribute('data-pressed');
-				});
-		
-				function size () {
-					var size = keyboard.parentNode.clientWidth / 90;
-					keyboard.style.fontSize = size + 'px';
-					console.log(size);
-				}
-		
-				var keyboard = document.querySelector('.keyboard');
-				window.addEventListener('resize', function (e) {
-					size();
-				});
-				size();
-		</script>
-		<div class="keyboard__row keyboard__row--h1">
-			<div data-key="27"
-			     class="key--word">
-				<span>esc</span>
+			<div class="main">
+				<div id="esc" class="row" style="margin-bottom:1em;">
+					<div class="key height-full width-full" data-key="177"><span>esc</span></div>
+					<div style="width:2em"></div>
+					<div class="key height-full width-full" data-key="194"><span>F1</span></div>
+					<div class="key height-full width-full" data-key="195"><span>F2</span></div>
+					<div class="key height-full width-full" data-key="196"><span>F3</span></div>
+					<div class="key height-full width-full" data-key="197"><span>F4</span></div>
+					<div style="width:2em"></div>
+					<div class="key height-full width-full" data-key="198"><span>F5</span></div>
+					<div class="key height-full width-full" data-key="199"><span>F6</span></div>
+					<div class="key height-full width-full" data-key="200"><span>F7</span></div>
+					<div class="key height-full width-full" data-key="201"><span>F8</span></div>
+					<div style="width:2em"></div>
+					<div class="key height-full width-full" data-key="202"><span>F9</span></div>
+					<div class="key height-full width-full" data-key="203"><span>F10</span></div>
+					<div class="key height-full width-full" data-key="204"><span>F11</span></div>
+					<div class="key height-full width-full" data-key="205"><span>F12</span></div>
+				</div> 
+				<div>
+					<div id="~" class="row">
+						<div class="key" data-key="~`">
+							<div class="height-half width-full"><span>~</span></div>
+							<div class="height-half width-full"><span>`</span></div>
+						</div>                                   
+						<div class="key" data-key="!1">          
+							<div class="height-half width-full"><span>!</span></div>
+							<div class="height-half width-full"><span>1</span></div>
+						</div>                                   
+						<div class="key" data-key="@2">          
+							<div class="height-half width-full"><span>@</span></div>
+							<div class="height-half width-full"><span>2</span></div>
+						</div>                                   
+						<div class="key" data-key="#3">          
+							<div class="height-half width-full"><span>#</span></div>
+							<div class="height-half width-full"><span>3</span></div>
+						</div>                                   
+						<div class="key" data-key="$4">          
+							<div class="height-half width-full"><span>$</span></div>
+							<div class="height-half width-full"><span>4</span></div>
+						</div>                                   
+						<div class="key" data-key="%5">          
+							<div class="height-half width-full"><span>%</span></div>
+							<div class="height-half width-full"><span>5</span></div>
+						</div>                                   
+						<div class="key" data-key="^6">          
+							<div class="height-half width-full"><span>^</span></div>
+							<div class="height-half width-full"><span>6</span></div>
+						</div>                                   
+						<div class="key" data-key="&7">          
+							<div class="height-half width-full"><span>&</span></div>
+							<div class="height-half width-full"><span>7</span></div>
+						</div>                                   
+						<div class="key" data-key="*8">          
+							<div class="height-half width-full"><span>*</span></div>
+							<div class="height-half width-full"><span>8</span></div>
+						</div>                                   
+						<div class="key" data-key="(9">          
+							<div class="height-half width-full"><span>(</span></div>
+							<div class="height-half width-full"><span>9</span></div>
+						</div>
+						<div class="key" data-key=")0">
+							<div class="height-half width-full"><span>)</span></div>
+							<div class="height-half width-full"><span>0</span></div>
+						</div>                                        
+						<div class="key" data-key="_-">              
+							<div class="height-half width-full"><span>_</span></div>
+							<div class="height-half width-full"><span>-</span></div>
+						</div>                                        
+						<div class="key" data-key="+=">              
+							<div class="height-half width-full"><span>+</span></div>
+							<div class="height-half width-full"><span>=</span></div>
+						</div>
+						<div class="key height-full width-backspace" data-key="178"><span>Backspace</span></div>
+					</div>
+					<div id="tab" class="row">
+						<div class="key height-full width-tab" data-key="179"><span>Tab</span></div>
+						<div class="key height-full width-full" data-char="Q"><span>Q</span></div>
+						<div class="key height-full width-full" data-char="W"><span>W</span></div>
+						<div class="key height-full width-full" data-char="E"><span>E</span></div>
+						<div class="key height-full width-full" data-char="R"><span>R</span></div>
+						<div class="key height-full width-full" data-char="T"><span>T</span></div>
+						<div class="key height-full width-full" data-char="Y"><span>Y</span></div>
+						<div class="key height-full width-full" data-char="U"><span>U</span></div>
+						<div class="key height-full width-full" data-char="I"><span>I</span></div>
+						<div class="key height-full width-full" data-char="O"><span>O</span></div>
+						<div class="key height-full width-full" data-char="P"><span>P</span></div>
+						<div class="key" data-char="{[">
+							<div class="height-half width-full"><span>{</span></div>
+							<div class="height-half width-full"><span>[</span></div>
+						</div>
+						<div class="key" data-char="}]">
+							<div class="height-half width-full"><span>}</span></div>
+							<div class="height-half width-full"><span>]</span></div>
+						</div>
+						<div class="key" data-char="|\">
+							<div class="height-half width-full"><span>|</span></div>
+							<div class="height-half width-full"><span>\</span></div>
+						</div>
+					</div>
+					<div id="caps" class="row">
+						<div class="key height-full width-caps" data-key="193"><span>Caps Lock</span></div> 
+						<div class="key height-full width-full" data-char="A"><span>A</span></div>
+						<div class="key height-full width-full" data-char="S"><span>S</span></div>
+						<div class="key height-full width-full" data-char="D"><span>D</span></div>
+						<div class="key height-full width-full" data-char="F"><span>F</span></div>
+						<div class="key height-full width-full" data-char="G"><span>G</span></div>
+						<div class="key height-full width-full" data-char="H"><span>H</span></div>
+						<div class="key height-full width-full" data-char="J"><span>J</span></div>
+						<div class="key height-full width-full" data-char="K"><span>K</span></div>
+						<div class="key height-full width-full" data-char="L"><span>L</span></div>
+						<div class="key" data-char=":;">
+							<div class="height-half width-full"><span>:</span></div>
+							<div class="height-half width-full"><span>;</span></div>
+						</div>                                   
+						<div class="key" data-char="&quot; '">         
+							<div class="height-half width-full"><span>"</span></div>
+							<div class="height-half width-full"><span>'</span></div>
+						</div>
+						<div class="key height-full width-return" data-key="176"><span>Enter</span></div> 
+					</div>
+					<div id="shift" class="row">
+						<div class="key height-full width-shift" data-key="129"><span>Shift</span></div> 
+						<div class="key height-full width-full" data-char="Z"><span>Z</span></div>
+						<div class="key height-full width-full" data-char="X"><span>X</span></div>
+						<div class="key height-full width-full" data-char="C"><span>C</span></div>
+						<div class="key height-full width-full" data-char="V"><span>V</span></div>
+						<div class="key height-full width-full" data-char="B"><span>B</span></div>
+						<div class="key height-full width-full" data-char="N"><span>N</span></div>
+						<div class="key height-full width-full" data-char="M"><span>M</span></div>
+						<div class="key" data-char="<,>">
+							<div class="height-half width-full"><span>&lt;</span></div>
+							<div class="height-half width-full"><span>,</span></div>
+						</div>
+						<div class="key" data-char=">.">
+							<div class="height-half width-full"><span>&gt;</span></div>
+							<div class="height-half width-full"><span>.</span></div>
+						</div>
+						<div class="key" data-char="?/">
+							<div class="height-half width-full"><span>?</span></div>
+							<div class="height-half width-full"><span>/</span></div>
+						</div>
+						<div class="key height-full width-shift" data-key="133"><span>Shift</span></div> 
+					</div>
+					<div id="ctrl" class="row">
+						<div class="key height-full width-full"  data-key="128"><span>ctrl</span></div> 
+						<div class="key height-full width-full"  data-key="131"><span>win</span></div>
+						<div class="key height-full width-alt"   data-key="130"><span>alt</span></div>
+						<div class="key height-full width-space" data-char=" "><span>&nbsp;</span></div>
+						<div class="key height-full width-alt"   data-key="134"><span>alt</span></div>
+						<div class="key height-full width-full"  data-key="135"><span>win</span></div>
+						<div class="key height-full width-full"  data-key="237"><span>menu</span></div>
+						<div class="key height-full width-full"  data-key="132"><span>ctrl</span></div>
+					</div>
+				</div>
 			</div>
-			<div data-key="112"
-			     class="key--fn">
-				<span>F1</span>
+			<div class="col">
+				<div>
+					<div class="row" style="margin-bottom:1em;">
+						<div class="key height-full width-full"  data-key="206"><span>Print Screen</span></div> 
+						<div class="key height-full width-full"  data-key="207"><span>Scroll Lock</span></div>
+						<div class="key height-full width-alt"   data-key="208"><span>Pause Break</span></div> 
+					</div>
+					<div class="row">
+						<div class="key height-full width-full"  data-key="209"><span>Insert</span></div> 
+						<div class="key height-full width-full"  data-key="210"><span>Home</span></div>
+						<div class="key height-full width-alt"   data-key="211"><span>Page Up</span></div> 
+					</div>
+					<div lass="row">
+						<div class="key height-full width-full"  data-key="212"><span>Delete</span></div> 
+						<div class="key height-full width-full"  data-key="213"><span>End</span></div>
+						<div class="key height-full width-alt"   data-key="214"><span>Page Down</span></div> 
+					</div> 
+					
+				</div>
+				<div>
+					<div id="ctrl" class="row">
+						<div class=" height-full width-full"></div> 
+						<div class="key height-full width-full" data-key="218"><span>&#9650;</span></div>  
+						<div class=" height-full width-full"></div>
+					</div> 
+					<div id="ctrl" class="row">
+						<div class="key height-full width-full"  data-key="216"><span>&#9664;</span></div> 
+						<div class="key height-full width-full" data-key="217"><span>&#9660;</span></div> 
+						<div class="key height-full width-full" data-key="215"><span>&#9654;</span></div>
+					</div> 
+				</div> 
 			</div>
-			<div data-key="113"
-			     class="key--fn">
-				<span>F2</span>
+			<div class="row" style="align-items: flex-end">
+				<div>
+					<div class="row">
+						<div class="height-full width-full"></div>
+						<div class="key height-full width-full" data-key="220"><span>/</span></div>
+						<div class="key height-full width-full" data-key="221"><span>*</span></div>
+					</div>
+					<div class="row">
+						<div class="key height-full width-full" data-key="231">7</span></div> 
+						<div class="key height-full width-full" data-key="232">8</span></div> 
+						<div class="key height-full width-full" data-key="233">9</span></div>  
+					</div>                                      
+					<div class="row">                           
+						<div class="key height-full width-full" data-key="228">4</span></div> 
+						<div class="key height-full width-full" data-key="229">5</span></div> 
+						<div class="key height-full width-full" data-key="230">6</span></div>  
+					</div>                                       
+					<div class="row">               
+						<div class="key height-full width-full" data-key="225">1</span></div> 
+						<div class="key height-full width-full" data-key="226">2</span></div> 
+						<div class="key height-full width-full" data-key="227">3</span></div>  
+					</div>
+					<div class="row">
+						<div class="key height-full width-full" data-key="234">0</span></div> 
+						<div class="key height-full width-double" data-key="235">.</span></div>  
+					</div>
+				</div>
+				<div class="numpad-right">
+					<div class="col">
+						<div class="key height-full width-full" data-key="222"><span>-</span></div>
+						<div class="key height-double width-full" data-key="223"><span>+</span></div>
+						<div class="key height-double width-full" data-key="224"><span>Enter</span></div>
+					</div>
+				</div>
 			</div>
-			<div data-key="114"
-			     class="key--fn">
-				<span>F3</span>
-			</div>
-			<div data-key="115"
-			     class="key--fn">
-				<span>F4</span>
-			</div>
-			<div data-key="116"
-			     class="key--fn">
-				<span>F5</span>
-			</div>
-			<div data-key="117"
-			     class="key--fn">
-				<span>F6</span>
-			</div>
-			<div data-key="118"
-			     class="key--fn">
-				<span>F7</span>
-			</div>
-			<div data-key="119"
-			     class="key--fn">
-				<span>F8</span>
-			</div>
-			<div data-key="120"
-			     class="key--fn">
-				<span>F9</span>
-			</div>
-			<div data-key="121"
-			     class="key--fn">
-				<span>F10</span>
-			</div>
-			<div data-key="122"
-			     class="key--fn">
-				<span>F11</span>
-			</div>
-			<div data-key="123"
-			     class="key--fn">
-				<span>F12</span>
-			</div>
-			<div data-key="n/a"
-			     class="key--word">
-				<span>pwr</span>
-			</div>
-		</div>
-		<div class="keyboard__row">
-			<div class="key--double"
-			     data-key="192">
-				<div>~</div>
-				<div>`</div>
-			</div>
-			<div class="key--double"
-			     data-key="49">
-				<div>!</div>
-				<div>1</div>
-			</div>
-			<div class="key--double"
-			     data-key="50">
-				<div>@</div>
-				<div>2</div>
-			</div>
-			<div class="key--double"
-			     data-key="51">
-				<div>#</div>
-				<div>3</div>
-			</div>
-			<div class="key--double"
-			     data-key="52">
-				<div>$</div>
-				<div>4</div>
-			</div>
-			<div class="key--double"
-			     data-key="53">
-				<div>%</div>
-				<div>5</div>
-			</div>
-			<div class="key--double"
-			     data-key="54">
-				<div>^</div>
-				<div>6</div>
-			</div>
-			<div class="key--double"
-			     data-key="55">
-				<div>&</div>
-				<div>7</div>
-			</div>
-			<div class="key--double"
-			     data-key="56">
-				<div>*</div>
-				<div>8</div>
-			</div>
-			<div class="key--double"
-			     data-key="57">
-				<div>(</div>
-				<div>9</div>
-			</div>
-			<div class="key--double"
-			     data-key="48">
-				<div>)</div>
-				<div>0</div>
-			</div>
-			<div class="key--double"
-			     data-key="189">
-				<div>_</div>
-				<div>-</div>
-			</div>
-			<div class="key--double"
-			     data-key="187">
-				<div>+</div>
-				<div>=</div>
-			</div>
-			<div class="key--bottom-right key--word key--w4"
-			     data-key="8">
-				<span>delete</span>
-			</div>
-		</div>
-		<div class="keyboard__row">
-			<div class="key--bottom-left key--word key--w4"
-			     data-key="9">
-				<span>tab</span>
-			</div>
-			<div class="key--letter"
-			     data-char="Q">Q</div>
-			<div class="key--letter"
-			     data-char="W">W</div>
-			<div class="key--letter"
-			     data-char="E">E</div>
-			<div class="key--letter"
-			     data-char="R">R</div>
-			<div class="key--letter"
-			     data-char="T">T</div>
-			<div class="key--letter"
-			     data-char="Y">Y</div>
-			<div class="key--letter"
-			     data-char="U">U</div>
-			<div class="key--letter"
-			     data-char="I">I</div>
-			<div class="key--letter"
-			     data-char="O">O</div>
-			<div class="key--letter"
-			     data-char="P">P</div>
-			<div class="key--double"
-			     data-key="219"
-			     data-char="{[">
-				<div>{</div>
-				<div>[</div>
-			</div>
-			<div class="key--double"
-			     data-key="221"
-			     data-char="}]">
-				<div>}</div>
-				<div>]</div>
-			</div>
-			<div class="key--double"
-			     data-key="220"
-			     data-char="|\">
-				<div>|</div>
-				<div>\</div>
-			</div>
-		</div>
-		<div class="keyboard__row">
-			<div class="key--bottom-left key--word key--w5"
-			     data-key="20">
-				<span>caps lock</span>
-			</div>
-			<div class="key--letter"
-			     data-char="A">A</div>
-			<div class="key--letter"
-			     data-char="S">S</div>
-			<div class="key--letter"
-			     data-char="D">D</div>
-			<div class="key--letter"
-			     data-char="F">F</div>
-			<div class="key--letter"
-			     data-char="G">G</div>
-			<div class="key--letter"
-			     data-char="H">H</div>
-			<div class="key--letter"
-			     data-char="J">J</div>
-			<div class="key--letter"
-			     data-char="K">K</div>
-			<div class="key--letter"
-			     data-char="L">L</div>
-			<div class="key--double"
-			     data-key="186">
-				<div>:</div>
-				<div>;</div>
-			</div>
-			<div class="key--double"
-			     data-key="222">
-				<div>"</div>
-				<div>'</div>
-			</div>
-			<div class="key--bottom-right key--word key--w5"
-			     data-key="13">
-				<span>return</span>
-			</div>
-		</div>
-		<div class="keyboard__row">
-			<div class="key--bottom-left key--word key--w6"
-			     data-key="16">
-				<span>shift</span>
-			</div>
-			<div class="key--letter"
-			     data-char="Z">Z</div>
-			<div class="key--letter"
-			     data-char="X">X</div>
-			<div class="key--letter"
-			     data-char="C">C</div>
-			<div class="key--letter"
-			     data-char="V">V</div>
-			<div class="key--letter"
-			     data-char="B">B</div>
-			<div class="key--letter"
-			     data-char="N">N</div>
-			<div class="key--letter"
-			     data-char="M">M</div>
-			<div class="key--double"
-			     data-key="188">
-				<div>&lt;</div>
-				<div>,</div>
-			</div>
-			<div class="key--double"
-			     data-key="190">
-				<div>&gt;</div>
-				<div>.</div>
-			</div>
-			<div class="key--double"
-			     data-key="191">
-				<div>?</div>
-				<div>/</div>
-			</div>
-			<div class="key--bottom-right key--word key--w6"
-			     data-key="16-R">
-				<span>shift</span>
-			</div>
-		</div>
-		<div class="keyboard__row keyboard__row--h3">
-			<div class="key--bottom-left key--word">
-				<span>fn</span>
-			</div>
-			<div class="key--bottom-left key--word key--w1"
-			     data-key="17">
-				<span>control</span>
-			</div>
-			<div class="key--bottom-left key--word key--w1"
-			     data-key="18">
-				<span>option</span>
-			</div>
-			<div class="key--bottom-right key--word key--w3"
-			     data-key="91">
-				<span>command</span>
-			</div>
-			<div class="key--double key--right key--space"
-			     data-key="32"
-			     data-char=" ">
-					&nbsp;
-			</div>
-			<div class="key--bottom-left key--word key--w3"
-			     data-key="93-R">
-				<span>command</span>
-			</div>
-			<div class="key--bottom-left key--word key--w1"
-			     data-key="18-R">
-				<span>option</span>
-			</div>
-			<div data-key="37"
-			     class="key--arrow">
-				<span>&#9664;</span>
-			</div>
-			<div class="key--double key--arrow--tall"
-			     data-key="38">
-				<div>&#9650;</div>
-				<div>&#9660;</div>
-			</div>
-			<div data-key="39"
-			     class="key--arrow">
-				<span>&#9654;</span>
-			</div>
-			</div>
-		</div>
-	</body>
-</html>
+			<div>
+				<script>
+            function getKey (e) {
+                var location = e.location;
+                var selector;
+                if (location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+                    selector = ['[data-key="' + e.keyCode + '-R"]']
+                } else {
+                    var code = e.keyCode || e.which;
+                    selector = [
+                        '[data-key="' + code + '"]',
+                        '[data-char*="' + encodeURIComponent(String.fromCharCode(code)) + '"]'
+                    ].join(',');
+                }
+                return document.querySelector(selector);
+            }
+
+            function pressKey (char) {
+                var key = document.querySelector('[data-char*="' + char.toUpperCase() + '"]');
+                if (!key) {
+                    return console.warn('No key for', char);
+                }
+                key.setAttribute('data-pressed', 'on');
+                setTimeout(function () {
+                    key.removeAttribute('data-pressed');
+                }, 200);
+            }
+
+            var h1 = document.querySelector('h1');
+            var originalQueue = h1.innerHTML;
+            var queue = h1.innerHTML;
+
+            function next () {
+                var c = queue[0];
+                queue = queue.slice(1);
+                h1.innerHTML = originalQueue.slice(0, originalQueue.length - queue.length);
+                pressKey(c);
+                if (queue.length) {
+                    setTimeout(next, Math.random() * 200 + 50);
+                }
+            }
+
+            h1.innerHTML = "&nbsp;";
+            //setTimeout(next, 500);
+
+            document.body.addEventListener('keydown', function (e) {
+                var key = getKey(e);
+                if (!key) {
+                    return console.warn('No key for', e.keyCode);
+                }
+
+                key.setAttribute('data-pressed', 'on');
+            });
+
+            document.body.addEventListener('keyup', function (e) {
+                var key = getKey(e);
+                key && key.removeAttribute('data-pressed');
+            });
+
+            function size () {
+                var size = keyboard.parentNode.clientWidth / 90;
+                keyboard.style.fontSize = size + 'px';
+                console.log(size);
+            }
+
+            var keyboard = document.querySelector('.keyboard');
+            window.addEventListener('resize', function (e) {
+                size();
+            });
+            size();
+				</script>
+			</body>
+		</html>
