@@ -5,18 +5,16 @@
   <br/><img src="pi_xiao.jpg" style="height:300px; width:320px"></img>
   * My parents' PC will power the couple through a cable connected to Xiao and Pi will be powered through the 5V Pin.
   * The Xiao will emulate an HID Keyboard and an HID Mouse. 
-  * The Pi ZW will receive command from my TCP server and forward it to Xiao via I2C.
+  * The Pi ZW will receive command from my TCP server and forward it to Xiao via I2C. 
+* Currently, I have finished to run a websocket service on Pi ZW and use Keyboard.html for remote control 
+* Will start a new repo for further dev.
+* Find Key_map @ ~/Arduino/libraries/Keyboard/src/Keyboard.h
+* Some nonsense: USB Stack: Arduino or TinyUSB
 ```
 arduino-cli lib install Keyboard
 arduino-cli lib install Mouse
-```
-USB Stack: Arduino or TinyUSB
-```
--fqbn=Seeeduino:samd:seeed_XIAO_m0:usbstack=arduino,debug=off,sercom4=exclude  
--fqbn=Seeeduino:samd:seeed_XIAO_m0:usbstack=tinyusb,debug=off,sercom4=exclude
-```
-```
+    -fqbn=Seeeduino:samd:seeed_XIAO_m0:usbstack=arduino,debug=off,sercom4=exclude  
+    -fqbn=Seeeduino:samd:seeed_XIAO_m0:usbstack=tinyusb,debug=off,sercom4=exclude 
 arduino-cli compile -b arduino:avr:uno --build-property build.extra_flags=-DPIN=2 --build-property "compiler.cpp.extra_flags=\"-DSSID=\"hello world\"\"" /home/user/Arduino/MySketch
-                                                                                                                              "-DSSID= "hello world " "   
+                                                                                                                         "-DSSID= "hello world " "   
 ```
-Key_map @ ~/Arduino/libraries/Keyboard/src/Keyboard.h

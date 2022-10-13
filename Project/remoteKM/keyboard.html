@@ -25,7 +25,7 @@
             .caps-lower-grey {
                 color:rgb(128, 128, 128);
             }
-            .caps-letter {
+            .letter-caps-lock {
                 color:rgb(255, 255, 255);
             }
             .row {
@@ -108,12 +108,26 @@
             .align-left-margin {
                 margin-left: 15px;
             }
+            .align-left-margin-box {
+                margin-left: 9px;
+  				padding: 3px;
+				border: 3px solid rgb(255, 255, 255);
+            }
             .align-right {
                 align-items: flex-end ;
             }
             .align-right-margin {
                 margin-right: 15px;
             }
+            .align-right-margin-box {
+                margin-right: 9px;
+  				padding: 3px;
+				border: 3px solid rgb(255, 255, 255);
+            }
+            .num-lock-box {  
+				font-size: 0.9em; 
+				border: 3px solid rgb(255, 255, 255);
+            } 
         </style>
     </head>
     <body>
@@ -165,7 +179,7 @@
 				</div>
 				<div>
 					<div id="row-~" class="row">
-						<div class="key caps-class" value_type="string" value="`" value_lower="`" value_upper="~">
+						<div class="key class-shift" value_type="string" value="`" value_lower="`" value_upper="~">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">~</span>
 							</div>
@@ -173,7 +187,7 @@
 								<span class="caps-lower-bold">`</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="1" value_lower="1" value_upper="!">
+						<div class="key class-shift" value_type="string" value="1" value_lower="1" value_upper="!">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">!</span>
 							</div>
@@ -181,7 +195,7 @@
 								<span class="caps-lower-bold">1</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="2" value_lower="2" value_upper="@">
+						<div class="key class-shift" value_type="string" value="2" value_lower="2" value_upper="@">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">@</span>
 							</div>
@@ -189,7 +203,7 @@
 								<span class="caps-lower-bold">2</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="3" value_lower="3" value_upper="#">
+						<div class="key class-shift" value_type="string" value="3" value_lower="3" value_upper="#">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">#</span>
 							</div>
@@ -197,7 +211,7 @@
 								<span class="caps-lower-bold">3</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="4" value_lower="4" value_upper="$">
+						<div class="key class-shift" value_type="string" value="4" value_lower="4" value_upper="$">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">$</span>
 							</div>
@@ -205,7 +219,7 @@
 								<span class="caps-lower-bold">4</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="5" value_lower="5" value_upper="%">
+						<div class="key class-shift" value_type="string" value="5" value_lower="5" value_upper="%">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">%</span>
 							</div>
@@ -213,7 +227,7 @@
 								<span class="caps-lower-bold">5</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="6" value_lower="6" value_upper="^">
+						<div class="key class-shift" value_type="string" value="6" value_lower="6" value_upper="^">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">^</span>
 							</div>
@@ -221,7 +235,7 @@
 								<span class="caps-lower-bold">6</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="7" value_lower="7" value_upper="&">
+						<div class="key class-shift" value_type="string" value="7" value_lower="7" value_upper="&">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">&</span>
 							</div>
@@ -229,7 +243,7 @@
 								<span class="caps-lower-bold">7</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="8" value_lower="8" value_upper="*">
+						<div class="key class-shift" value_type="string" value="8" value_lower="8" value_upper="*">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">*</span>
 							</div>
@@ -237,7 +251,7 @@
 								<span class="caps-lower-bold">8</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="9" value_lower="9" value_upper="(">
+						<div class="key class-shift" value_type="string" value="9" value_lower="9" value_upper="(">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">(</span>
 							</div>
@@ -245,7 +259,7 @@
 								<span class="caps-lower-bold">9</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="0" value_lower="0" value_upper=")">
+						<div class="key class-shift" value_type="string" value="0" value_lower="0" value_upper=")">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">)</span>
 							</div>
@@ -253,7 +267,7 @@
 								<span class="caps-lower-bold">0</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="-" value_lower="-" value_upper="_">
+						<div class="key class-shift" value_type="string" value="-" value_lower="-" value_upper="_">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">_</span>
 							</div>
@@ -261,7 +275,7 @@
 								<span class="caps-lower-bold">-</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="=" value_lower="=" value_upper="+">
+						<div class="key class-shift" value_type="string" value="=" value_lower="=" value_upper="+">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">+</span>
 							</div>
@@ -277,37 +291,37 @@
 						<div class="key height-full width-tab align-left" value_type="int" value="179">
 							<span class="align-left-margin">Tab</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="q" value_lower="q" value_upper="Q">
-							<span class="caps-letter">q</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="q" value_lower="q" value_upper="Q">
+							<span class="letter-caps-lock">q</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="w" value_lower="w" value_upper="W">
-							<span class="caps-letter">w</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="w" value_lower="w" value_upper="W">
+							<span class="letter-caps-lock">w</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="e" value_lower="e" value_upper="E">
-							<span class="caps-letter">e</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="e" value_lower="e" value_upper="E">
+							<span class="letter-caps-lock">e</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="r" value_lower="r" value_upper="R">
-							<span class="caps-letter">r</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="r" value_lower="r" value_upper="R">
+							<span class="letter-caps-lock">r</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="t" value_lower="t" value_upper="T">
-							<span class="caps-letter">t</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="t" value_lower="t" value_upper="T">
+							<span class="letter-caps-lock">t</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="y" value_lower="y" value_upper="Y">
-							<span class="caps-letter">y</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="y" value_lower="y" value_upper="Y">
+							<span class="letter-caps-lock">y</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="u" value_lower="u" value_upper="U">
-							<span class="caps-letter">u</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="u" value_lower="u" value_upper="U">
+							<span class="letter-caps-lock">u</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="i" value_lower="i" value_upper="I">
-							<span class="caps-letter">i</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="i" value_lower="i" value_upper="I">
+							<span class="letter-caps-lock">i</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="o" value_lower="o" value_upper="O">
-							<span class="caps-letter">o</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="o" value_lower="o" value_upper="O">
+							<span class="letter-caps-lock">o</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="p" value_lower="p" value_upper="P">
-							<span class="caps-letter">p</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="p" value_lower="p" value_upper="P">
+							<span class="letter-caps-lock">p</span>
 						</div>
-						<div class="key caps-class" value_type="string" value="[" value_lower="[" value_upper="{">
+						<div class="key class-shift" value_type="string" value="[" value_lower="[" value_upper="{">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">{</span>
 							</div>
@@ -315,7 +329,7 @@
 								<span class="caps-lower-bold">[</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="int" value="]" value_lower="]" value_upper="}">
+						<div class="key class-shift" value_type="int" value="]" value_lower="]" value_upper="}">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">}</span>
 							</div>
@@ -323,7 +337,7 @@
 								<span class="caps-lower-bold">]</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="int" value="\" value_lower="\" value_upper="|">
+						<div class="key class-shift" value_type="int" value="\" value_lower="\" value_upper="|">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">|</span>
 							</div>
@@ -333,37 +347,37 @@
 						</div>
 					</div>
 					<div id="row-caps" class="row">
-						<div class="key height-full width-caps align-left" value_type="int" value="193" id="key-caps">
+						<div class="key height-full width-caps align-left" value_type="int" value="193" id="key-caps-lock">
 							<span class="align-left-margin">Caps Lock</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="a" value_lower="a" value_upper="A">
-							<span class="caps-letter">a</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="a" value_lower="a" value_upper="A">
+							<span class="letter-caps-lock">a</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="s" value_lower="s" value_upper="S">
-							<span class="caps-letter">s</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="s" value_lower="s" value_upper="S">
+							<span class="letter-caps-lock">s</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="d" value_lower="d" value_upper="D">
-							<span class="caps-letter">d</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="d" value_lower="d" value_upper="D">
+							<span class="letter-caps-lock">d</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="f" value_lower="f" value_upper="F">
-							<span class="caps-letter">f</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="f" value_lower="f" value_upper="F">
+							<span class="letter-caps-lock">f</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="g" value_lower="g" value_upper="G">
-							<span class="caps-letter">g</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="g" value_lower="g" value_upper="G">
+							<span class="letter-caps-lock">g</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="h" value_lower="h" value_upper="H">
-							<span class="caps-letter">h</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="h" value_lower="h" value_upper="H">
+							<span class="letter-caps-lock">h</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="j" value_lower="j" value_upper="J">
-							<span class="caps-letter">j</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="j" value_lower="j" value_upper="J">
+							<span class="letter-caps-lock">j</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="k" value_lower="k" value_upper="K">
-							<span class="caps-letter">k</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="k" value_lower="k" value_upper="K">
+							<span class="letter-caps-lock">k</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="l" value_lower="l" value_upper="L">
-							<span class="caps-letter">l</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="l" value_lower="l" value_upper="L">
+							<span class="letter-caps-lock">l</span>
 						</div>
-						<div class="key caps-class" value_type="string" value=";" value_lower=";" value_upper=":">
+						<div class="key class-shift" value_type="string" value=";" value_lower=";" value_upper=":">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">:</span>
 							</div>
@@ -371,7 +385,7 @@
 								<span class="caps-lower-bold">;</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="'" value_lower="'" value_upper="&quot;">
+						<div class="key class-shift" value_type="string" value="'" value_lower="'" value_upper="&quot;">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">"</span>
 							</div>
@@ -387,28 +401,28 @@
 						<div class="key height-full width-shift align-left" value_type="int" value="129" id="key-shift-left">
 							<span class="align-left-margin">Shift</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="z" value_lower="z" value_upper="Z">
-							<span class="caps-letter">z</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="z" value_lower="z" value_upper="Z">
+							<span class="letter-caps-lock">z</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="x" value_lower="x" value_upper="X">
-							<span class="caps-letter">x</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="x" value_lower="x" value_upper="X">
+							<span class="letter-caps-lock">x</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="c" value_lower="c" value_upper="C">
-							<span class="caps-letter">c</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="c" value_lower="c" value_upper="C">
+							<span class="letter-caps-lock">c</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="v" value_lower="v" value_upper="V">
-							<span class="caps-letter">v</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="v" value_lower="v" value_upper="V">
+							<span class="letter-caps-lock">v</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="b" value_lower="b" value_upper="B">
-							<span class="caps-letter">b</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="b" value_lower="b" value_upper="B">
+							<span class="letter-caps-lock">b</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="n" value_lower="n" value_upper="N">
-							<span class="caps-letter">n</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="n" value_lower="n" value_upper="N">
+							<span class="letter-caps-lock">n</span>
 						</div>
-						<div class="key height-full width-full caps-class" value_type="string" value="m" value_lower="m" value_upper="M">
-							<span class="caps-letter">m</span>
+						<div class="key height-full width-full class-caps-lock" value_type="string" value="m" value_lower="m" value_upper="M">
+							<span class="letter-caps-lock">m</span>
 						</div>
-						<div class="key caps-class" value_type="string" value="," value_lower="," value_upper="&lt;">
+						<div class="key class-shift" value_type="string" value="," value_lower="," value_upper="&lt;">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">&lt;</span>
 							</div>
@@ -416,7 +430,7 @@
 								<span class="caps-lower-bold">,</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="." value_lower="." value_upper=">">
+						<div class="key class-shift" value_type="string" value="." value_lower="." value_upper=">">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">&gt;</span>
 							</div>
@@ -424,7 +438,7 @@
 								<span class="caps-lower-bold">.</span>
 							</div>
 						</div>
-						<div class="key caps-class" value_type="string" value="/" value_lower="/" value_upper="?">
+						<div class="key class-shift" value_type="string" value="/" value_lower="/" value_upper="?">
 							<div class="height-half width-full">
 								<span class="caps-upper-grey">?</span>
 							</div>
@@ -437,7 +451,7 @@
 						</div>
 					</div>
 					<div id="row-ctrl" class="row">
-						<div class="key height-full width-full align-left" value_type="int" value="128">
+						<div class="key height-full width-full align-left" value_type="int" value="128" id="key-ctrl-left">
 							<span class="align-left-margin">Ctrl</span>
 						</div>
 						<div class="key height-full width-full" value_type="int" value="131">
@@ -448,13 +462,13 @@
 								<polyline points="40 46.2 87.3 46.2 87.3 87.6 40 80.9"/>
 							</svg>
 						</div>
-						<div class="key height-full width-alt align-right" value_type="int" value="130">
+						<div class="key height-full width-alt align-right" value_type="int" value="130" id="key-alt-right">
 							<span class="align-right-margin">Alt</span>
 						</div>
 						<div class="key height-full width-space" value_type="string" value=" ">
 							<span>&nbsp;</span>
 						</div>
-						<div class="key height-full width-alt align-left" value_type="int" value="134">
+						<div class="key height-full width-alt align-left" value_type="int" value="134" id="key-alt-left">
 							<span class="align-left-margin">Alt</span>
 						</div>
 						<div class="key height-full width-full" value_type="int" value="135">
@@ -466,20 +480,16 @@
 							</svg>
 						</div>
 						<div class="key height-full width-full" value_type="int" value="237">
-							
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" width="60%" height="60%">
 								<g>
 									<path  stroke="white" stroke-width="2" fill="none" d="M28,0C12.561,0,0,12.561,0,28s12.561,28,28,28s28-12.561,28-28S43.439,0,28,0z M28,54C13.663,54,2,42.336,2,28S13.663,2,28,2s26,11.664,26,26S42.337,54,28,54z"/>
 									<path  stroke="white" stroke-width="2" fill="none" d="M40,16H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,16,40,16z"/>
 									<path  stroke="white" stroke-width="2" fill="none" d="M40,27H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,27,40,27z"/>
 									<path  stroke="white" stroke-width="2" fill="none" d="M40,38H16c-0.553,0-1,0.448-1,1s0.447,1,1,1h24c0.553,0,1-0.448,1-1S40.553,38,40,38z"/>
-								</g> 
+								</g>
 							</svg>
-
-
-
 						</div>
-						<div class="key height-full width-full align-right" value_type="int" value="132">
+						<div class="key height-full width-full align-right" value_type="int" value="132" id="key-ctrl-right">
 							<span class="align-right-margin">Ctrl</span>
 						</div>
 					</div>
@@ -545,7 +555,9 @@
 			<div class="row" style="align-items: flex-end">
 				<div>
 					<div class="row">
-						<div class="height-full width-full"></div>
+						<div class="key height-full width-full" value_type="int" value="219" id="key-num-lock">
+							<span class="num-lock-void">Num<br>Lock</span> 
+						</div>
 						<div class="key height-full width-full" value_type="int" value="220">
 							<span>/</span>
 						</div>
@@ -609,25 +621,42 @@
 					</div>
 				</div>
 			</div></div>
-        <script>
-            var caps_lock = false;
+        <script>  
+			var case_lock  = false; 
+			function function_case_switch() {
+                case_lock = !case_lock;
+                if (case_lock) {
+                    document.querySelectorAll('.letter-caps-lock').forEach(ele => {
+                        ele.innerHTML = ele.innerHTML.toUpperCase();
+                    });
+                    document.querySelectorAll('.class-caps-lock').forEach(ele => {
+                        ;//ele.setAttribute(value, );
+                        ele.setAttribute("value", ele.getAttribute("value_upper"));
+                    });
+                } else {
+                    document.querySelectorAll('.letter-caps-lock').forEach(ele => {
+                        ele.innerHTML = ele.innerHTML.toLowerCase();
+                    });
+                    document.querySelectorAll('.class-caps-lock').forEach(ele => {
+                        ele.setAttribute("value", ele.getAttribute("value_lower"));
+                    });
+                 };
+			} 
             //encodeURIComponent(String.fromCharCode(code))
-            function func_caps() {
-                caps_lock = !caps_lock;
-                if (caps_lock) {
+			var shift_lock = false;
+            function func_shift() {
+                shift_lock = !shift_lock;
+                if (shift_lock) {
                     document.querySelectorAll('.caps-upper-grey').forEach(ele => {
                         ele.className = "caps-upper-bold";
                     });
                     document.querySelectorAll('.caps-lower-bold').forEach(ele => {
                         ele.className = "caps-lower-grey";
                     });
-                    document.querySelectorAll('.caps-letter').forEach(ele => {
-                        ele.innerHTML = ele.innerHTML.toUpperCase();
-                    }); 
-                    document.querySelectorAll('.caps-class').forEach(ele => { 
+                    document.querySelectorAll('.class-shift').forEach(ele => {
                         ;//ele.setAttribute(value, );
-                        ele.setAttribute("value", ele.getAttribute("value_upper")); 
-                    });  
+                        ele.setAttribute("value", ele.getAttribute("value_upper"));
+                    });
                 } else {
                     document.querySelectorAll('.caps-upper-bold').forEach(ele => {
                         ele.className = "caps-upper-grey";
@@ -635,26 +664,83 @@
                     document.querySelectorAll('.caps-lower-grey').forEach(ele => {
                         ele.className = "caps-lower-bold";
                     });
-                    document.querySelectorAll('.caps-letter').forEach(ele => {
-                        ele.innerHTML = ele.innerHTML.toLowerCase();
-                    }); 
-                    document.querySelectorAll('.caps-class').forEach(ele => { 
-                        ele.setAttribute("value", ele.getAttribute("value_lower")); 
-                    }); 
+                    document.querySelectorAll('.class-shift').forEach(ele => {
+                        ele.setAttribute("value", ele.getAttribute("value_lower"));
+                    });
                  };
+				 function_case_switch();
             }
-            document.getElementById("key-caps").addEventListener("click", func_caps);
-            document.getElementById("key-shift-left").addEventListener("mouseup", func_caps);
-            document.getElementById("key-shift-left").addEventListener("mousedown", func_caps);
-            document.getElementById("key-shift-right").addEventListener("mouseup", func_caps);
-            document.getElementById("key-shift-right").addEventListener("mousedown", func_caps);
-            document.querySelectorAll('.key').forEach(ele => { 
+
+			let socket = new WebSocket("ws://192.168.12.238:8765");
+			socket.onopen = function(e) {
+			  // socket.send("I am Joe");
+			};
+			socket.onclose = function(event) {
+			  if (event.wasClean) {
+			    alert(`[ws closed] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+			  } else {
+			    // e.g. server process killed or network down event.code is usually 1006 in this case
+			    alert('[ws closed] Connection died');
+			  }
+			};
+			socket.onerror = function(error) {
+			  alert(`[error] ${error.message}`);
+			};
+			socket.onmessage = function(event) {
+			  ; // alert(`[incoming msg] : ${event.data}`);
+			};
+            document.querySelectorAll('.key').forEach(ele => {
                 ele.addEventListener("click", ()=> {
-                    var val = ele.getAttribute("value");
-                    var val_type = ele.getAttribute("value_type");
-                    console.log(val, val_type);
+					console.log(ele.firstElementChild.className);//
+					switch(ele.id) {
+					  case "key-num-lock":
+						if (ele.firstElementChild.className == "num-lock-void") {
+							ele.firstElementChild.className = "num-lock-box";
+						} else {
+							ele.firstElementChild.className = "num-lock-void";
+						} 
+						break;
+					  case "key-caps-lock":
+					  case "key-shift-left":
+					  case "key-alt-left":
+					  case "key-ctrl-left":
+						if (ele.firstElementChild.className == "align-left-margin") {
+							ele.firstElementChild.className = "align-left-margin-box";
+						} else {
+							ele.firstElementChild.className = "align-left-margin";
+						}
+					    break;
+					  case "key-shift-right":
+					  case "key-alt-right":
+					  case "key-ctrl-right":
+						if (ele.firstElementChild.className == "align-right-margin") {
+							ele.firstElementChild.className = "align-right-margin-box";
+						} else {
+							ele.firstElementChild.className = "align-right-margin";
+						}
+					    break;
+					  default:
+					    ;// code block
+					}
+					switch(ele.id) {
+					  case "key-caps-lock":
+					  	function_case_switch();
+					    break;
+					  case "key-shift-left":
+					  case "key-shift-right":
+					  	func_shift();
+					    break;
+					  default:
+					    ;// code block
+					}
+                    console.log(ele.getAttribute("value"), ele.getAttribute("value_type"));
+					socket.send(JSON.stringify({
+						"device": "keyboard",
+						"value": ele.getAttribute("value"),
+						"value_type": ele.getAttribute("value_type")
+					}));
                 });
-            }); 
+            });
         </script>
     </body>
 </html>
