@@ -189,7 +189,7 @@ Device                                      Boot  Start     End Sectors  Size Id
   mkdir /tmp/raspbian_os_boot
   sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID $img /tmp/raspbian_os_boot 
   ```
-  * Add / Change files 
+  * [Add / Change files](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/)
   ```
   touch        /tmp/raspbian_os_boot/ssh                  # Enable ssh server at first boot    
   cat << EOF > /tmp/raspbian_os_boot/wpa_supplicant.conf  # Join WiFi network
@@ -201,6 +201,9 @@ Device                                      Boot  Start     End Sectors  Size Id
       psk="YOUR_WIFI_PASSWORD"
       key_mgmt=WPA-PSK
   }
+  EOF
+  cat << EOF > /tmp/raspbian_os_boot/userconf.txt
+  pi:$(echo 'raspberry' | openssl passwd -6 -stdin)
   EOF
   umount /tmp/raspbian_os_boot
   ```
