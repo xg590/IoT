@@ -25,22 +25,30 @@ void loop() {
   digitalWrite(LED_BUILTIN,  LOW); delay(1000);  
 }
 EOF
-arduino-cli compile . --fqbn arduino:avr:nano # Compile the blink test 
+
+arduino-cli compile . --fqbn esp8266:esp8266:d1_mini # Compile the blink test 
 sudo usermod -aG dialout $USER # Give /dev/ttyUSB0 access permission to arduino-cli 
 newgrp dialout
-arduino-cli upload  . --fqbn arduino:avr:nano -p /dev/ttyUSB0 
+arduino-cli upload  . --fqbn esp8266:esp8266:d1_mini -p /dev/ttyUSB0 
 ```
 * Install library
 ```
 arduino-cli lib search SHT4x
 arduino-cli lib install "Adafruit SHT4x Library"
 ```
+* Get Bin, ELF, etc
+```
+mkdir build; arduino-cli compile . --fqbn esp32:esp32:esp32 --output-dir build
+ls build
+# *.ino.bin  *.ino.bootloader.bin  *.ino.elf  *.ino.map  *.ino.partitions.bin
+```
 * More
 ```
 cat << EOF >> ~/.bashrc
 export PATH=\$PATH:~/bin
-alias    xiao='arduino-cli compile . --fqbn   Seeeduino:samd:seeed_XIAO_m0 && arduino-cli upload . --fqbn   Seeeduino:samd:seeed_XIAO_m0 -p'
-alias d1_mini='arduino-cli compile . --fqbn        esp8266:esp8266:d1_mini && arduino-cli upload . --fqbn        esp8266:esp8266:d1_mini -p'
+alias    xiao='arduino-cli compile . --fqbn Seeeduino:samd:seeed_XIAO_m0   && arduino-cli upload . --fqbn Seeeduino:samd:seeed_XIAO_m0 -p'
+alias    nano='arduino-cli compile . --fqbn arduino:avr:nano               && arduino-cli upload . --fqbn arduino:avr:nano -p'
+alias d1_mini='arduino-cli compile . --fqbn esp8266:esp8266:d1_mini        && arduino-cli upload . --fqbn esp8266:esp8266:d1_mini -p'
 alias     bbc='arduino-cli compile . --fqbn sandeepmistry:nRF5:BBCmicrobit && arduino-cli upload . --fqbn sandeepmistry:nRF5:BBCmicrobit -p' 
 EOF
 ```

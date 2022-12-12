@@ -131,22 +131,21 @@
 </details>
 
 <details> 
-  <summary> Develop on a remote device --- socat Relay </summary>  
-  
-  * Partial credit to [FloHimself](https://unix.stackexchange.com/a/201763) 
-  * An ESP8266 is attached to a respberry "piMachine"
-  * We can relay /dev/ttyUSB0 on pi to local machine, a Linux VM.
-  ```
+  <summary> Develop on a remote device --- esptool </summary>  
+
+  * Caution: We are going to run esp_rfc2217_server.py and it listens tcp/4000 on 0.0.0.0
+  * [Ref](https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/remote-serial-ports.html#raw-sockets)
+  * An ESP32 is attached to a remote raspberry "piMachine" 
+  * The remote PiMachine has pySerial installed on it.
+  * Run on the client
+  ``` 
+  wget https://raw.githubusercontent.com/espressif/esptool/master/esp_rfc2217_server.py
+  scp piMachine esp_rfc2217_server.py
   # Start a remote screen session on pi 
-  ssh piMachine "screen -s /bin/bash -d -m -S mySocat"
-  # Run socat in remote screen session so that 127.0.0.1:12345 is listening.
-  ssh piMachine "screen                    -S mySocat -X stuff \"socat /dev/ttyUSB0,RAW TCP-LISTEN:12345,BIND=127.0.0.1,FORK ^M\"" 
-  # Forward remote 127.0.0.1:12345 to local 54321
-  ssh -NfL 54321:127.0.0.1:12345 piMachine 
-  # Create a symbolic link foo
-  socat PTY,raw,link=foo tcp:127.0.0.1:54321 &
-  # Use foo
-  screen foo 115200
+  ssh piMachine "screen -S esp_rfc2217_server -d -m -s /bin/bash"
+  # Run esp_rfc2217_server in remote screen session so that piMachine:4000 is listening.
+  ssh piMachine "screen -S esp_rfc2217_server -X stuff \"python3 esp_rfc2217_server.py -p 4000 /dev/ttyUSB0 ^M\"" 
+  esptool.py --port rfc2217://piMachine:4000?ign_set_control --chip esp32 erase_flash
   ```
   
 </details>
