@@ -205,7 +205,7 @@ Device                                      Boot  Start     End Sectors  Size Id
   cat << EOF > /tmp/raspbian_os_boot/userconf.txt
   pi:$(echo 'raspberry' | openssl passwd -6 -stdin)
   EOF
-  umount /tmp/raspbian_os_boot
+  sudo umount /tmp/raspbian_os_boot
   ```
   * Mount system partition (Second partition is EXT4 format)
   ```
@@ -215,7 +215,7 @@ Device                                      Boot  Start     End Sectors  Size Id
   ssh-keygen -t rsa -b 4096 -N '' -C '' -f        /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa
   cp /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa.pub /tmp/raspbian_os_sys/home/pi/.ssh/authorized_keys
   chown -R 1000:1000                              /tmp/raspbian_os_sys/home/pi/.ssh/
-  umount                                          /tmp/raspbian_os_sys/
+  sudo umount                                     /tmp/raspbian_os_sys/
   ```
   * Umount then the modified image can be write to SD card. 
 </details>
