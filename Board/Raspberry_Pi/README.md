@@ -234,6 +234,19 @@ Device                                      Boot  Start     End Sectors  Size Id
     * Create ssh key pair for the Raspbian image
     * Add a cron job 
 </details> 
+ 
+<details> 
+         
+  <summary> <b> In China </b> </summary>
+         
+  * In China: [Raspian OS Images](https://mirrors.aliyun.com/raspberry-pi-os-images/raspios_armhf/images/)
+  * Change apt Src
+  ```
+  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak_`date "+%y_%m_%d"`
+  sudo sed -i 's/raspbian.raspberrypi.org/mirrors.aliyun.com\/raspbian/g' /etc/apt/sources.list
+  sudo apt update 
+  ```
+</details>  
 
 ### Pinout
 <img src="Raspberry_Pi_Pinout.png"></img>
