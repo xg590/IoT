@@ -39,49 +39,28 @@
 
 <details> 
          
-  <summary> <b> How to use Two Wireless Interfaces (When I Bought a WiFi Dongle) </b> </summary>
-  
-  * I bought a pi-compatible WiFi dongle but how to use it?
-  * wpa_supplicant ? Not so easy.
-  * We will prepare two config files
+  <summary> <b> How to use Two Wireless Interfaces (When I Bought a pi-compatible WiFi Dongle) </b> </summary> 
+
+  1) Situation One: Just want to use it temporarily. 
   ```
-  tee /etc/wpa_supplicant/wpa_supplicant.0.conf << EOF > /dev/null 
+  cat << EOF > /tmp/abc123.conf # Create a config file and use it.
   ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
   country=US
   update_config=1
   network={
-      ssid="oneWiFi"
+      ssid="WiFi_SSID"
       psk="password"
       key_mgmt=WPA-PSK
   }
   EOF
+  wpa_supplicant -B -i wlan1 -c /tmp/abc123.conf 
+  systemctl restart dhcpcd 
+  ``` 
+  2) Two: A permanent solution.
   ```
-  ```
-  tee /etc/wpa_supplicant/wpa_supplicant.1.conf << EOF > /dev/null 
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  country=US
-  update_config=1
-  network={
-      ssid="anotherWiFi"
-      psk="password"
-      key_mgmt=WPA-PSK
-  }
-  EOF
-  ```
-  ```
-  tee /etc/network/interfaces.d/wlan << EOF > /dev/null  
-  auto lo wlan0 wlan1
-  iface lo inet loopback
-  
-  iface wlan0 inet manual
-      pre-up wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.0.conf
-      post-down killall -q wpa_supplicant
-  
-  iface wlan1 inet manual
-      pre-up wpa_supplicant -B -Dwext -i wlan1 -c /etc/wpa_supplicant/wpa_supplicant.1.conf
-      post-down killall -q wpa_supplicant
-  EOF
-  ```
+  mv /tmp/abc123.conf /etc/wpa_supplicant/wpa_supplicant-wlan1.conf 
+  sudo reboot
+  ``` 
 </details>  
 
 <details> 
