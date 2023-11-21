@@ -6,7 +6,7 @@
 <details> 
          
   <summary> <b> Restart network interface </b> </summary>
-  
+
   ``` 
   sudo ip link set wlan0 down
   sudo ip link set wlan0 up
@@ -42,25 +42,25 @@
   <summary> <b> How to use Two Wireless Interfaces (When I Bought a pi-compatible WiFi Dongle) </b> </summary> 
 
   1) Situation One: Just want to use it temporarily. 
-  ```
-  cat << EOF > /tmp/abc123.conf # Create a config file and use it.
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  country=US
-  update_config=1
-  network={
-      ssid="WiFi_SSID"
-      psk="password"
-      key_mgmt=WPA-PSK
-  }
-  EOF
-  wpa_supplicant -B -i wlan1 -c /tmp/abc123.conf 
-  systemctl restart dhcpcd 
-  ``` 
+     ```
+     cat << EOF > /tmp/abc123.conf # Create a config file and use it.
+     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+     country=US
+     update_config=1
+     network={
+         ssid="WiFi_SSID"
+         psk="password"
+         key_mgmt=WPA-PSK
+     }
+     EOF
+     wpa_supplicant -B -i wlan1 -c /tmp/abc123.conf 
+     systemctl restart dhcpcd 
+     ``` 
   2) Two: A permanent solution.
-  ```
-  mv /tmp/abc123.conf /etc/wpa_supplicant/wpa_supplicant-wlan1.conf 
-  sudo reboot
-  ``` 
+     ```
+     mv /tmp/abc123.conf /etc/wpa_supplicant/wpa_supplicant-wlan1.conf 
+     sudo reboot
+     ``` 
 </details>  
 
 <details> 
@@ -84,22 +84,22 @@
 2.  Write the img or iso of Raspbian to an empty 8GB+ Micro SD card. 
      * On Windows: https://rufus.ie/ 
      * Using dd in Linux: 
-```
-  umount /dev/sda1 # umount TF card
-  dd bs=4M if=2018-11-13-raspbian-stretch.img of=/dev/sdX conv=fsync
-```
+       ```
+       umount /dev/sda1 # umount TF card
+       dd bs=4M if=2018-11-13-raspbian-stretch.img of=/dev/sdX conv=fsync
+       ```
 3. A new partition named "Boot" appeared after the Raspbian was written to the Micro SD card. 
 4. Configure SSH and WIFI so the SBC (single-board computer) could be accessed remotely few minites after booting up. 
     * Create an empty file named "ssh" in boot partition
     * Create a file named "wpa_supplicant.conf" and the content should be like
-```shell
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  network={
-      ssid="YOUR_SSID"
-      psk="YOUR_WIFI_PASSWORD"
-      key_mgmt=WPA-PSK
-  }
-``` 
+      ```shell
+      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+      network={
+          ssid="YOUR_SSID"
+          psk="YOUR_WIFI_PASSWORD"
+          key_mgmt=WPA-PSK
+      }
+      ``` 
   Caution: The 'NewLine Character' in wpa_supplicant.conf should follow Unix convention. 
 </details> 
          
@@ -109,23 +109,23 @@
 Thanks to [Baris Unver](https://www.bunver.com/connecting-raspberry-pi-to-wpa2-enterprise-wireless-network/)<br>
 I have the access to NYU Wireless service, which is protected by the wpa-enterprise protocol. Here is how I configure my Raspberry Pi. <br>
 Edit the /etc/wpa_supplicant/wpa_supplicant.conf and add a new network configuration <br>
-```shell
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=US
-
-network={
-    ssid="nyu-legacy"
-    scan_ssid=1
-    key_mgmt=WPA-EAP
-    group=CCMP TKIP
-    eap=PEAP
-    identity="NYUNetID"
-    password="NetID_Password"
-    phase1="peapver=0"
-    phase2="MSCHAPV2"
-}
-```
+  ```shell
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  update_config=1
+  country=US
+  
+  network={
+      ssid="nyu-legacy"
+      scan_ssid=1
+      key_mgmt=WPA-EAP
+      group=CCMP TKIP
+      eap=PEAP
+      identity="NYUNetID"
+      password="NetID_Password"
+      phase1="peapver=0"
+      phase2="MSCHAPV2"
+  }
+  ```
 Then create a new file as /etc/network/interfaces.d/nyu, whose content is:<br>
 ```shell
 auto lo
@@ -143,59 +143,77 @@ iface wlan0 inet manual
   <summary> <b> Modify Raspbian image on Ubuntu    </b></summary>
   
   * Download a Raspbian OS image
-  ```
-  img=2022-09-06-raspios-bullseye-armhf-lite.img
-  xz -dk $img.xz
-  ```  
+    ```
+    img=2023-10-10-raspios-bookworm-armhf.img
+    xz -dk $img.xz
+    ```  
   * Get offset 
     * startsector of boot partition begins at 8192
     * offset is 8192 * 512 byte/sector
-  ```
-$ fdisk -l $img
-Disk 2022-09-06-raspios-bullseye-armhf-lite.img: 1.75 GiB, 1874853888 bytes, 3661824 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0xac1488a6
-
-Device                                      Boot  Start     End Sectors  Size Id Type
-2022-09-06-raspios-bullseye-armhf-lite.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
-2022-09-06-raspios-bullseye-armhf-lite.img2      532480 3661823 3129344  1.5G 83 Linux
-  ```
+    ```
+    $ fdisk -l $img
+    Disk 2023-10-10-raspios-bookworm-armhf.img: 4.94 GiB, 5301600256 bytes, 10354688 sectors
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 512 bytes
+    I/O size (minimum/optimal): 512 bytes / 512 bytes
+    Disklabel type: dos
+    Disk identifier: 0x4ff4ef8a
+    
+    Device                                 Boot   Start      End Sectors  Size Id Type
+    2023-10-10-raspios-bookworm-armhf.img1         8192  1056767 1048576  512M  c W95 FAT32 (LBA)
+    2023-10-10-raspios-bookworm-armhf.img2      1056768 10354687 9297920  4.4G 83 Linux 
+    ```
   * Mount boot partition (First partition is FAT32 and it support uid when mount)
-  ```
-  mkdir /tmp/raspbian_os_boot
-  sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID $img /tmp/raspbian_os_boot 
-  ```
+    ```
+    mkdir /tmp/raspbian_os_boot
+    sudo mount -o offset=$((8192*512)),umask=0002,uid=$UID $img /tmp/raspbian_os_boot 
+    ```
   * [Add / Change files](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/)
-  ```
-  touch        /tmp/raspbian_os_boot/ssh                  # Enable ssh server at first boot    
-  cat << EOF > /tmp/raspbian_os_boot/wpa_supplicant.conf  # Join WiFi network
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  country=US
-  update_config=1
-  network={
-      ssid="YOUR_SSID"
-      psk="YOUR_WIFI_PASSWORD"
-      key_mgmt=WPA-PSK
-  }
-  EOF
-  cat << EOF > /tmp/raspbian_os_boot/userconf.txt
-  pi:$(echo 'raspberry' | openssl passwd -6 -stdin)
-  EOF
-  sudo umount /tmp/raspbian_os_boot
-  ```
+    ```
+    touch        /tmp/raspbian_os_boot/ssh                  # Enable ssh server at first boot     
+    cat << EOF > /tmp/raspbian_os_boot/userconf.txt
+    pi:$(echo 'raspberry' | openssl passwd -6 -stdin)
+    EOF
+    sudo umount /tmp/raspbian_os_boot
+    ```
+  * Previous versions of Raspberry Pi OS made use of a wpa_supplicant.conf file which could be placed into the boot folder to configure wireless network settings. This is no longer possible from Raspberry Pi OS Bookworm onwards.
   * Mount system partition (Second partition is EXT4 format)
-  ```
-  mkdir /tmp/raspbian_os_sys
-  sudo mount -o offset=$((532480*512)) $img /tmp/raspbian_os_sys/
-  mkdir -p                                        /tmp/raspbian_os_sys/home/pi/.ssh
-  ssh-keygen -t rsa -b 4096 -N '' -C '' -f        /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa
-  cp /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa.pub /tmp/raspbian_os_sys/home/pi/.ssh/authorized_keys
-  chown -R 1000:1000                              /tmp/raspbian_os_sys/home/pi/.ssh/
-  sudo umount                                     /tmp/raspbian_os_sys/
-  ```
+    ```
+    mkdir /tmp/raspbian_os_sys
+    sudo mount -o offset=$((1056768*512)) $img /tmp/raspbian_os_sys/
+    mkdir -p                                        /tmp/raspbian_os_sys/home/pi/.ssh
+    ssh-keygen -t rsa -b 4096 -N '' -C '' -f        /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa
+    cp /tmp/raspbian_os_sys/home/pi/.ssh/id_rsa.pub /tmp/raspbian_os_sys/home/pi/.ssh/authorized_keys
+    chown -R 1000:1000                              /tmp/raspbian_os_sys/home/pi/.ssh/
+    cat << EOF | sudo tee /tmp/raspbian_os_sys/etc/ssh/sshd_config.d/new123.conf
+    PasswordAuthentication no
+    EOF
+    cat << EOF | sudo tee /tmp/raspbian_os_sys/etc/NetworkManager/system-connections/wifi123.nmconnection
+    [connection]
+    id=YOUR_SSID
+    type=wifi
+    interface-name=wlan0
+    autoconnect=true
+
+    [wifi]
+    mode=infrastructure
+    ssid=YOUR_SSID
+
+    [wifi-security]
+    auth-alg=open
+    key-mgmt=wpa-psk
+    psk=YOUR_WIFI_PASSWORD
+
+    [ipv4]
+    method=auto
+
+    [ipv6]
+    method=auto
+    EOF
+    sudo chmod -R 600       /tmp/raspbian_os_sys/etc/NetworkManager/system-connections/wifi123.nmconnection
+    sudo chown -R root:root /tmp/raspbian_os_sys/etc/NetworkManager/system-connections/wifi123.nmconnection
+    sudo umount /tmp/raspbian_os_sys/
+    ```
   * Umount then the modified image can be write to SD card. 
 </details>
  
@@ -220,11 +238,11 @@ Device                                      Boot  Start     End Sectors  Size Id
          
   * In China: [Raspian OS Images](https://mirrors.aliyun.com/raspberry-pi-os-images/raspios_armhf/images/)
   * Change apt Src
-  ```
-  sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak_`date "+%y_%m_%d"`
-  sudo sed -i 's/raspbian.raspberrypi.org/mirrors.aliyun.com\/raspbian/g' /etc/apt/sources.list
-  sudo apt update 
-  ```
+    ```
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak_`date "+%y_%m_%d"`
+    sudo sed -i 's/raspbian.raspberrypi.org/mirrors.aliyun.com\/raspbian/g' /etc/apt/sources.list
+    sudo apt update 
+    ```
 </details>  
 
 ### Pinout
